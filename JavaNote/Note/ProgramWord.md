@@ -173,3 +173,26 @@ linux, unix => ex)sh, bash, tsh, csh, zsh
     특정한 크기나 형태의 문자 세트로, 각 문자가 비트맵(도트패턴)으로 되어 있는 것.
 - Vector폰트(truetype:)  
     벡터 그래픽스 형태로 표현된 글꼴
+
+# 9일차
+- Reference:  
+
+- string instance:  
+
+- 변수 호이스팅:  
+
+- r-value, l-value:  
+
+- statement:  
+
+- 표현식(expression):  
+값을 리턴하는 statement
+
+질문 
+레퍼런스는 왜 주소를 저장하는 방식을 쓰나?
+인스턴스 주소가 저장되는 메모리와 실제 인스턴스가 저장되는 메모리는 다른곳?
+가비지가 발생하는 케이스는 저거 하나?
+배열 생성시 자동으로 초기화되는 것은 Null값?
+배열은 그냥 출력 안됨?
+exam521 반복문 공부
+
