@@ -23,6 +23,7 @@ public class Exam0130 {
     byte x = 5, y = 6, z;
     z = x; // OK!
     z = y; // OK!
+  
 
     //    z = x + y; // 컴파일 오류!
     //

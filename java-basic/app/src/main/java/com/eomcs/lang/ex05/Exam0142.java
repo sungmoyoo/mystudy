@@ -36,6 +36,12 @@ public class Exam0142 {
     //   형변환하여 계산하라!
     r2 = (long)x + (long)y;
     System.out.println(r2);
+
+    long a = Integer.MAX_VALUE;
+    long b = Integer.MAX_VALUE;
+
+    long z = a + b;
+    System.out.println(r3);
   }
 }
 

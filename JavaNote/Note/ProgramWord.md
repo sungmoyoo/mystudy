@@ -193,11 +193,17 @@ Javascript 호이스팅은 인터프리터가 코드를 실행하기 전에 함�
 
 질문 
 레퍼런스는 왜 주소를 저장하는 방식을 쓰나?
-
 가비지가 발생하는 케이스는 저거 하나?
 
-배열은 그냥 출력 안됨?
-반복문 혹은 Arrays.toString(배열);
+# 10일차
+- c 대체자 rust?
 
-exam521 반복문 공부
+- static type binding
+
+- dynamic type binding
+
+- explicit type conversion
+
+- masking:  
+AND 비트 연산자를 사용하여 특정 값을 차단.
 
