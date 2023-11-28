@@ -19,7 +19,7 @@ public class Test03 {
       Graphic.drawLine(spaceSize, ' ');
       spaceSize--;
       
-      Graphic.drawLine(line, '$');
+      Graphic.drawLine(line);
       System.out.println();
     }
   }

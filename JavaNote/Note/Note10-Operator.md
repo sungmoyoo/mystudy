@@ -1,3 +1,7 @@
+# 상수 
+```
+final PI = 3.14
+```
 
 ### Java vs Javascript 
 static type binding vs dynamic type binding
