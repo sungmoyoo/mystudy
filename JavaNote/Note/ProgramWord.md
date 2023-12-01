@@ -405,4 +405,18 @@ Javascript 호이스팅은 인터프리터가 코드를 실행하기 전에 함�
 
 - 기술 부채:  
 
+- extract method:  
+
+- Context Menu(Popup Menu), intelligence:  
+
+- bidirectional/unidirectional Association:  
+
+- Patterns:  
+    특정 문제를 해결하기 위해 실무에 널리 사용하는(검증된) 설계 기법
+
+- information expert:  
+    설계기법 중에서 클래스 분류했을 때 사용하는 관련된 자원?????
+
+
+
 
