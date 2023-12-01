@@ -4,65 +4,114 @@ import java.util.Scanner;
 
 public class App {
   
-  // 애플리케이션 객체 App을 실행할 때 다음 변수를 미리 준비해준다.
-  static final String RESET = "\033[0m";
-  static final String RED_BOLD = "\033[1;31m";
-  static final String APP_TITLE = RED_BOLD + "[과제 관리 시스템]" + RESET;
-  static final String[] MENU_LIST = {
-      APP_TITLE,
-      "-------------------",
+  static final String ANSI_CLEAR = "\033[0m";
+  static final String ANSI_BOLD_RED = "\033[1;31m";
+  static final String ANSI_RED = "\033[0;31m";
+  static final String APP_TITLE = ANSI_BOLD_RED + "[과제관리 시스템]" + ANSI_CLEAR;
+  static final String[] MENUS = {
+      "------------",
       "1. 과제",
       "2. 게시글",
       "3. 도움말",
       "4. 종료",
-      "-------------------"
+      "------------"
   };
+  
+  static final String[] sub = {"과제", "게시글", "도움말"};
+  
   static final Scanner keyIn = new Scanner(System.in);
   
   public static void main(String[] args) {
+    
     printMenu();
     
-    label:
+    loop:
     while (true) {
-      switch (prompt()) {
+      String input = prompt("메인");
+      
+      switch (input) {
         case "1":
-          System.out.println("과제입니다.");
-          System.out.println();
+          onSubMenu(sub[0]);
           break;
         case "2":
-          System.out.println("게시글입니다.");
-          System.out.println();
+          onSubMenu(sub[1]);
           break;
         case "3":
           System.out.println("도움말입니다.");
-          System.out.println();
           break;
         case "4":
           System.out.println("종료합니다.");
-          break label;
+          break loop;
         case "menu":
           printMenu();
           break;
         default:
-          System.out.println("잘못된 번호입니다.");
-          System.out.println();
-          break;
+          System.out.println("메뉴 번호가 옳지 않습니다.");
       }
     }
+    
     keyIn.close();
   }
   
-  // ANSI 코드와 App제목, 메뉴를 저장한 변수를 메서드 안에 두는 대신에 클래스 블록 안에 두면
-  // printMenu()를 호출할 때마다 변수를 만들지 않기 때문에 실행 속도나 메모리 부분에서 훨씬 효율적이다.
-  // 보통 메서드 호출될 때마다 값이 바뀌는 변수가 아니라 고정 값을 갖는 변수인 경우 메서드 밖에 두는 것이 좋다.
   static void printMenu() {
-    for (String menu : MENU_LIST) {
+    
+    System.out.println(APP_TITLE);
+    System.out.println();
+    for (String menu : MENUS) {
       System.out.println(menu);
     }
   }
   
-  static String prompt() {
-    System.out.print("> ");
+  static String prompt(String title) {
+    System.out.printf("%s> ", title);
     return keyIn.nextLine();
   }
+  
+  static void onSubMenu(String sub) {
+    System.out.println();
+    System.out.println("[" + sub + "]");
+    System.out.println("------------");
+    System.out.println("1. 등록");
+    System.out.println("2. 조회");
+    System.out.println("3. 변경");
+    System.out.println("4. 삭제");
+    System.out.println("0. 이전");
+    System.out.println("------------");
+    
+    while (true) {
+      String input = prompt("메인/" + sub);
+      
+      switch (input) {
+        case "1":
+          
+          System.out.println("등록입니다.");
+          break;
+        case "2":
+          System.out.println("조회입니다.");
+          break;
+        case "3":
+          System.out.println("변경입니다.");
+          break;
+        case "4":
+          System.out.println("삭제입니다.");
+          break;
+        case "0":
+          printMenu();
+          return;
+        case "menu":
+          System.out.println("[과제]");
+          System.out.println("------------");
+          System.out.println("1. 등록");
+          System.out.println("2. 조회");
+          System.out.println("3. 변경");
+          System.out.println("4. 삭제");
+          System.out.println("0. 이전");
+          System.out.println("------------");
+          break;
+        default:
+          System.out.println("메뉴 번호가 옳지 않습니다!");
+      }
+    }
+  }
+  
 }

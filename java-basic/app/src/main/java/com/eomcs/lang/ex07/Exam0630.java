@@ -16,8 +16,8 @@ public class Exam0630 {
 
     // 이름이 들어 있는 집합에서 한 개의 이름을 가져와서 그 이름으로 저장된 값을 꺼낸다.
     // => 집합에서 꺼낸 이름이 실제는 String 타입이지만,
-    //    문법 상으로는 Object로 되어 있어서
-    //    변수를 선언할 때 Object 타입으로 변수를 선언해야 한다.
+    // 문법 상으로는 Object로 되어 있어서
+    // 변수를 선언할 때 Object 타입으로 변수를 선언해야 한다.
     for (Object key : keySet) {
       // getProperty()에 이름을 전달할 때는 String 을 전달해야 한다.
       // 물론 key에 들어 있는 것은 String 이 맞지만
@@ -29,10 +29,10 @@ public class Exam0630 {
     }
 
     // 위 문장을 다음과 같이 바꿔도 된다.
-    //    for (Object key : keySet) {
-    //      String value = System.getProperty((String) key);
-    //      System.out.printf("%s = %s\n", key, value);
-    //    }
+    // for (Object key : keySet) {
+    // String value = System.getProperty((String) key);
+    // System.out.printf("%s = %s\n", key, value);
+    // }
   }
 }
 

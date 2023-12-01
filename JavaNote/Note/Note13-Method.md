@@ -207,3 +207,27 @@ public static void main(String[] args){
   System.out.println(sum(40444));
 }
 ```
+
+# 7. main() method() - 프로그램 아규먼트
+```
+$ java -classpath bin/main com.eomcs.lang.ex07.Exam0520 aaa bbb ccc
+                                                        -----------
+                                                        프로그램 아규먼트
+```
+aaa bbb ccc -> "aaa" "bbb" "ccc"
+- 공백 제거 후 문자열로 String[] 배열 생성 후 main()에 전달
+- 아무것도 주지 않으면 빈 배열의 주소만 넘어옴 null이 아니다.
+- 변수명은 자유 나머지는 문법상 고정
+```
+public static void main(String[] 변수명)
+```
+
+# 8. JVM 아규먼트
+```
+                                cp 순서 상관 없음
+$ java -D(이름=값) -D(이름=값) ... -cp bin/main com.eomcs...
+        ----------------
+    (이름)->
+getProperty->properties 객체
+            <-값
+```

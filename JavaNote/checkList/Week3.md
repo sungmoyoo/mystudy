@@ -284,3 +284,9 @@ for (Object value : list)
 
 ### 5. 기능 단위로 명령문을 묶어 사용할 수 있는가?
   - 메서드 사용
+
+
+메서드 바디의 정확
+heap 영역 메모리 데이터는 jvm 종료되면 사라지나?
+메서드 내에 statement가 없어도 stack에 frame이 생성되는지?
+
