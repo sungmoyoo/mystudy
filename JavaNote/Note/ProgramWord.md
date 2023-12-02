@@ -398,24 +398,33 @@ Javascript 호이스팅은 인터프리터가 코드를 실행하기 전에 함�
 # 14일차
 
 - 프로그램 아규먼트:  
+    JVM을 실행할 때 프로그램에 전달하는 값
 
 - JVM 아규먼트:  
+    JVM에 전달하는 값
 
-- getProperty:  
-
+- System.getProperty():  
+    자바 실행 시, 실행되는 곳의 정보를 얻어오거나 운영체제의 정보가 필요할 때 사용하는 메서드. 시스템의 정보를 가져와야 할 때 사용한다. 
 - 기술 부채:  
 
 - extract method:  
+    메서드 추출. 어떤 코드를 기능에 따라 묶어도 된다는 판단이 들면 해당 코드들을 빼내어 목적을 나타내는 메서드로 만드는 리팩토링 기법
 
-- Context Menu(Popup Menu), intelligence:  
+- Context Menu(Popup Menu):  
+    마우스로 우클릭했을 떄 나오는 메뉴
 
 - bidirectional/unidirectional Association:  
+    양방향 관계/단방향 관계(참조). 클래스가 서로 참조하는 경우 bidirectional association이고 한쪽만 참조하는 경우 unidirectional association이다. 양방향 참조가 발생할 경우 두 클래스는 강력한 연결에 의해 의존성이 강해져서 재사용성이 떨어지기 때문에 이를 리팩토링을 통해 단방향 참조로 재구성하는 것이 좋다. 
 
 - Patterns:  
     특정 문제를 해결하기 위해 실무에 널리 사용하는(검증된) 설계 기법
 
-- information expert:  
-    설계기법 중에서 클래스 분류했을 때 사용하는 관련된 자원?????
+- GRASP Pattern
+    General Responsibility Assignment Software Patterns  
+    객체지향 디자인의 클래스 및 객체에 책임을 할당하는 원칙을 말하는 패턴으로 총 9가지의 원칙이 존재한다.
+
+- information expert(정보전문가):  
+    GRASP 패턴 원칙 중 하나. 객체에게 책임을 할당할 때 가장 기본이 되는 책임 할당 원칙. 책임을 수행할 정보를 알고있는 객체에게 책임을 할당. 즉 새로운 기능이나 방법을 추가할 때 그에 필요한 정보를 가지는 클래스, 객체를 대상으로 수정해야 한다는 것.
 
 
 
