@@ -1,9 +1,11 @@
 package bitcamp.myapp;
 
 public class App {
-
+  
   public static void main(String[] args) {
-    MainMenu.execute();
+    
+    MainMenu.excute();
+    
     Prompt.close();
   }
 }
