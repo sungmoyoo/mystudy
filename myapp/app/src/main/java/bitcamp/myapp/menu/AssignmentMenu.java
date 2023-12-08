@@ -4,12 +4,12 @@ import bitcamp.myapp.vo.Assignment;
 import bitcamp.util.Prompt;
 
 public class AssignmentMenu {
-  
+
   String title;
   Assignment[] assignments = new Assignment[3];
-  int length = 0;
+  int length;
   Prompt prompt;
-  
+
   public AssignmentMenu(String title, Prompt prompt) {
     this.title = title;
     this.prompt = prompt;
