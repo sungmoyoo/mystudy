@@ -57,7 +57,11 @@ m.view(); |   레퍼런스 타입에 선언된 메서드만 호출 가능
     - SOLID 원칙 중에 "OCP(Open-Closed Principle)' 적용
     - GRASP 패턴의 'Low Coupling' 책임 할당 원칙 준수
   - 설계원칙을 따르는 구현 방법
+    - Business Logic 분리(menuHandler..)
     - GoF 'Composite' 패턴 적용
+    
+
+=> 결론적으로 composite패턴은 계층적인 구조로 이루어진 객체를 다룰 수 있어서 재사용성이 강화된다. 
 
 ### 객체 간 관계(UML)
 - Association(연관): 생성자에서 파라미터로 받아서 초기화 하는 방법
