@@ -29,7 +29,7 @@ public class Exam0130 {
       System.out.println("A4.print2():");
       System.out.printf("  => this.name(%s)\n", this.name);
       System.out.printf("  => this.tel(%s)\n", this.tel);
-      System.out.printf("  => this.working(%s)\n", this.working);
+      System.out.printf("  => this.working(%s)\n", super.working);
     }
   }
 

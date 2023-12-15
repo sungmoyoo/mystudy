@@ -29,13 +29,15 @@ public class BoardListHandler implements MenuHandler {
 //    this.objectRepository.toArray(boards);
 
     // 방법2)
-    Board[] boards = this.objectRepository.toArray(new Board[0]);
+    Object[] boards = this.objectRepository.toArray(new Board[0]);
 
-    for (Board board : boards) {
+
+    for (Object object : boards) {
+      Board a = (Board) object;
       System.out.printf("%-20s\t%10s\t%s\n",
-          board.title,
-          board.writer,
-          board.createdDate);
+          a.title,
+          a.writer,
+          a.createdDate);
     }
   }
 }

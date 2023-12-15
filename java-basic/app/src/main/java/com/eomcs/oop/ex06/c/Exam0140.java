@@ -2,7 +2,7 @@
 package com.eomcs.oop.ex06.c;
 
 public class Exam0140 {
-
+  
   static class A {
     String name;
     String tel;
