@@ -53,6 +53,7 @@ public class Exam03 {
 
   static void test(A3 obj) {
     obj.m1();
+    
     // 엥? 
     // obj는 A3의 레퍼런스이다.
     // A3의 m1() 은 추상 메서드이다.
