@@ -1,25 +1,24 @@
 package bitcamp.myapp.handler.board;
 
-import bitcamp.menu.Menu;
-import bitcamp.menu.MenuHandler;
+import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.AnsiEscape;
+import bitcamp.util.Prompt;
 import java.util.ArrayList;
 
 // 게시글의 '목록' 메뉴를 선택했을 때 작업을 수행하는 클래스
 // - 반드시 MenuHandler 규칙에 따라 클래스를 작성해야 한다.
 //
-public class BoardListHandler implements MenuHandler {
+public class BoardListHandler extends AbstractMenuHandler {
 
-  ArrayList<Board> objectRepository;
+  private ArrayList<Board> objectRepository;
 
-  public BoardListHandler(ArrayList<Board> objectRepository) {
+  public BoardListHandler(ArrayList<Board> objectRepository, Prompt prompt) {
+    super(prompt);
     this.objectRepository = objectRepository;
   }
 
   @Override
-  public void action(Menu menu) {
-    System.out.printf(AnsiEscape.ANSI_BOLD + "[%s]\n" + AnsiEscape.ANSI_CLEAR, menu.getTitle());
+  public void action() {
 
     System.out.printf("%-20s\t%10s\t%s\n", "Title", "Writer", "Date");
 
@@ -29,15 +28,13 @@ public class BoardListHandler implements MenuHandler {
 //    this.objectRepository.toArray(boards);
 
     // 방법2)
-    Object[] boards = this.objectRepository.toArray(new Board[0]);
+    Board[] boards = this.objectRepository.toArray(new Board[0]);
 
-
-    for (Object object : boards) {
-      Board a = (Board) object;
+    for (Board board : boards) {
       System.out.printf("%-20s\t%10s\t%s\n",
-          a.title,
-          a.writer,
-          a.createdDate);
+          board.getTitle(),
+          board.getWriter(),
+          board.getCreatedDate());
     }
   }
 }
