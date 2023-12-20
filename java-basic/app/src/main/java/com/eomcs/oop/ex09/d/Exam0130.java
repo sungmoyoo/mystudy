@@ -76,6 +76,9 @@ class Sonata extends AbstractCar {
   public void run() {
     System.out.println("씽씽~~ 달린다!");
   }
+  public void bang() {
+    System.out.println("hi");
+  }
 }
 
 class Truck extends AbstractCar {
@@ -98,16 +101,24 @@ public class Exam0130 {
 
     play(new Truck());
     System.out.println("----------------------");
+    
   }
 
   void play(CarSpec car) {
     car.on();
     car.run();
     car.off();
+    
+    
   }
 
   public static void main(String[] args) {
-    new Exam0130().test();
+    Exam0130 car = new Exam0130();
+    car.test();
+    
+    Sonata son = new Sonata();
+    son.bang();
+    
   }
 }
 

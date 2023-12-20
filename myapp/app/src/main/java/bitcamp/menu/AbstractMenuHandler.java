@@ -15,7 +15,7 @@ public abstract class AbstractMenuHandler implements MenuHandler {
   public void action(Menu menu) {
     this.printMenuTitle(menu.getTitle());
     this.menu = menu;
-    action();
+    this.action();
   }
 
   public abstract void action();

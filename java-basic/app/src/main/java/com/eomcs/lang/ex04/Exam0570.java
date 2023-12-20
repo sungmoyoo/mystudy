@@ -28,10 +28,6 @@ public class Exam0570 {
     // 배열 초기화 명령을 따로 실행할 때는 new int[] 를 생략할 수 없다.
     int[] arr5;
     arr5 = new int[]{0, 0, 0, 0, 0}; 
-
-    System.out.println(arr2[0]);
-    System.out.println(arr3[0]);
-    System.out.println(arr5[0]);
   }
 }
 

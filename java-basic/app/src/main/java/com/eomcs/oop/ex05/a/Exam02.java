@@ -9,3 +9,14 @@ public class Exam02 {
     System.out.println(c1.result);
   }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -91,7 +91,3 @@ public class Exam0450 {
 
   }
 }
-
-// 유닉스에서 비트 연산 사용
-  // touch hello.txt
-  // chmod 755. hello.txt

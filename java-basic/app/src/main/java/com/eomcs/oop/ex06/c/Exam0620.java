@@ -39,7 +39,7 @@ class CarFactory {
 class SedanFactory extends CarFactory {
   // 메서드를 오버라이딩 할 때 리턴 타입으로 서브 클래스도 가능하다.
   @Override
-  Car makeCar() {
+  Sedan makeCar() {
     return new Sedan();
   };
 }

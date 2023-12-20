@@ -1,4 +1,50 @@
-## 16-> 17 
+## 8 -> 9
+
+## 9 -> 10
+- CRUD 구현  
+  xxxMenu에 메서드 구현
+  - add()
+  - list()
+  - view()
+  - modify()
+  - delete()
+
+## 10 -> 11
+- 사용자 정의 데이터 타입 용도의 클래스 생성
+- board, assignment, member에서 사용할 클래스 생성 후 객체를 생성하여 사용
+
+## 11 -> 12
+- 레퍼런스 배열 다루기
+- 입력값(객체)을 저장하는 레퍼런스 배열을 생성, 확장, 조회, 출력하는 기능 구현
+
+## 12 -> 13
+- 회원 메뉴 추가하고 CRUD 구현  
+  xxxMenu에 메서드 구현, 10번과 동일
+  - add()
+  - list()
+  - view()
+  - modify()
+  - delete()
+
+
+## 13 -> 14
+- 스태틱 필드 한계 확인
+- 변경사항 없음
+
+## 14 -> 15
+- BoardMenu, AssignmentMenu, MemberMenu에 인스턴스 메서드 적용
+- Prompt에 inputInt(), inputFloat(), inputBoolean() 메서드 추가
+- 생성자를 통해 Prompt 객체를 XxxMenu에 주입
+- ANSI Escape Sequence 값을 별도의 클래스로 분리
+- 클래스를 패키지로 분류
+
+## 15 -> 16
+- 인터페이스 문법으로 메뉴를 다루는 객체의 실행 규칙 정의 (Menu ...)
+- 인터페이스에 정의한 대로 메뉴를 다루는 객체를 구현 (App)
+- 인터페이스에 정의한 대로 메뉴를 다루는 객체를 실행 (mainMenu.execute)
+
+
+## 16 -> 17 
 - Menu, MenuHandler 인터페이스 추가
 - Menu: MenuGroup, MenuItem
 - MenuHandler: 각종 핸들러들

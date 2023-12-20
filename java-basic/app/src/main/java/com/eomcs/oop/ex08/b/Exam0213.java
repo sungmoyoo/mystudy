@@ -17,6 +17,7 @@ public class Exam0213 extends com.eomcs.oop.ex08.b.sub.Y {
     // 이유 
     // => 서브 클래스를 통해 만든 인스턴스 변수가 아니다.
     // => 즉 자기 변수가 아니다. 
+
     obj.publicVar = 100; // OK! 모두 다 접근 가능.
   }
 }

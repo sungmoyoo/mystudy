@@ -71,7 +71,8 @@ public class Exam0520 {
     print(sedan);
 
     print(truck);
-    
+
+
   }
 
 }

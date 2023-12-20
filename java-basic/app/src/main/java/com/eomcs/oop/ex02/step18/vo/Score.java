@@ -1,13 +1,7 @@
 package com.eomcs.oop.ex02.step18.vo;
 
-// ## 사용자 정의 데이터 타입 만들기
-// - 특정 유형의 데이터를 담을 전용 메모리(변수)를 설계한다.
-// - 학생 데이터를 묶음으로 다룰 수 있도록 변수 그룹을 정의한다.
 public class Score {
-  // 인스턴스 변수(instance variable; instance field)
-  // - new 명령으로 생성되는 변수이다.
-  // - 데이터를 개별적으로 다루고 싶을 때 인스턴스 변수로 선언한다.
-  //
+
   public String name;
   public int kor;
   public int eng;
@@ -15,18 +9,27 @@ public class Score {
   public int sum;
   public float aver;
 
+  // 클래스에 생성자가 없으면, 
+  // 컴파일러는 파라미터가 없는 기본 생성자를 자동 추가한다.
+  //  public Score() {
+  //  }
+
+  // new 연산자를 이용하여 인스턴스를 만들 때 자동으로 호출되는 특별한 문법의 메서드
+  // => 생성자(constructor)
+  //    - 메서드명은 클래스 이름과 같아야 한다.
+  //    - 리턴 타입은 없다.
+  //    - 오직 new 명령을 실행할 때 호출할 수 있다. 나중에 따로 호출할 수 없다.
   public Score(String name, int kor, int eng, int math) {
     this.name = name;
     this.kor = kor;
     this.eng = eng;
     this.math = math;
 
-    this.compute();
+    this.compute(); // 컴파일 할 때 컴파일러가 compute() 앞에 생성자가 받은 인스턴스 주소를 넘깁니다.
   }
 
   public void compute() {
     this.sum = this.kor + this.eng + this.math;
-    this.aver = (float) this.sum / 3;
-
+    this.aver = this.sum / 3f;
   }
 }

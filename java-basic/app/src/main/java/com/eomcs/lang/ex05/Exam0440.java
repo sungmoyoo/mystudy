@@ -7,7 +7,7 @@ public class Exam0440 {
 
     // i 변수에 들어있는 값을 순서대로 1바이트씩 잘라서
     // a,b,c,d 변수에 넣은 다음 각 변수의 값을 16진수로 출력하라!
-    int i = 0x27_a1_30_ff;
+    int i = 0x27a130ff;
     int a, b, c, d;
 
     System.out.println(i);

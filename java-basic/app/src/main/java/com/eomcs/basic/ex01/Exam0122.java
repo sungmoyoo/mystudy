@@ -12,7 +12,7 @@ public class Exam0122 extends Object {
     int math;
     int sum;
     float aver;
-
+    
     public Score(String name, int kor, int eng, int math) {
       this.name = name;
       this.kor = kor;

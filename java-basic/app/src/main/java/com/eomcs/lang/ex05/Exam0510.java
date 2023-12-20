@@ -14,8 +14,6 @@ public class Exam0510 {
     // 조건연산자의 왼쪽은 변수이어야 한다.
     String message = age > 18 ? "성년" : "미성년";
     System.out.printf("나이 %d는(은) %s이다.\n", age, message);
-    String a = 1>2 ? "참" : "거짓";
-    System.out.println(a);
   }
 }
 
