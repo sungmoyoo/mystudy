@@ -215,6 +215,7 @@ linux, unix => ex)sh, bash, tsh, csh, zsh
 - 가수부, 지수부:  
 부동소수점에서 유효숫자를 나타내는 부분을 가수부, 소수점의 위치를 풀이하는 지수부로 나뉜다.
 
+
 - 유효자릿수:  
 소수점을 제외한 후 계산한 자릿수
 
@@ -764,3 +765,14 @@ System.out.println(v.getClass() == Sedan.class)
 
 - Integer.toHexString():  
     10진수 정수를 16진법 정수로 변환해주는 메서드 wrapper 클래스의 Integer 메서드이다.
+
+# 28일차
+- Hash value:  
+
+- constant pool:  
+    
+- synchronized(동기화 처리):  
+    동시에 여러 스레드 진입 불가
+
+- Thread-Safe:  
+    

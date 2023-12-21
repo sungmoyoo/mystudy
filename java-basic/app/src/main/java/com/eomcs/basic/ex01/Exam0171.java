@@ -5,7 +5,7 @@ package com.eomcs.basic.ex01;
 
 public class Exam0171 {
 
-  // 인스턴스를 복제할 수 있게 하려면,
+  // 인스턴스를 아무나 복제할 수 있게 하려면,
   // => Object에서 제공하는 clone()을 호출할 수 있어야 한다.
   // => 그런데 clone()의 접근 범위가 protected 이라서
   //    같은 패키지의 멤버이거나 서브 클래스가 아니면 호출할 수 없다.

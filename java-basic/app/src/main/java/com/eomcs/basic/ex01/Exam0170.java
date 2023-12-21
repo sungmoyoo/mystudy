@@ -4,9 +4,8 @@ package com.eomcs.basic.ex01;
 // clone()은 인스턴스를 복제할 때 호출하는 메서드이다.
 
 public class Exam0170 {
-
   static class Score {
-
+    
     String name;
     int kor;
     int eng;
@@ -34,7 +33,7 @@ public class Exam0170 {
   }
 
   public static void main(String[] args) {
-
+    Exam0163 exam = new Exam0163();
     Score s1 = new Score("홍길동", 100, 100, 100);
     System.out.println(s1);
 
@@ -52,8 +51,8 @@ public class Exam0170 {
 
     // 방법2:
     // Object에서 상속 받은 clone()을 호출한다.
-    //    Score s3 = s1.clone(); // 컴파일 오류!
-    //
+    Score s3 = s1.clone(); // 컴파일 오류!
+    Exam0163 exam2 = exam.clone();
     // Object에서 상속 받은 clone()은 protected 이다.
     // 따라서 같은 패키지에 소속된 클래스이거나 상속 받은 서브 클래스가 아니면 호출할 수 없다.
     // 비록 Object의 서브 클래스라 할지라도 남의 인스턴스로 protected 멤버를 사용할 수 없다.
@@ -69,7 +68,6 @@ public class Exam0170 {
     // 해결책:
     // => Object에서 상속 받은 clone()을 오버라이딩 하라!
     // => Exam0171.java 를 살펴보라!
-
   }
 }
 
