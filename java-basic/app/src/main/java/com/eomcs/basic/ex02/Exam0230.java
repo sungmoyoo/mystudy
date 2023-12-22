@@ -7,6 +7,7 @@ public class Exam0230 {
 
     // new 명령을 사용하여 Integer 객체를 만들면
     // 무조건 새 인스턴스를 생성한다.
+   
     Integer obj1 = new Integer(100); // Heap에 인스턴스 생성
     Integer obj2 = new Integer(100); // Heap에 인스턴스 생성
     System.out.println(obj1 == obj2); // false

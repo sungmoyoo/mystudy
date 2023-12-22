@@ -72,9 +72,11 @@ public class App {
     mainMenu.add(greetingMenu);
 
     mainMenu.add(new MenuItem("도움말", new HelpHandler(prompt)));
-
-    mainMenu.execute(prompt);
-
-    prompt.close();
+    try {
+      mainMenu.execute(prompt);
+      prompt.close();
+    } catch (Exception e) {
+      System.out.println("예외 발생!");
+    }
   }
 }

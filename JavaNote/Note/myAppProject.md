@@ -106,3 +106,35 @@ Generalization
   - 콘크리트 클래스 생성자에서 추상클래스에 구현한 생성자를 실행 super(prompt)
 
 4. 서브클래스에서 .getTitle 쓸 수 있도록 Menu menu를 protected로 설정해서 보관
+
+## 23 -> 24
+java.util.Date 클래스 활용
+1. Date 클래스 지정
+2. Date 인스턴스로 add
+3. format 형식 변경 (%3$tm..) 3$는 하나의 파라미터 지정
+
+java.sql.Date
+1. assignment 변경, 제출마감일 입력형식으로
+2. Prompt inputDate 메서드 추가,
+  + Prompt 리팩토링: 임시변수 매개변수로 변경? 
+
+
+## 24 -> 25
+RunTimeException 예외 처리: 예외 발생 시 내가 만든 소스를 찾아가기
+1. addHandler에서 날짜 입력 형식 예외 처리
+2. 메뉴 잘못 선택 시 예외 처리
+  - Main 메서드에서 예외 처리
+  - modifyHandler에서 예외 처리 
+    - 문제: modify에서만 적용됨
+  - inputInt에서 적용
+    - 문제1: -1 return 시 정상값인지 구분할 수 없음
+    - 문제2: 예외 문구 출력은 호출하는 쪽에서 해야된다.
+3. try catch catch catch로 여러 예외 동시에 처리
+  - 각각의 Exception에 따라 처리할 예외 설정 ex) NumberFormatException, IllegalArgumentException...
+4. MenuItem, MenuGroup에 예외 처리
+
+
+중요!
+- 프로그램을 실행하다가 어느 지점에서 예외가 발생하면 해당 위치에서 적절한 조치를 취할 것이다.
+- 다만, 그에 벗어나는 조치가 되지 않은 예외가 JVM에 보고되는 경우를 대비해 마지막 보루인 main()에서는 예외를 처리해야 한다!
+- main()에서 마저 처리하지 않는다면 JVM에게 보고될 것이고, 개발자나 알아 볼 메시지를 출력하고 종료해버린다.

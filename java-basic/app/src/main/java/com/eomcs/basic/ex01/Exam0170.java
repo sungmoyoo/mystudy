@@ -4,7 +4,7 @@ package com.eomcs.basic.ex01;
 // clone()은 인스턴스를 복제할 때 호출하는 메서드이다.
 
 public class Exam0170 {
-  static class Score {
+  static class Score implements cloneable {
     
     String name;
     int kor;
