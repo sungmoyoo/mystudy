@@ -1,3 +1,5 @@
+<span style="font-size:133%">
+
 ## String - 기타 메서드
 배열의 모든 값을 CSV 형식의 한 문자열로 변환할 때
 - format() 사용
@@ -98,3 +100,5 @@ Object - Throwable | - Error - XxxError
             |------| - Exception - XxxException
                                  - ...
 ```
+
+</span>
