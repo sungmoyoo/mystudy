@@ -9,14 +9,13 @@ public class AssignmentDeleteHandler extends AbstractMenuHandler {
 
   private ArrayList<Assignment> objectRepository;
 
-
   public AssignmentDeleteHandler(ArrayList<Assignment> objectRepository, Prompt prompt) {
     super(prompt);
     this.objectRepository = objectRepository;
   }
 
   @Override
-  public void action() {
+  protected void action() {
     try {
       int index = this.prompt.inputInt("번호? ");
       this.objectRepository.remove(index);
@@ -24,6 +23,5 @@ public class AssignmentDeleteHandler extends AbstractMenuHandler {
     } catch (Exception e) {
       System.out.println("삭제 오류!");
     }
-
   }
 }

@@ -10,7 +10,7 @@ public class Board {
   private Date createdDate;
 
   public String getTitle() {
-    return this.title;
+    return title;
   }
 
   public void setTitle(String title) {
@@ -18,7 +18,7 @@ public class Board {
   }
 
   public String getContent() {
-    return this.content;
+    return content;
   }
 
   public void setContent(String content) {
@@ -26,7 +26,7 @@ public class Board {
   }
 
   public String getWriter() {
-    return this.writer;
+    return writer;
   }
 
   public void setWriter(String writer) {
@@ -34,7 +34,7 @@ public class Board {
   }
 
   public Date getCreatedDate() {
-    return this.createdDate;
+    return createdDate;
   }
 
   public void setCreatedDate(Date createdDate) {

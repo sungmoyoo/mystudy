@@ -3,27 +3,19 @@ package bitcamp.util;
 public class Test {
 
   public static void main(String[] args) {
-    LinkedList list = new LinkedList();
-    list.add(new String("aaa"));
-    list.add(new String("bbb"));
-    list.add(new String("ccc"));
-    list.add(new String("ddd"));
+    LinkedList<String> list = new LinkedList<>();
+    list.add("a");
+    list.add("b");
+    list.add("c");
+    list.add(0, "x"); //x a b c
+    list.add(1, "y"); //x y a b c
+    list.add(3, "z"); //x y a z b c
 
-    Node node = list.first;
-    System.out.println(node.value);
+    list.remove(0);
 
-    node = node.next;
-    System.out.println(node.value);
-
-    node = node.next;
-    System.out.println(node.value);
-
-    node = node.next;
-    System.out.println(node.value);
-
-//    System.out.println(list.first.value);
-//    System.out.println(list.first.next.value);
-//    System.out.println(list.first.next.next.value);
-//    System.out.println(list.last.value);
+    Object[] s = list.toArray();
+    for (Object o : s) {
+      System.out.println(o);
+    }
   }
 }

@@ -11,7 +11,6 @@ public class MenuItem extends AbstractMenu {
 
   private MenuHandler menuHandler;
 
-
   public MenuItem(String title) {
     super(title);
   }
@@ -26,7 +25,7 @@ public class MenuItem extends AbstractMenu {
       try {
         this.menuHandler.action(this);
       } catch (Exception e) {
-        System.out.println("실행 오류");
+        System.out.println("실행 오류!");
       }
     }
   }

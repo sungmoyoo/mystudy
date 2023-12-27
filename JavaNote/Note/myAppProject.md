@@ -245,8 +245,88 @@ RunTimeException 예외 처리: 예외 발생 시 내가 만든 소스를 찾아
 자료구조-LinkedList
 - LinkedList, Node 클래스 생성
 - Node에 value, next 변수 선언
+
 - LinkedList add() 메서드 생성
 ```
 value는 Object value값 저장
 next는 다음 노드의 주소를 저장하여 연결
+```
+
+- LinkedList toArray() 메서드 생성
+```
+1. arr[] 생성
+2. Node는 first부터, index는 0부터
+3. node가 null이 아닐때까지 반복하여 arr[index]에 value 저장
+4. arr 리턴
+```
+
+- LinkedList get() 메서드 생성
+```
+1.index 유효범위 아닐 때 IndexOutOfBoundException throw
+2.현재 위치를 int cursor = 0으로 설정
+3.node는 first부터, cursor가 index와 같아질 때까지 반복, node.next로 다음 주소를 node에 저장
+4. index와 cursor와 같아지면 반복 종료 후 node.value 리턴
+```
+
+- LinkedList set() 메서드 생성
+```
+1. 인덱스를 찾아가는 과정은 동일
+2. 기존 값을 old에 저장, 새로운 값 node.value에 저장
+3. old 리턴
+```
+
+- LinkedList add(index, value) 삽입하는 메서드 생성
+```
+1. 인덱스 유효성 검사
+2. 새 노드 객체 생성, value 저장
+3. 값이 없을 때: first, last 모두 node 주소 저장
+4. 인덱스가 0일 때: 새 노드 객체를 first, first에 node를 저장
+5. 인덱스가 size일 때: last.next를 추가된 node 주소로 바꾸고 last를 node로 바꾼다.
+6. 인덱스가 중간일 때(나머지): 
+  - 현 노드가 존재하는 위치를 저장하기 위해 cursor 설정
+  - 새 객체 currNode를 생성하고 주소를 first로 설정
+  - 인덱스 전까지 node를 반복 이동
+  - node.next를 currNode.next로 교체
+7. size 확장
+```
+
+- LinkedList remove(index) 메서드 생성
+```
+1. 인덱스 유효성 검사
+2. 값이 1개일 때: first, last 모두 null
+3. 맨 앞: first 주소를 first.next로 교체
+4. 맨 뒤: size-1에서 currNode.next를 last값으로 교체
+5. 중간: 인덱스-1에서 currNode.next를 currNode.next.next값으로 교체
+6. 리팩토링: 조건문 공통코드 슬라이드
+  - 중복되는 반복문 else문에 넣고 닫기
+  - 중간 값 계산
+  - 마지막 값 if문으로 묶고 last값 바꾸기
+```
+
+- 중첩 클래스 정의
+```
+node 클래스를 LinkedList 클래스 안으로 복사 후 private static 처리
+```
+
+- 제네릭 적용
+```
+<E> E 추가
+```
+
+- MenuGroup LinkedList 적용
+```
+1. LinkedList<Menu> 생성
+2. 특정 인덱스 지정은 get() 메서드 호출
+3. Menusize 제거 menus.size() getter 사용
+4. add, remove 메서드 호출로 변경
+```
+
+- boolean remove(E value) 메서드 생성
+```
+1. prevNode = Null로 생성, node는 first로 생성
+2. node != null 아닐때 반복, if Value값 같으면 break
+3. node가 null 되면 false return
+4. node가 첫번째일때 다음 노드를 first로 설정
+5. 근데 first가 null이면 값이 하나이므로 last도 null처리
+6. prevNode.next에 node.next로 노드 하나 삭제
 ```
