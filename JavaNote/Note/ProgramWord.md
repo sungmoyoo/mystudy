@@ -807,3 +807,7 @@ System.out.println(v.getClass() == Sedan.class)
 - Collection API:  
 자바의 Collection API는 데이터를 쉽게 저장하고 다룰 수 있도록 제공하는 표준 라이브러리이다. 주요 인터페이스로 Collection, List, Set, Queue, Map이 있다. 이를 구현하는 자료구조로는 ArrayList, HashSet, HashMap 등이 있다.
 
+# 32일차
+- LIFO:  
+
+- 

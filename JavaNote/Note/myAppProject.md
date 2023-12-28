@@ -151,7 +151,7 @@
 - Menu: MenuGroup, MenuItem
 - MenuHandler: 각종 핸들러들
  
-### 인터페이스
+**인터페이스**
 Menu: execute(Prompt prompt), String getTitle()
 
 Menuhandler: action()
@@ -169,7 +169,7 @@ execute(), getTitle()
 ## 18
 - action에 parameter menu 추가 -> getTitle() 받아서 쓰기 위함
 
-### 배열이 있는 곳에 배열 다루는 코드 이관(캡슐화?)
+**배열이 있는 곳에 배열 다루는 코드 이관(캡슐화?)**
 - BoardRepository: 배열, length private 처리  
 - add(Object object),  remove(index), toArray  
 - (index), get(index), set(index, Object object) 
@@ -329,4 +329,64 @@ node 클래스를 LinkedList 클래스 안으로 복사 후 private static 처�
 4. node가 첫번째일때 다음 노드를 first로 설정
 5. 근데 first가 null이면 값이 하나이므로 last도 null처리
 6. prevNode.next에 node.next로 노드 하나 삭제
+```
+
+- app20 ObjectRepository 복사 후 rename
+- boolean remove(E value) 메서드 생성
+```
+1. equals로 비교, remove(index) 호출
+```
+
+- LinkedList toArray(E[] arr) 메서드 생성
+```
+1. 주어진 배열이 받으려는 배열보다 작으면 배열 복사
+2. 반복문을 돌면서 node.value를 받아 리턴
+```
+
+- remove 시 노드가 가비지가 되기 전에 다른 객체를 참조하던 것을 모두 Null로 바꾼다.
+```
+1. deleted에 삭제할 노드 보관
+2. 모든 코드 끝나고 E old에 value값 저장 후 value next 모두 null로 변경
+3. 요즘은 가비지 컬렉터가 이런것도 다 처리해주긴 함
+```
+
+- 인터페이스 적용
+```
+1. List<E> interface 규칙(메서드) 정의
+2. ArrayList, LinkedList List<E> 인터페이스 구현
+```
+
+- ArrayList -> LinkedList 교체
+```
+1. Handler에 objectRepository 모두 List 인터페이스로 변경 and import
+2. main() repository 객체 생성 부분 변경(List<>, LinkedList로 교체)
+```
+
+## 27
+- Stack 구현
+```
+1. push()
+2. pop()
+3. peek()
+4. empty()
+```
+
+- Queue 구현
+```
+1. offer()
+2. poll()
+3. peek()
+```
+- Stack 적용
+```
+1. MenuGroup에 Stack을 이용하여 Breadcrumb 구현
+2. AbstractMenu breadcrumb 생성자에 추가
+3. String을 반환하는 getMenuPath() 메서드 생성
+   - toArray(), String.join 사용
+4. MenuGroup, MenuHandler 생성자 breadcrumb 파라미터 추가
+5. App 리팩토링
+   - Stack 객체 생성 후 아규먼트 삽입
+   - MenuGroup addItem, addGroup만들어서 App에 적용
+6. 메뉴를 실행할 때 breadcrumb경로에서 title을 저장하고 반복문이 종료되면 제거한다.
+
 ```

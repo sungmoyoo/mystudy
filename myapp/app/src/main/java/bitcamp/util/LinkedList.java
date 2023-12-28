@@ -1,14 +1,11 @@
 package bitcamp.util;
 
-public class LinkedList<E> {
+import java.util.Arrays;
+
+public class LinkedList<E> extends AbstractList<E> {
 
   private Node<E> first;
   private Node<E> last;
-  private int size;
-
-  public int Size() {
-    return size;
-  }
 
   public void add(E value) {
     Node<E> node = new Node<>();
@@ -94,14 +91,15 @@ public class LinkedList<E> {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("유효하지 않은 인덱스입니다.");
     }
-    E old = null;
+    Node<E> deleted = null;
+
     // 값이 1개일 때
-    if (first.next == null) {
-      old = first.value;
+    if (size == 1) {
+      deleted = first;
       first = last = null;
 
     } else if (index == 0) {
-      old = first.value;
+      deleted = first;
       first = first.next;
 
     } else {
@@ -111,7 +109,7 @@ public class LinkedList<E> {
         currNode = currNode.next;
       }
 
-      old = currNode.next.value;
+      deleted = currNode.next;
       currNode.next = currNode.next.next;
 
       if (index == (size - 1)) {
@@ -119,7 +117,9 @@ public class LinkedList<E> {
       }
     }
     size--;
-
+    E old = deleted.value;
+    deleted.value = null;
+    deleted.next = null;
     return old;
   }
 
@@ -152,10 +152,26 @@ public class LinkedList<E> {
     return true;
   }
 
-  private static class Node<E> {
+  private static class Node<T> {
 
-    E value;
-    Node<E> next;
+    T value;
+    Node<T> next;
+  }
+
+  public E[] toArray(final E[] arr) {
+    E[] values = arr;
+    if (values.length < size) {
+      values = Arrays.copyOf(arr, size);
+    }
+
+    int i = 0;
+    Node<E> node = first;
+    while (node != null) {
+      values[i++] = node.value;
+      node = node.next;
+    }
+
+    return values;
   }
 }
 
