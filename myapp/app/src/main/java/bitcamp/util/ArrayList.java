@@ -10,7 +10,6 @@ public class ArrayList<E> extends AbstractList<E> {
     if (this.size == this.objects.length) {
       int oldSize = this.objects.length;
       int newSize = oldSize + (oldSize >> 1);
-
       this.objects = Arrays.copyOf(this.objects, newSize);
     }
 
@@ -70,4 +69,23 @@ public class ArrayList<E> extends AbstractList<E> {
 
     return (E) old;
   }
+
+  public Iterator<E> iterator() {
+    return new Iterator<>() {
+
+      int cursor;
+
+      @Override
+      public boolean hasNext() {
+        return cursor >= 0 && cursor < ArrayList.this.size();
+      }
+
+      @Override
+      public E next() {
+        return (E) ArrayList.this.get(cursor++);
+      }
+    };
+  }
+
+
 }

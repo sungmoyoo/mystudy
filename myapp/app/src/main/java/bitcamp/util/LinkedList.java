@@ -11,21 +11,24 @@ public class LinkedList<E> extends AbstractList<E> {
     Node<E> node = new Node<>();
     node.value = value;
 
-    if (first == null) {
+    if (last == null) {
+      // 노드 객체가 없을 때,
       first = last = node;
     } else {
+      // 기존에 노드 객체가 있을 때,
+      // 마지막 노드의 다음 노드로 새로 만든 노드를 가리키게 한다.
       last.next = node;
       last = node;
     }
     size++;
-
   }
 
   public Object[] toArray() {
     Object[] arr = new Object[size];
+    int index = 0;
     Node<E> node = first;
-    for (int i = 0; i < size; i++) {
-      arr[i] = node.value;
+    while (node != null) {
+      arr[index++] = node.value;
       node = node.next;
     }
     return arr;
@@ -33,33 +36,40 @@ public class LinkedList<E> extends AbstractList<E> {
 
   public E get(int index) {
     if (index < 0 || index >= size) {
-      throw new IndexOutOfBoundsException("유효하지 않은 인덱스입니다.");
+      throw new IndexOutOfBoundsException("무효한 인덱스입니다.");
     }
+
     int cursor = 0;
     Node<E> node = first;
-    while (cursor++ < index) {
+    while (++cursor <= index) {
       node = node.next;
     }
+
     return node.value;
   }
 
   public E set(int index, E value) {
     if (index < 0 || index >= size) {
-      throw new IndexOutOfBoundsException("유효하지 않은 인덱스입니다.");
+      throw new IndexOutOfBoundsException("무효한 인덱스입니다.");
     }
+
     int cursor = 0;
     Node<E> node = first;
-    while (cursor++ < index) {
+    while (++cursor <= index) {
       node = node.next;
     }
+
     E old = node.value;
     node.value = value;
-
     return old;
   }
 
+
   public void add(int index, E value) {
-    // first가 null일 때
+    if (index < 0 || index > size) {
+      throw new IndexOutOfBoundsException("무효한 인덱스입니다.");
+    }
+
     Node<E> node = new Node<>();
     node.value = value;
 
@@ -70,14 +80,13 @@ public class LinkedList<E> extends AbstractList<E> {
       node.next = first;
       first = node;
 
-    } else if (index == (size - 1)) {
+    } else if (index == size) {
       last.next = node;
       last = node;
 
     } else {
-      // index가 중간일 때(나머지)
-      Node<E> currNode = first;
       int cursor = 0;
+      Node<E> currNode = first;
       while (++cursor < index) {
         currNode = currNode.next;
       }
@@ -89,73 +98,69 @@ public class LinkedList<E> extends AbstractList<E> {
 
   public E remove(int index) {
     if (index < 0 || index >= size) {
-      throw new IndexOutOfBoundsException("유효하지 않은 인덱스입니다.");
+      throw new IndexOutOfBoundsException("무효한 인덱스입니다.");
     }
+
     Node<E> deleted = null;
 
-    // 값이 1개일 때
     if (size == 1) {
-      deleted = first;
+      deleted = first; // 삭제할 노드 보관
       first = last = null;
 
     } else if (index == 0) {
-      deleted = first;
+      deleted = first; // 삭제할 노드 보관
       first = first.next;
 
     } else {
-      Node<E> currNode = first;
       int cursor = 0;
+      Node<E> currNode = first;
       while (++cursor < index) {
         currNode = currNode.next;
       }
-
-      deleted = currNode.next;
+      deleted = currNode.next; // 삭제할 노드 보관
       currNode.next = currNode.next.next;
 
       if (index == (size - 1)) {
         last = currNode;
       }
     }
+
     size--;
+
     E old = deleted.value;
-    deleted.value = null;
-    deleted.next = null;
+    deleted.value = null; // 가비지가 되기 전에 다른 객체를 참조하던 것을 제거한다.
+    deleted.next = null; // 가비지가 되기 전에 다른 객체를 참조하던 것을 제거한다.
     return old;
   }
 
-
   public boolean remove(E value) {
-    Node<E> Node = first;
-    Node<E> prevNode = null;
-    while (Node != null) {
-      if (Node.value.equals(value)) {
+    Node prevNode = null;
+    Node node = first;
+
+    while (node != null) {
+      if (node.value.equals(value)) {
         break;
       }
-      prevNode = Node;
-      Node = Node.next;
+      prevNode = node;
+      node = node.next;
     }
-    if (Node == null) {
+
+    if (node == null) {
       return false;
     }
 
-    if (Node == first) {
+    if (node == first) {
       first = first.next;
       if (first == null) {
         last = null;
       }
 
     } else {
-      prevNode.next = Node.next;
+      prevNode.next = node.next;
     }
 
     size--;
     return true;
-  }
-
-  private static class Node<T> {
-
-    T value;
-    Node<T> next;
   }
 
   public E[] toArray(final E[] arr) {
@@ -166,6 +171,7 @@ public class LinkedList<E> extends AbstractList<E> {
 
     int i = 0;
     Node<E> node = first;
+
     while (node != null) {
       values[i++] = node.value;
       node = node.next;
@@ -173,8 +179,30 @@ public class LinkedList<E> extends AbstractList<E> {
 
     return values;
   }
+
+  private static class Node<E> {
+
+    E value;
+    Node<E> next;
+  }
+
+  @Override
+  public Iterator<E> iterator() {
+    return new Iterator<E>() {
+
+      Node<E> cursor = LinkedList.this.first;
+
+      @Override
+      public boolean hasNext() {
+        return cursor != null;
+      }
+
+      @Override
+      public E next() {
+        E value = cursor.value;
+        cursor = cursor.next;
+        return value;
+      }
+    };
+  }
 }
-
-
-
-

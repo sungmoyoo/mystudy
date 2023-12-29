@@ -8,18 +8,16 @@ public class Queue<E> extends LinkedList<E> {
   }
 
   public E poll() {
-    if (this.size() == 0) {
+    if (this.size == 0) {
       return null;
-    } else {
-      return this.remove(0);
     }
+    return this.remove(0);
   }
 
   public E peek() {
-    if (this.size() == 0) {
+    if (this.size == 0) {
       return null;
-    } else {
-      return this.get(0);
     }
+    return this.get(0);
   }
 }

@@ -10,15 +10,14 @@ public abstract class AbstractMenu implements Menu {
   public AbstractMenu(String title, Stack<String> breadcrumb) {
     this.title = title;
     this.breadcrumb = breadcrumb;
-
-  }
-
-  public String getMenuPath() {
-    return String.join("/", breadcrumb.toArray(new String[0]));
   }
 
   @Override
   public String getTitle() {
     return this.title;
+  }
+
+  public String getMenuPath() {
+    return String.join("/", breadcrumb.toArray(new String[0]));
   }
 }

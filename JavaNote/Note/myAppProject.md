@@ -174,7 +174,7 @@ execute(), getTitle()
 - add(Object object),  remove(index), toArray  
 - (index), get(index), set(index, Object object) 
 
-### 핸들러 수정
+### +핸들러 수정
 
 ## 19
 - Object객체 사용해서 범용 Repository 생성  
@@ -388,5 +388,41 @@ node 클래스를 LinkedList 클래스 안으로 복사 후 private static 처�
    - Stack 객체 생성 후 아규먼트 삽입
    - MenuGroup addItem, addGroup만들어서 App에 적용
 6. 메뉴를 실행할 때 breadcrumb경로에서 title을 저장하고 반복문이 종료되면 제거한다.
+```
 
+## 28.
+- Iterator 인터페이스 생성(hasNext(),next())
+- ArrayListIterator 생성
+```
+1. 생성자로 전달할 ArrayList 선언, cursor 포인터 선언
+2. hasNext(): cursor가 0보다 크고 list 초과하지 않으면 true
+3. next(): cursor위치 get
+```
+- list에 Iterator를 리턴하는 규칙 정의
+- ArrayList에 method implements
+```
+return new ArrayListIterator<>(this)
+```
+
+- LinkedListIterator 생성
+```
+ArrayListIterator와 동일
+```
+- LinkedList method implements
+```
+ArrayListIterator와 동일
+```
+
+- MenuGroup과 listHandler Iterator 적용
+```
+
+```
+- 중첩클래스 활용
+```
+1. 기존: 외부 클래스
+2. static nested class: 그대로 복사 후 private static, LinkedListIterator 명을 IteratorImpl로 변경
+3. non-static nested class: static 제거 후 자동으로 생성되는 부분 삭제
+4. local class: 기존 클래스 안으로 이동 
+5. 익명클래스: 정의하는 즉시 인스턴스 생성 (){-}
+6. 익명클래스2:바로 return
 ```

@@ -3,13 +3,14 @@ package bitcamp.util;
 public class QueueTest {
 
   public static void main(String[] args) {
-    Queue<String> q = new Queue<>();
-    q.offer("aaa");
-    q.offer("bbb");
-    q.offer("ccc");
+    Queue<String> queue = new Queue<>();
+    queue.offer("aaa");
+    queue.offer("bbb");
+    queue.offer("ccc");
+    queue.offer("ddd");
 
-    while (q.peek() != null) {
-      System.out.println(q.poll());
+    while (queue.size() > 0) {
+      System.out.println(queue.poll());
     }
   }
 }
