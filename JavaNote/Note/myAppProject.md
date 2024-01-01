@@ -415,13 +415,18 @@ ArrayListIterator와 동일
 
 - MenuGroup과 listHandler Iterator 적용
 ```
-
+1. 패키지 멤버클래스로 LinkedList에 iterator() 구현
+2. List 인터페이스에 iterator() 규칙 정의
+3. LinkedListIterator 생성하여 리턴한다.
+4. MenuGroup에서 printMenu의 menus.iterator()로 iterator 생성, while hasNext 조건을 사용하여 새로 만든 Menu menu에 담아 getTitle
+5. listHandler에서도 Iterator 생성
 ```
 - 중첩클래스 활용
 ```
 1. 기존: 외부 클래스
 2. static nested class: 그대로 복사 후 private static, LinkedListIterator 명을 IteratorImpl로 변경
 3. non-static nested class: static 제거 후 자동으로 생성되는 부분 삭제
+3.1 LinkedList면 cursor를 Node로 변경해주는 작업한다.
 4. local class: 기존 클래스 안으로 이동 
 5. 익명클래스: 정의하는 즉시 인스턴스 생성 (){-}
 6. 익명클래스2:바로 return

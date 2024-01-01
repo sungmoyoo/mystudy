@@ -29,20 +29,4 @@ LinkedList$Node.class
 클래스 블록당 클래스 파일이 생성된다.
 ```
 
-## ArrayList vs LinkedList
-- ArrayList 
-
-- LinkedList
-
-
-
-
-
-
-
-
-
-
-
-
 </span>
