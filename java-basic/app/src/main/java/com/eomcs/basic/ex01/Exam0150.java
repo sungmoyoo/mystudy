@@ -16,15 +16,15 @@ public class Exam0150 {
       this.working = working;
     }
 
-        @Override
-        public int hashCode() {
-          return 100;
-        }
+    //    @Override
+    //    public int hashCode() {
+    //      return 100;
+    //    }
 
-//        @Override
-//        public boolean equals(Object obj) {
-//          return true;
-//        }
+    //    @Override
+    //    public boolean equals(Object obj) {
+    //      return true;
+    //    }
 
   }
 
@@ -60,7 +60,7 @@ public class Exam0150 {
 
     // 집합?
     // => 중복 값을 저장할 수 없다.
-    // => 해시값 기준으로 순서가 저장된다. 
+    //
     // HashSet = Hash + Set
     // => 값을 저장할 때 해시값을 계산하여 저장 위치를 알아낸다.
     // => 집합 방식으로 목록을 다룬다. 즉 중복 값을 저장하지 않는다.

@@ -7,8 +7,7 @@ public class Exam0130 {
     String name;
     String tel;
     boolean working;
-    
-    
+
     void print() {
       System.out.println("A.print():");
       System.out.printf("  => this.name(%s)\n", this.name);
@@ -24,14 +23,13 @@ public class Exam0130 {
     // 필드 오버라이딩
     // - 필드 오버라이딩은 메서드와 달리 변수의 타입이 달라도 된다.
     //
-    String working1;
+    String working;
 
     void print2() {
       System.out.println("A4.print2():");
-      System.out.printf("  => this.name(%s)\n",this.name);
+      System.out.printf("  => this.name(%s)\n", this.name);
       System.out.printf("  => this.tel(%s)\n", this.tel);
       System.out.printf("  => this.working(%s)\n", this.working);
-      System.out.printf("  => this.working(%s)\n", this.working1);
     }
   }
 
@@ -41,7 +39,7 @@ public class Exam0130 {
     obj.name = "홍길동"; // A의 name
     obj.tel = "1111-1111"; // A의 tel
     //    obj.working = true; // A4의 working : obj의 클래스에서 먼저 필드를 찾기 때문이다.
-    obj.working1 = "취업";
+    obj.working = "취업";
 
     obj.print();
     // A의 print() 호출

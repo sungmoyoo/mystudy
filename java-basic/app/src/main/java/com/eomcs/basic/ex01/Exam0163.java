@@ -18,8 +18,8 @@ public class Exam0163 {
     // 위의 경우처럼 한 번씩 호출하고, 리턴 값을 가지고 또 호출하는 방식으로 값을 꺼내지 않는다.
     // 체인(chain) 방식으로 호출한다.
     System.out.println(obj2.getClass().getComponentType().getName()); //java.lang.String
-    
-    System.out.println(new int[10].getClass().getComponentType().getName());
+
+    System.out.println(new int[10].getClass().getComponentType().getName()); //int
   }
 }
 

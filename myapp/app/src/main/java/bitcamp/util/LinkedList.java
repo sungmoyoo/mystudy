@@ -120,6 +120,7 @@ public class LinkedList<E> extends AbstractList<E> {
         last = currNode;
       }
     }
+
     size--;
     return deleted;
   }

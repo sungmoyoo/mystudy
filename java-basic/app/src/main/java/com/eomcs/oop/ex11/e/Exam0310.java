@@ -15,7 +15,13 @@ public class Exam0310 {
       public void print() {
         System.out.println("정말 반갑습니다!");
       }
+      
+      public void m() {
+        
+      }
     };
     obj.print();
+    
+//   obj.m;() // 컴파일 오류! 왜 why? obj 타입에 정의된 메서드가 아니다.
   }
 }
