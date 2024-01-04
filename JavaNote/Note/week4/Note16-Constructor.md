@@ -1,12 +1,8 @@
-# 질문
-myapp 만든거 기본 생성자있는지?
-
-
 # 패키지 접근 범위
-public:
-protected:
-(default):
-private:
+public: 모두 공개
+protected: 
+(default): 같은 클래스 내 + 
+private: 같은 클래스 내
 
 # 생성자
 인스턴스를 생성할 때 값을 초기화시키는 특별한 메서드

@@ -193,7 +193,7 @@ execute(), getTitle()
 - 접근범위 넓힐 이유 없는 필드들 private 처리
 - vo 인스턴스 getter/setter 적용
 
-## 22 -> 23
+## 23
 Generalization
 - menuHandler 구현체의 공통 분모를 추출하여 수퍼클래스 정의
 - 수퍼클래스를 추상 클래스로 정의
@@ -430,4 +430,64 @@ ArrayListIterator와 동일
 4. local class: 기존 클래스 안으로 이동 
 5. 익명클래스: 정의하는 즉시 인스턴스 생성 (){-}
 6. 익명클래스2:바로 return
+```
+
+
+## 29
+- util 패키지에 ANSIEscape, Prompt 제외하고 나머지 클래스 다 삭제
+- import 변경
+
+
+## 30
+- App void run() prepareMenu() 메서드 생성
+- run()에 execute문 넣고, prepareMenu()에 add문들 넣음
+- 변수들 List + mainMenu 인스턴스화
+- 생성자에서 prepareMenu() 메서드 실행 
+- main() 메서드에서 App 객체 생성 후 run 실행
+
+
+## 31
+- 생성자에서 loadAssignment 호출, run 끝나고 saveAssignment 호출
+- loadAssignment, saveAssignment 메서드 생성
+- saveAssignment
+```
+1. FileOutputStream 인스턴스 생성 파일명 = .data
+2. 예외 처리
+3. out 변수 블록 밖에 선언
+4. finally에서 파일 닫기
+5. close() 예외 무시 처리
+6. autocloseable -> try with resources 문으로 변경
+7. for 문 작성 for (:)문 사용, getter 사용
+8. write() 사용하여 바이트 배열을 출력 스트림으로 보낸다. 
+9. 바이트의 개수를 2바이트로 출력한다. (>> 8) 사용
+10. 저장할 데이터의 개수를 2바이트로 출력
+```
+
+- loadAssignment
+```
+1. 한번에 try with resources
+2. 저장된 데이터 개수를 2바이트로 읽어들이기 << 연산자와 | 활용
+3. 바이트 배열 생성, 넉넉하게
+4. 사이즈만큼 반복, 2바이트로 읽어들여 len에 저장 <<,| 동일
+5. read(byte[], 시작, 끝)
+6. 읽은 바이트 배열을 String에 저장
+7. 만약 날짜 형식이 java.util.date 면 getTime() 메서드를 사용하여 Long 값인 밀리세컨드로 변환하여 int 8바이트 저장
+8. 읽을 때도 8바이트 값 읽어들이기, 생성자를 활용하여 Date 객체를 생성할 땐 밀리세컨드를 long값으로 바꾸기
+```
+
+## 32.
+primitive Type/String -> DataOutputStream를 통해 byte[] 출력
+
+- IO 패키지 생성
+- DataOutputStream 클래스 생성
+```
+1. FileOutputStream 상속
+2. writeShort, writeInt, writeLong, writeUTF, writeBoolean 메서드 작성
+3. save메서드들 수정
+```
+- DataInputStream 클래스 생성, 
+```
+1. FileInputStream 상속
+2. readShort, readInt, readLong, readUTF, readBoolean 메서드 작성
+3. load메서드들 수정
 ```

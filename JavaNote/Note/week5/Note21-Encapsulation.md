@@ -24,4 +24,4 @@ sub   class = child  class
 # java.lang.Object 클래스 
 최상위 클래스 = 자바의 모든 클래스는 Object에 sub클래스다.
 
-## 다형적 변수를 이용하여 범용 Repository 만들기
+

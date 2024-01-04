@@ -11,7 +11,21 @@
 - 새 게시판의 목록을 따로 저장할 수 없다.
 - 그래서 복제해서 만들 수 밖에 없었다.
 ```
+public class PostManager {
+    // Static field approach - 스태틱 필드 방식
+    private static List<Post> postList = new ArrayList<>();
+
+    public static void addPost(Post post) {
+        postList.add(post);
+    }
+
+    public static List<Post> getPostList() {
+        return postList;
+    }
+```
 - 해결방법: 게시글 목록을 개별적으로 유지할 수 있도록 인스턴스 필드를 선언한다.
+
+
 
 # 2. 인스턴스 필드/메서드, 생성자
 - new 명령을 통해 인스턴스 필드/메서드를 적용하게 되면 복제를 하지 않고도 해당 클래스의 메서드를 사용할 수 있다.
