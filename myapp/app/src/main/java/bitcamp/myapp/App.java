@@ -1,7 +1,5 @@
 package bitcamp.myapp;
 
-import bitcamp.IO.DataInputStream;
-import bitcamp.IO.DataOutputStream;
 import bitcamp.menu.MenuGroup;
 import bitcamp.myapp.handler.HelpHandler;
 import bitcamp.myapp.handler.assignment.AssignmentAddHandler;
@@ -23,6 +21,12 @@ import bitcamp.myapp.vo.Assignment;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -102,16 +106,20 @@ public class App {
   }
 
   void saveAssignment() {
-    try (DataOutputStream out = new DataOutputStream("assignment.data")) {
-
-      out.writeShort(assignmentRepository.size());
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream("assignment.data")))) {
+      long start = System.currentTimeMillis();
+      out.writeInt(assignmentRepository.size());
 
       for (Assignment assignment : assignmentRepository) {
         out.writeUTF(assignment.getTitle());
         out.writeUTF(assignment.getContent());
         out.writeUTF(assignment.getDeadline().toString());
-
       }
+
+      long end = System.currentTimeMillis();
+      System.out.printf("걸린 시간: %d\n", end - start);
+
     } catch (Exception e) {
       System.out.println("과제 데이터 저장 중 오류 발생");
       e.printStackTrace();
@@ -119,9 +127,10 @@ public class App {
   }
 
   void loadAssignment() {
-    try (DataInputStream in = new DataInputStream("assignment.data")) {
-
-      int size = in.readShort();
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(new FileInputStream("assignment.data")))) {
+      long start = System.currentTimeMillis();
+      int size = in.readInt();
 
       for (int i = 0; i < size; i++) {
         Assignment assignment = new Assignment();
@@ -132,6 +141,9 @@ public class App {
 
         assignmentRepository.add(assignment);
       }
+      long end = System.currentTimeMillis();
+      System.out.printf("걸린 시간: %d\n", end - start);
+
     } catch (Exception e) {
       System.out.println("과제 데이터 로딩 중 오류 발생");
       e.printStackTrace();
@@ -139,7 +151,8 @@ public class App {
   }
 
   void saveMember() {
-    try (DataOutputStream out = new DataOutputStream("member.data")) {
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream("member.data")))) {
       for (Member member : memberRepository) {
         out.writeShort(memberRepository.size());
 
@@ -156,7 +169,8 @@ public class App {
   }
 
   void loadMember() {
-    try (DataInputStream in = new DataInputStream("member.data")) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(new FileInputStream("member.data")))) {
 
       int size = in.readShort();
 
@@ -176,7 +190,8 @@ public class App {
   }
 
   void saveBoard() {
-    try (DataOutputStream out = new DataOutputStream("board.data")) {
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream("board.data")))) {
       for (Board board : boardRepository) {
         out.writeShort(boardRepository.size());
 
@@ -194,7 +209,8 @@ public class App {
 
 
   void loadBoard() {
-    try (DataInputStream in = new DataInputStream("board.data")) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(new FileInputStream("board.data")))) {
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
@@ -214,7 +230,8 @@ public class App {
   }
 
   void saveGreeting() {
-    try (DataOutputStream out = new DataOutputStream("greeting.data")) {
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream("greeting.data")))) {
       for (Board board : greetingRepository) {
         out.writeShort(greetingRepository.size());
 
@@ -232,7 +249,8 @@ public class App {
 
   void loadGreeting() {
 
-    try (DataInputStream in = new DataInputStream("greeting.data")) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(new FileInputStream("greeting.data")))) {
 
       int size = in.readShort();
       for (int i = 0; i < size; i++) {

@@ -488,6 +488,50 @@ primitive Type/String -> DataOutputStream를 통해 byte[] 출력
 - DataInputStream 클래스 생성, 
 ```
 1. FileInputStream 상속
-2. readShort, readInt, readLong, readUTF, readBoolean 메서드 작성
+2. readShort, readInt, readLong, readUTF(readNBytes도 가능), readBoolean 메서드 작성
 3. load메서드들 수정
+```
+
+
+# 33.
+- 기존 방식과 buffer방식 성능 비교
+1. 기존 방식
+```
+write() -> HDD -> read()
+```
+read/write =  data seek time + read/write time
+데이터 읽고 쓸 위치를 찾는데 걸리는 시간이 많이 소요된다. 
+
+2. 개선 방식
+```
+write() -> Buffer -> HDD -> Buffer -> read()
+```
+버퍼가 꽉차면 출력, 버퍼가 비었으면 읽기 = read/write 횟수 감소 = data seek time 감소  
+=> read/write 시간 감소
+
+- 버퍼 기능 추가 BufferedDataOutputStream
+```
+1. DataOutputStream을 상속받는 BufferedDataOutputStream 클래스 생성
+2. buffer 바이트배열 생성, size 초기화
+3. write(int b) 메서드에서 buffer[size++]에 b 저장,  
+만약 버퍼가 모두 차면 즉시 버퍼에 저장된 데이터를 파일로 출력한다. 
+4. write(byte[] b) 메서드에서도 반복문 돌면서 buffer[size++]에 b 저장, 버퍼 꽉차면 파일로 출력 동일
+5. 중복 코드 flush()
+6. close() 오버라이딩, flush() 추가
+```
+
+- 버퍼 기능 추가 BufferedDataInputStream
+```
+1.DataInputStream을 상속받는 BufferedDataInputStream 클래스 생성
+2. buffer 바이트배열 생성, size 초기화, cursor 초기화
+3. read() 메서드 오버라이딩: size가 0일 때 buffer를 read(), 만약 size가 음수면 -1 리턴, cursor를 0으로 설정하고 buffer[cusrsor++]  
+>주의
+byte 배열로 읽어온 것을 int로 바꿀 때(1바이트에서 4바이트로 바꾸는 과정), 바이트 값으로 봤을 때 음수일 경우 int로 리턴할 때도 음수가 된다. 이를 방지하기 위해 앞 3바이트를 0으로 처리하여 양수화시킨다. 
+따라서 And 비트논리 연산자로 0xff를 필터링 해주어야 한다.
+
+4. read(byte[] b, int off, int len) 메서드 생성
+5. 반복문 int i = off, count = 0 변수 2개로 설정,  
+즉 시작은 off부터 저장, 복사 길이는 count로 len만큼 복사
+int b = read()로 읽어와 b가 -1 일 때 count가 0보다 크면 count 리턴 작으면 -1 리턴
+arr[i]에 (byte) b 저장, len 리턴
 ```
