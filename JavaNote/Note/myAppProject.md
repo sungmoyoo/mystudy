@@ -493,7 +493,7 @@ primitive Type/String -> DataOutputStream를 통해 byte[] 출력
 ```
 
 
-# 33.
+## 33.
 - 기존 방식과 buffer방식 성능 비교
 1. 기존 방식
 ```
@@ -526,7 +526,7 @@ write() -> Buffer -> HDD -> Buffer -> read()
 2. buffer 바이트배열 생성, size 초기화, cursor 초기화
 3. read() 메서드 오버라이딩: size가 0일 때 buffer를 read(), 만약 size가 음수면 -1 리턴, cursor를 0으로 설정하고 buffer[cusrsor++]  
 >주의
-byte 배열로 읽어온 것을 int로 바꿀 때(1바이트에서 4바이트로 바꾸는 과정), 바이트 값으로 봤을 때 음수일 경우 int로 리턴할 때도 음수가 된다. 이를 방지하기 위해 앞 3바이트를 0으로 처리하여 양수화시킨다. 
+byte 배열로 읽어온 것을 int로 바꿀 때(1바이트에서 4바이트로 바꾸는 과정), 바이트 값으로 봤을 때 음수일 경우 int로 리턴할 때도 음수가 된다. 이를 방지하기 위해 앞 3바이트를 0으로 처리하여 양수화시킨다.
 따라서 And 비트논리 연산자로 0xff를 필터링 해주어야 한다.
 
 4. read(byte[] b, int off, int len) 메서드 생성
@@ -534,4 +534,84 @@ byte 배열로 읽어온 것을 int로 바꿀 때(1바이트에서 4바이트로
 즉 시작은 off부터 저장, 복사 길이는 count로 len만큼 복사
 int b = read()로 읽어와 b가 -1 일 때 count가 0보다 크면 count 리턴 작으면 -1 리턴
 arr[i]에 (byte) b 저장, len 리턴
+```
+
+## 34.
+- 기존 IO 패키지 삭제
+- DataOutputStream으로 대체 -> FileOutputStream 덧붙인다.
+- DataInputStream도 동일
+
+
+## 35. 
+save
+- DataOutput -> ObjectOutput
+- out.writeUTF -> out.writeObject
+load
+- 따로 안하고 한번에 in.readObject() + 형변환하여 객체에 담음
+
+- write 빼고 리스트 통째로 출력해보기
+```
+List<> list레퍼런스에 , deserialize하여 담고 addAll로 list를 Repository에 담는다.
+or 
+prepareMenu 위치 변경
+List들 인스턴스 생성 안하도록 변경
+예외처리에서 List 객체 생성하도록 변경
+```
+
+## 36.
+**중복코드 제거**
+load, save 하나로 만들기
+- loadData1
+```
+1. 메서드에 대해서만 제네릭 선언
+2. 파라미터로 filepath, List<E> dataList
+3. list<E> list 생성하여 데이터 읽은 다음 dataList.addAll
+```
+- saveData
+```
+1. 파라미터로 filepath, List<?> dataList
+2. DataList write
+```
+- 예외 지우고, 인스턴스를 초기화문장에서 생성
+
+- loadData1 주석 처리
+
+- loadData2 
+```
+1. 리턴값을 List<E>로 바꿈
+2. 파라미터로 List가 아닌 Class<E> clazz 주어진다.
+3. 바로 리턴
+4. 예외 시 ArrayList<>() 생성
+이 방법은 예외 처리할 때마다 ArrayList<>() 생성한다는 게 단점
+5. class 빼보기 - 제네릭 이해
+```
+
+**serialVersionUID**
+1. vo에 static final long serialVersionUID 설정
+
+## 37.
+- FileWriter, FileReader로 수정
+
+- CsvString 인터페이스 생성: String toCsvString 메서드 정의
+
+- saveData 수정 
+```
+1. 파라미터로 List< ? extends CsvString>, 
+2. dataList CsvString csvObject foreach 
+```
+
+- toCsvString 구현: String.format 사용
+
+- loadData 수정
+```
+1. Scanner(FileReader) 데코레이터 역할 적용, 한줄씩 읽음
+2. 파라미터로 clazz 추가
+(reflect api?)
+3. 팩토리 메서드 준비: 
+-public static 타입 creatFromCsv(String csv){-}
+-스트링 배열에 split으로 구분해 담는다.
+-리턴할 객체 생성
+-객체에 set(배열[인덱스])
+4. 클래스 정보를 가지고 팩토리메서드를 알아낸다.
+5. 팩토리메서드에 csv문자열을 전달하고 객체를 리턴받는다.invoke
 ```

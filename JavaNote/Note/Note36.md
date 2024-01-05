@@ -49,3 +49,4 @@ BufferedInputStream in = new BufferedInputStreamFile(new FileInputStream("_"));
 DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("_")));
 ```
 DataInputStream은 바이트 스트림을 primitive 데이터 값을 읽어오는 데 사용되는 클래스이다. 여기서 BufferedInputStream을 주입받았기 때문에 버퍼 기능을 사용할 수 있고, BufferedInputStream은 FileInputStream을 의존 객체로 주입받았기 때문에 입력 핵심 기능인 read() 메서드를 오버라이딩하여 사용할 수 있다.
+

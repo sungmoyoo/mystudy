@@ -22,7 +22,7 @@ public class BufferedDataInputStream extends DataInputStream {
         return -1;
       }
     }
-    java.io.BufferedInputStream in;
+    
     return buffer[cursor++] & 0x000000ff;
     // 주의!
     // 바이트 값으로 봤을 때 음수일 경우 int로 리턴할 때도 음수가 된다.
