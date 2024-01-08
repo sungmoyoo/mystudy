@@ -589,6 +589,7 @@ load, save 하나로 만들기
 **serialVersionUID**
 1. vo에 static final long serialVersionUID 설정
 
+
 ## 37.
 - FileWriter, FileReader로 수정
 
@@ -614,4 +615,24 @@ load, save 하나로 만들기
 -객체에 set(배열[인덱스])
 4. 클래스 정보를 가지고 팩토리메서드를 알아낸다.
 5. 팩토리메서드에 csv문자열을 전달하고 객체를 리턴받는다.invoke
+```
+
+## 38.
+- JSON 입출력하기
+- build.gradle에 의존 라이브러리 추가
+- 파라미터 CsvString 제거 + 인터페이스 구현 다 제거
+- saveData
+```
+1. 성능을 위해 BufferedWriter 사용
+2. 날짜 형식 변경: GsonBuilder 클래스의 setDateFormat 설정 후 create로 gson 객체 생성. 객체에 dataList 리스트를 넣어 Json 형식으로 변환한 후 write
+```
+
+- loadData
+```
+1. BufferedReader 사용
+2. 로컬에서 사용할 것이기 때문에 가변 객체 StringBuilder 생성
+3. readLine이 null이 아니면 입력값 StringBuilder에 append
+4. GsonBuilder 클래스의 setDateFormat 설정 후 객체 생성, fromJson으로 객체를 생성하는데 StringBuilder 문자열과, TypeToken.getParameterized(ArrayList.class, clazz)를 넘긴다.
+5. NullPointerException은 삭제, While문에서 처리해주고 있어서
+6. 로딩 중 오류 발생하면 빈 ArrayList 리턴
 ```

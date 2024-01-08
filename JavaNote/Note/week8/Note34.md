@@ -1,5 +1,5 @@
 # inner class(non-static 중첩 클래스)
-
+---
 ## 클래스 정의와 인스턴스 생성
 컴파일러는 inner 클래스를 컴파일 할 때 다음과 같이
 - 바깥 클래스의 인스턴스 주소를 저장할 필드를 추가하고,
@@ -22,7 +22,7 @@
 
 **스태틱 중첩 클래스**
 ```
-public class Exam0711 {
+public class Exam {
 
   public static void main(String[] args) {
     Musics1 m1 = new Musics1();
@@ -71,7 +71,7 @@ class Musics1 {
 
 **논스태틱 중첩클래스**
 ```
-public class Exam0712 {
+public class Exam {
 
   public static void main(String[] args) {
     Musics2 m1 = new Musics2();

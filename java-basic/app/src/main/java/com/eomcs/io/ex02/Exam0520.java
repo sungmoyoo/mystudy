@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 public class Exam0520 {
 
   public static void main(String[] args) throws Exception {
-    FileInputStream in = new FileInputStream("sample/utf8.txt");
+    FileInputStream in = new FileInputStream("sample/ms949.txt");
 
     int b = 0;
 
