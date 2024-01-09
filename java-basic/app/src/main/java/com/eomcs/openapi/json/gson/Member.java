@@ -12,15 +12,12 @@ public class Member {
   private Date registeredDate;
   private School school;
 
-
-
   @Override
   public String toString() {
-    return "Member [no=" + no + ", fullname=" + fullname + ", email=" + email + ", password="
-        + password + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate
-        + ", school=" + school + "]";
+    return "Member [no=" + no + ", fullname=" + fullname + ", email=" + email + ", password=" + password
+        + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
   }
-  
+
   public int getNo() {
     return no;
   }

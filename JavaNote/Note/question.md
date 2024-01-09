@@ -51,3 +51,7 @@ if (jsonObject.get("position") != null) {
 ```
 
 여기서 `"position"`이라는 필드가 존재하면 `Manager` 클래스로, 존재하지 않으면 `Teacher` 클래스로 객체를 생성하고 있습니다. 따라서 JsonObject를 이용하여 JSON 데이터의 내용을 확인하고 그에 따라 적절한 객체를 생성하는 것이 이 코드에서의 목적입니다.
+
+복합 객체, 의존객체?
+Gson,Jackson setDateFormat 차이
+json.getAsJsonObject() 뭔지 모르겠다.

@@ -9,12 +9,7 @@ import com.google.gson.reflect.TypeToken;
 public class Exam0320 {
   public static void main(String[] args) {
 
-    String jsonStr = "[{\"no\":101,"
-        + "\"name\":\"홍길동\"},"
-        + "{\"no\":102,"
-        + "\"name\":\"임꺽정\"},"
-        + "{\"no\":103,"
-        + "\"name\":\"안창호\"}]";
+    String jsonStr = "[{\"no\":101,\"name\":\"홍길동\"},{\"no\":102,\"name\":\"임꺽정\"},{\"no\":103,\"name\":\"안창호\"}]";
 
     // 1) TypeToken 클래스의 서브 클래스를 만든다.
     class MyTypeToken extends TypeToken<Collection<Member>> {

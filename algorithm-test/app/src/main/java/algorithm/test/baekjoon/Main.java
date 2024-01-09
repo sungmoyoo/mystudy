@@ -5,34 +5,37 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.StringTokenizer;
 
 public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-// ArrayList contains을 활용한 방식
-//    int[] arr = new int[10];
-//    ArrayList<Integer> list = new ArrayList<>();
-//    for (int i = 0; i < 10; i++) {
-//      int n = Integer.parseInt(br.readLine());
-//      if (!list.contains(n % 42)) {
-//        list.add(n % 42);
-//      }
-//    }
-//    bw.write(list.size() + "\n");
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    int N = Integer.parseInt(st.nextToken());
+    int M = Integer.parseInt(st.nextToken());
     
-    
-// HashSet을 활용한 방식
-    Set<Integer> set = new HashSet<>();
-    
-    for (int i = 0; i < 10; i++) {
-      int n = Integer.parseInt(br.readLine());
-      set.add(n % 42);
+    int[] basket = new int[N]; 
+    int[] arr = new int[N];
+    for (int i = 0; i < N; i++) {
+      basket[i] = i+1;
     }
     
-    bw.write(set.size() + "\n");
+    
+    for (int n = 0; n < M; n++) {
+      st = new StringTokenizer(br.readLine());
+      int i = Integer.parseInt(st.nextToken());
+      int j = Integer.parseInt(st.nextToken());
+      
+      for (int a = i-1, b = j-1; a <= b ; a++, b--) {
+        int temp = basket[a];
+        basket[a] = basket[b];
+        basket[b] = temp;
+      }
+    }
+    for (int value : basket) {
+      bw.write(value + " ");
+    }
     
     bw.close();
     br.close();

@@ -15,6 +15,7 @@ import com.google.gson.JsonSerializer;
 public class Exam0114 {
   public static void main(String[] args) {
 
+    // 1) 객체 준비
     Member m = new Member();
     m.setNo(100);
     m.setName("홍길동");
@@ -25,10 +26,12 @@ public class Exam0114 {
     m.setRegisteredDate(new Date(System.currentTimeMillis()));
     m.setSchool(new School("학사", "비트대학교"));
 
-
+    // 2) JSON 처리 객체 준비
+    // - 메서드를 호출할 때 체인 방식으로 처리하기
+    // 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    // 익명클래스 + 메서드 체인 방식으로 호출
-    Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
           @Override
           public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
             return new JsonPrimitive(dateFormat.format(src));
@@ -42,7 +45,7 @@ public class Exam0114 {
         })
         .create();
 
-
+    // 3) 객체의 값을 JSON 문자열로 얻기
     String jsonStr = gson.toJson(m);
 
     System.out.println(jsonStr);
