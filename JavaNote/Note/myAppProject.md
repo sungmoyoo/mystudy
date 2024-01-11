@@ -636,3 +636,108 @@ load, save 하나로 만들기
 5. NullPointerException은 삭제, While문에서 처리해주고 있어서
 6. 로딩 중 오류 발생하면 빈 ArrayList 리턴
 ```
+
+## 39.
+- myapp.dao 패키지 생성
+- AbstractDao 추상클래스 생성
+```
+1. 제네릭 설정
+2. saveData/loadData 그대로 복사
+ArrayList<Board> list 변수 초기화
+```
+
+- saveData 변경
+```
+1. DataList 삭제
+2. catch문 삭제
+3. DAOException 클래스 생성
+4. RunTimeException 생성자 상속
+5. catch문 재생성, 예외 발생하면 DaoException throw하도록
+```
+
+- loadData 변경
+```
+1. void로 변경
+2. Class 정보 받는 파라미터 삭제
+3. return 하지 않고 list에 저장한다. 형변환도 ArrayList
+4. catch 문에서 DaoException 출력하도록 설정
+5. fromJson에 알아낸 타입 파라미터 정보를 넘긴다.
+```
+
+- 테스트클래스 생성
+```
+1. DaoTest 생성
+2. AbstractDao 상속
+3. 메인메서드 생성
+4. 객체 생성 후 테스트 메서드 호출
+```
+
+- 타입 파라미터 정보를 알아내는 방법
+```
+// 메서드를 호출한 클래스(DaoTest) 정보를 알아낸다.
+Class<?> clazz = this.getClass(); 
+
+// AbstractDao(수퍼클래스) 클래스의 정보를 알아낸다.
+ParameterizedType classInfoWithTypeParameters = (ParameterizedType) this.getClass().getGenericSuperclass(); 
+
+// AbstractDao에서 제네릭 타입을 알아내어 클래스로 변환, 출력
+Class<?> genericType = (Class) classInfoWithTypeParameters.getActualTypeArguments()[0];
+
+이후 쓸모없는 변수 삭제하고 체인 호출 방식으로 리팩토링
+```
+
+UI코드와 데이터 처리 코드를 분리하면 DAO의 재사용성이 높아진다.
+데이터 처리 코드를 분리하면 DAO를 바꿀때마다 Handler를 수정할 필요가 없어진다. 
+
+- Handler 생성자 수정(Objectrepository->xxxDao)
+- BoardDao에 add 메서드 추가
+- BoardDao에 delete 메서드 추가
+```
+1.Index 받아 삭제
+2.예외는 if로 처리
+```
+- BoardDao findAll 추가
+```
+1. iterater 삭제
+2. list 받고 반복문으로 출력
+```
+
+- BoardDao findby 추가
+- BoardDao update 추가
+```
+1. modify/view Handler findBy로 유효성 검사
+2. update로 set
+3. view는 findBy로 꺼낸 객체 출력
+```
+
+- app 수정
+```
+1. filepath 데이터 넘길 수 있도록 BoardDao, AbstractDao 생성자에 추가
+2. 생성자로 인스턴스 데이터 받았으니 loadData(), savaData() 파라미터 삭제
+3. Handler 파라미터로 Dao 객체 전달
+```
+
+- 고유 식별 값 추가
+```
+1. vo no 변수 추가
+2. toString 삭제
+3. setter/getter 추가
+4. no 포함한 toString 재생성
+5. json 파일에 no 설정
+6. BoardDao에 lastKey 추가, lastKey는 getLast에서 getter 사용
+7. 메서드 수정
+  - add: setNo 1 증가된 lastKey
+  - delete: 리스트만큼 반복문 돌면서 i의 key값이 no랑 같을 때 remove(i)
+  - findBy: 똑같은 조건의 반복문에서 list.get(i)
+  - update: 똑같은 조건의 반복문에서 set(i, board)
+8. 리팩토링
+  - indexOf 메서드 추가
+  - 중복 코드 수정
+```
+
+- 인터페이스로 DAO 객체 사용법을 정의, DAO 교체가 용이
+```
+1. BoardDao json 패키지에 복사
+2. 기존 BoardDao 인터페이스로 변경
+3. 
+```
