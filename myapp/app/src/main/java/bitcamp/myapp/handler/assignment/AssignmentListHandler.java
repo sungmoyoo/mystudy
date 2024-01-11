@@ -22,7 +22,6 @@ public class AssignmentListHandler extends AbstractMenuHandler {
     List<Assignment> list = assignmentDao.findAll();
 
     for (Assignment assignment : list) {
-
       System.out.printf("%-4d\t%-20s\t%s\n",
           assignment.getNo(),
           assignment.getTitle(),

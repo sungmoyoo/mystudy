@@ -14,7 +14,7 @@ public abstract class AbstractMenu implements Menu {
 
   @Override
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public String getMenuPath() {

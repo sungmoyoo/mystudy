@@ -22,7 +22,6 @@ public class MemberListHandler extends AbstractMenuHandler {
     List<Member> list = memberDao.findAll();
 
     for (Member member : list) {
-
       System.out.printf("%-4d\t%-10s\t%30s\t%4$tY-%4$tm-%4$td\n",
           member.getNo(),
           member.getName(),

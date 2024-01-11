@@ -31,5 +31,6 @@ public class BoardListHandler extends AbstractMenuHandler {
           board.getWriter(),
           board.getCreatedDate());
     }
+
   }
 }

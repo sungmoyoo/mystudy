@@ -16,11 +16,10 @@ public class MemberDeleteHandler extends AbstractMenuHandler {
   @Override
   protected void action() {
     int no = this.prompt.inputInt("번호? ");
-    if (this.memberDao.delete(no) == -1) {
-      System.out.println("회원 번호가 유효하지 않습니다.");
+    if (memberDao.delete(no) == -1) {
+      System.out.println("회원 번호가 유효하지 않습니다!");
     } else {
-      System.out.println("회원 정보를 삭제했습니다.");
+      System.out.println("회원을 삭제했습니다.");
     }
-
   }
 }

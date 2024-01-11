@@ -22,12 +22,12 @@ public class MenuItem extends AbstractMenu {
   }
 
   public void execute(Prompt prompt) {
-    try {
-      if (this.menuHandler != null) {
+    if (this.menuHandler != null) {
+      try {
         this.menuHandler.action(this);
+      } catch (Exception e) {
+        System.out.println("실행 오류!");
       }
-    } catch (Exception E) {
-      System.out.println("실행 오류");
     }
   }
 }

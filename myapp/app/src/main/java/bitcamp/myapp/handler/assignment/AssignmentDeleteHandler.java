@@ -15,12 +15,16 @@ public class AssignmentDeleteHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    int no = this.prompt.inputInt("번호? ");
-    if (this.assignmentDao.delete(no) == 0) {
-      System.out.println("과제 번호가 유효하지 않습니다.");
-    } else {
-      System.out.println("삭제했습니다.");
-    }
+    try {
+      int no = this.prompt.inputInt("번호? ");
+      if (assignmentDao.delete(no) == 0) {
+        System.out.println("과제 번호가 유효하지 않습니다!");
+      } else {
+        System.out.println("과제를 삭제했습니다.");
+      }
 
+    } catch (Exception e) {
+      System.out.println("삭제 오류!");
+    }
   }
 }

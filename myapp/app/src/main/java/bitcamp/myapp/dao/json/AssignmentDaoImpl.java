@@ -27,6 +27,7 @@ public class AssignmentDaoImpl extends AbstractDao<Assignment> implements Assign
     if (index == -1) {
       return 0;
     }
+
     list.remove(index);
     saveData();
     return 1;
@@ -39,33 +40,33 @@ public class AssignmentDaoImpl extends AbstractDao<Assignment> implements Assign
 
   @Override
   public Assignment findBy(int no) {
-
     int index = indexOf(no);
     if (index == -1) {
       return null;
     }
+
     return list.get(index);
   }
 
   @Override
-  public int update(int no, Assignment assignment) {
-    int index = indexOf(no);
+  public int update(Assignment assignment) {
+    int index = indexOf(assignment.getNo());
     if (index == -1) {
       return 0;
     }
+
     list.set(index, assignment);
     saveData();
     return 1;
-
   }
 
-
-  public int indexOf(int assignmentKey) {
+  private int indexOf(int no) {
     for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getNo() == assignmentKey) {
+      if (list.get(i).getNo() == no) {
         return i;
       }
     }
+
     return -1;
   }
 }

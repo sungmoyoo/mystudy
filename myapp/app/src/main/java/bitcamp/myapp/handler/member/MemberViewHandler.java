@@ -17,11 +17,13 @@ public class MemberViewHandler extends AbstractMenuHandler {
   @Override
   protected void action() {
     int no = this.prompt.inputInt("번호? ");
-    Member member = this.memberDao.findBy(no);
+    
+    Member member = memberDao.findBy(no);
     if (member == null) {
-      System.out.println("회원 번호가 유효하지 않습니다.");
+      System.out.println("회원 번호가 유효하지 않습니다!");
       return;
     }
+
     System.out.printf("번호: %d\n", member.getNo());
     System.out.printf("이메일: %s\n", member.getEmail());
     System.out.printf("이름: %s\n", member.getName());
