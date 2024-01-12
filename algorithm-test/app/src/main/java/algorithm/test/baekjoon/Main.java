@@ -11,10 +11,7 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     
-    String S = br.readLine();
-    int i = Integer.parseInt(br.readLine());
-    
-    bw.write(S.charAt(i-1) + "\n"); 
+    bw.write(br.readLine().length()+ "\n"); 
     
     bw.close();
     br.close();
