@@ -10,22 +10,15 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
 
   public BoardDaoImpl(String filepath) {
     super(filepath);
-    lastKey = list.getLast().getNo();
-  }
 
-  private int indexOf(int boardKey) {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getNo() == boardKey) {
-        return i;
-      }
-    }
-    return -1;
+    // 마지막 게시글의 식별 번호를 알아낸다.
+    lastKey = list.getLast().getNo();
   }
 
   @Override
   public void add(Board board) {
     board.setNo(++lastKey);
-    list.add(board);
+    this.list.add(board);
     saveData();
   }
 
@@ -35,6 +28,7 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
     if (index == -1) {
       return 0;
     }
+
     list.remove(index);
     saveData();
     return 1;
@@ -42,7 +36,7 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    return list.subList(0, list.size());
+    return this.list.subList(0, list.size());
   }
 
   @Override
@@ -55,13 +49,22 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
   }
 
   @Override
-  public int update(int no, Board board) {
-    int index = indexOf(no);
+  public int update(Board board) {
+    int index = indexOf(board.getNo());
     if (index == -1) {
       return 0;
     }
     list.set(index, board);
     saveData();
     return 1;
+  }
+
+  private int indexOf(int no) {
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i).getNo() == no) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

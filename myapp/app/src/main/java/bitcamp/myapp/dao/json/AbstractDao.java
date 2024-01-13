@@ -12,15 +12,15 @@ import java.util.ArrayList;
 
 public abstract class AbstractDao<T> {
 
+  protected ArrayList<T> list;
   private String filepath;
-  ArrayList<T> list;
 
   public AbstractDao(String filepath) {
     this.filepath = filepath;
     loadData();
   }
 
-  void loadData() {
+  protected void loadData() {
     try (BufferedReader in = new BufferedReader(new FileReader(filepath))) {
 
       // 파일에서 JSON 문자열을 모두 읽어서 버퍼에 저장한다.
@@ -42,17 +42,17 @@ public abstract class AbstractDao<T> {
           TypeToken.getParameterized(ArrayList.class, dataType));
 
     } catch (Exception e) {
-      throw new DaoException("데이터 로딩 중 오류 발생");
+      list = new ArrayList<>();
+      throw new DaoException("데이터 로딩 오류!", e);
     }
+
   }
 
-  void saveData() {
+  protected void saveData() {
     try (BufferedWriter out = new BufferedWriter(new FileWriter(filepath))) {
-
       out.write(new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list));
-
     } catch (Exception e) {
-      throw new DaoException("데이터 저장 중 오류 발생");
+      throw new DaoException("데이터 저장 오류!", e);
     }
   }
 }

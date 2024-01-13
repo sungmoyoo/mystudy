@@ -5,18 +5,15 @@ import java.util.List;
 
 public interface MemberDao {
 
-  void add(Member member);
+  public void add(Member member);
 
+  public int delete(int no);
 
-  int delete(int no);
+  public List<Member> findAll();
 
+  public Member findBy(int no);
 
-  List<Member> findAll();
+  public int update(Member member);
 
-
-  Member findBy(int no);
-
-
-  int update(Member member);
-
+  ;
 }

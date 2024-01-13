@@ -1,116 +1,93 @@
 package bitcamp.myapp;
 
+import bitcamp.menu.MenuGroup;
+import bitcamp.myapp.dao.AssignmentDao;
+import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.json.AssignmentDaoImpl;
 import bitcamp.myapp.dao.json.BoardDaoImpl;
 import bitcamp.myapp.dao.json.MemberDaoImpl;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.HashMap;
+import bitcamp.myapp.handler.HelpHandler;
+import bitcamp.myapp.handler.assignment.AssignmentAddHandler;
+import bitcamp.myapp.handler.assignment.AssignmentDeleteHandler;
+import bitcamp.myapp.handler.assignment.AssignmentListHandler;
+import bitcamp.myapp.handler.assignment.AssignmentModifyHandler;
+import bitcamp.myapp.handler.assignment.AssignmentViewHandler;
+import bitcamp.myapp.handler.board.BoardAddHandler;
+import bitcamp.myapp.handler.board.BoardDeleteHandler;
+import bitcamp.myapp.handler.board.BoardListHandler;
+import bitcamp.myapp.handler.board.BoardModifyHandler;
+import bitcamp.myapp.handler.board.BoardViewHandler;
+import bitcamp.myapp.handler.member.MemberAddHandler;
+import bitcamp.myapp.handler.member.MemberDeleteHandler;
+import bitcamp.myapp.handler.member.MemberListHandler;
+import bitcamp.myapp.handler.member.MemberModifyHandler;
+import bitcamp.myapp.handler.member.MemberViewHandler;
+import bitcamp.myapp.vo.Member;
+import bitcamp.util.Prompt;
 
-public class ServerApp {
+public class App {
 
-  HashMap<String, Object> daoMap = new HashMap<>();
-  Gson gson;
+  Prompt prompt = new Prompt(System.in);
 
-  public ServerApp() {
-    daoMap.put("board", new BoardDaoImpl("board.json"));
-    daoMap.put("greeting", new BoardDaoImpl("greeting.json"));
-    daoMap.put("assignment", new AssignmentDaoImpl("assignment.json"));
-    daoMap.put("member", new MemberDaoImpl("member.json"));
-    gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+  BoardDao boardDao = new BoardDaoImpl("board.json");
+  BoardDao greetingDao = new BoardDaoImpl("greeting.json");
+  AssignmentDao assignmentDao = new AssignmentDaoImpl("assignment.json");
+  MemberDao memberDao = new MemberDaoImpl("member.json");
+
+  MenuGroup mainMenu;
+
+  App() {
+    prepareMenu();
   }
 
   public static void main(String[] args) {
-    new ServerApp().run();
+    new App().run();
+  }
+
+  void prepareMenu() {
+    mainMenu = MenuGroup.getInstance("메인");
+
+    MenuGroup assignmentMenu = mainMenu.addGroup("과제");
+    assignmentMenu.addItem("등록", new AssignmentAddHandler(assignmentDao, prompt));
+    assignmentMenu.addItem("조회", new AssignmentViewHandler(assignmentDao, prompt));
+    assignmentMenu.addItem("변경", new AssignmentModifyHandler(assignmentDao, prompt));
+    assignmentMenu.addItem("삭제", new AssignmentDeleteHandler(assignmentDao, prompt));
+    assignmentMenu.addItem("목록", new AssignmentListHandler(assignmentDao, prompt));
+
+    MenuGroup boardMenu = mainMenu.addGroup("게시글");
+    boardMenu.addItem("등록", new BoardAddHandler(boardDao, prompt));
+    boardMenu.addItem("조회", new BoardViewHandler(boardDao, prompt));
+    boardMenu.addItem("변경", new BoardModifyHandler(boardDao, prompt));
+    boardMenu.addItem("삭제", new BoardDeleteHandler(boardDao, prompt));
+    boardMenu.addItem("목록", new BoardListHandler(boardDao, prompt));
+
+    MenuGroup memberMenu = mainMenu.addGroup("회원");
+    memberMenu.addItem("등록", new MemberAddHandler(memberDao, prompt));
+    memberMenu.addItem("조회", new MemberViewHandler(memberDao, prompt));
+    memberMenu.addItem("변경", new MemberModifyHandler(memberDao, prompt));
+    memberMenu.addItem("삭제", new MemberDeleteHandler(memberDao, prompt));
+    memberMenu.addItem("목록", new MemberListHandler(memberDao, prompt));
+
+    MenuGroup greetingMenu = mainMenu.addGroup("가입인사");
+    greetingMenu.addItem("등록", new BoardAddHandler(greetingDao, prompt));
+    greetingMenu.addItem("조회", new BoardViewHandler(greetingDao, prompt));
+    greetingMenu.addItem("변경", new BoardModifyHandler(greetingDao, prompt));
+    greetingMenu.addItem("삭제", new BoardDeleteHandler(greetingDao, prompt));
+    greetingMenu.addItem("목록", new BoardListHandler(greetingDao, prompt));
+
+    mainMenu.addItem("도움말", new HelpHandler(prompt));
   }
 
   void run() {
-    System.out.println("[과제관리 서버시스템]");
-    try {
-      // 1) 랜카드 연결 정보를 준비한다.
-      // => 랜카드와 연결하는 것은 실제 OS가 수행한다.
-      // => JVM은 OS가 작업한 결과를 가져온다.
-      // => new ServerSocket(포트번호)
-      // => 포트번호: 랜카드로 들어온 데이터를 받을 때 사용할 식별번호. 중복 불가.
-      ServerSocket serverSocket = new ServerSocket(8888);
-      System.out.println("서버 실행");
-
-      // 2) 클라이언트의 연결을 기다림
-      // => 클라이언트 대기 목록에서 먼저 연결된 순서대로 클라이언트 연결 정보를 꺼낸다.
-      // => 클라이언트 대기 목록에 아무것도 없다면 연결이 될 때까지 리턴하지 않고 기다린다.
-      System.out.println("클라이언트 연결을 기다리는 중..");
-      Socket socket = serverSocket.accept();
-      System.out.println("대기 목록에서 클라이언트 연결 정보를 꺼냈음!");
-
-      // 3) 클라이언트와 통신
-      DataInputStream in = new DataInputStream(socket.getInputStream());
-      DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
-      while (true) {
-        System.out.println("---------------------------------------------------------");
-        String dataName = in.readUTF();
-        String command = in.readUTF();
-        String value = in.readUTF();
-        System.out.println("클라이언트 요청");
-
-        // dataName으로 DAO를 찾는다
-        Object dao = daoMap.get(dataName);
-        System.out.printf("데이터: %s\n", dataName);
-
-        // command 이름으로 메서드를 찾는다.
-        Method[] methods = dao.getClass().getDeclaredMethods(); // 해당 클래스에만 선언된 메서드를 모두 가져온다.
-        Method commandHandler = null; //
-
-        for (Method method : methods) {
-          if (method.getName().equals(command)) {
-            commandHandler = method;
-            break;
-          }
-        }
-        System.out.printf("메서드: %s\n", commandHandler.getName());
-
-        // 메서드의 파라미터 정보를 알아낸다.
-        Parameter[] params = commandHandler.getParameters();
-        System.out.printf("파라미터 개수: %s\n", params.length);
-
-        // 메서드를 호출할 때 파라미터에 넘겨줄 데이터를 담을 배열을 준비한다.
-        Object[] args = new Object[params.length];
-
-        // 아규먼트 값 준비하기
-        // => 현재 모든 DAO의 메서드는 파라미터가 최대 1개만 있다.
-        // => 1개만 있다는 가정하에서 아규먼트 값을 준비한다.
-        if (params.length > 0) {
-          // 파라미터 타입을 알아낸다.
-          Class<?> paramType = params[0].getType();
-
-          // 클라이언트가 보낸 Json 문자열을 해당 파라미터 타입 객체로 변환한다.
-          Object paramValue = gson.fromJson(value, paramType);
-
-          // 아규먼트 배열에 저장한다.
-          args[0] = paramValue;
-        }
-
-        // 메서드의 리턴 타입을 알아낸다.
-        Class<?> returnType = commandHandler.getReturnType();
-        System.out.printf("리턴타입: %s\n", returnType.getName());
-
-        // 메서드를 호출한다.
-        Object returnValue = commandHandler.invoke(dao, args);
-        System.out.printf("리턴값: : %s\n", returnValue);
-
-        out.writeUTF("200");
-        out.writeUTF(gson.toJson(returnValue));
-        System.out.println("클라이언트로 데이터 전송");
+    while (true) {
+      try {
+        mainMenu.execute(prompt);
+        prompt.close();
+        break;
+      } catch (Exception e) {
+        System.out.println("예외 발생!");
       }
-    } catch (Exception e) {
-      System.out.println("통신 오류");
-      e.printStackTrace();
     }
   }
 }

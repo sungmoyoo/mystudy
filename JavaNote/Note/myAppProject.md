@@ -816,5 +816,6 @@ ServerApp
 - invoke 메서드를 통해 commandHandler에 저장된 메서드를 호출
 - 파라미터로는 해당 메서드를 가진 객체, 파라미터(아규먼트) 배열를 넣어주면 된다.
 13. 리턴값을 Json형식으로 변환하여 write
-
 ```
+
+- 마지막으로 ServerApp, ClientApp에 new 인스턴스 생성 후 run() 메서드 호출 확인

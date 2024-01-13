@@ -12,7 +12,7 @@ public class Board implements Serializable {
   private String content;
   private String writer;
   private Date createdDate;
-
+  
   @Override
   public String toString() {
     return "Board{" +
