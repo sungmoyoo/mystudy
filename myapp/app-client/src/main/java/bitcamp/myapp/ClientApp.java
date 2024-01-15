@@ -4,9 +4,9 @@ import bitcamp.menu.MenuGroup;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.json.AssignmentDaoImpl;
-import bitcamp.myapp.dao.json.BoardDaoImpl;
-import bitcamp.myapp.dao.json.MemberDaoImpl;
+import bitcamp.myapp.dao.network.AssignmentDaoImpl;
+import bitcamp.myapp.dao.network.BoardDaoImpl;
+import bitcamp.myapp.dao.network.MemberDaoImpl;
 import bitcamp.myapp.handler.HelpHandler;
 import bitcamp.myapp.handler.assignment.AssignmentAddHandler;
 import bitcamp.myapp.handler.assignment.AssignmentDeleteHandler;
@@ -23,26 +23,54 @@ import bitcamp.myapp.handler.member.MemberDeleteHandler;
 import bitcamp.myapp.handler.member.MemberListHandler;
 import bitcamp.myapp.handler.member.MemberModifyHandler;
 import bitcamp.myapp.handler.member.MemberViewHandler;
-import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 
-public class App {
+public class ClientApp {
 
   Prompt prompt = new Prompt(System.in);
 
-  BoardDao boardDao = new BoardDaoImpl("board.json");
-  BoardDao greetingDao = new BoardDaoImpl("greeting.json");
-  AssignmentDao assignmentDao = new AssignmentDaoImpl("assignment.json");
-  MemberDao memberDao = new MemberDaoImpl("member.json");
+
+  BoardDao boardDao;
+  BoardDao greetingDao;
+  AssignmentDao assignmentDao;
+  MemberDao memberDao;
 
   MenuGroup mainMenu;
 
-  App() {
+  Socket socket;
+  DataInputStream in;
+  DataOutputStream out;
+
+  ClientApp() {
+    prepareNetwork();
     prepareMenu();
   }
 
   public static void main(String[] args) {
-    new App().run();
+    System.out.println("[과제관리 시스템]");
+    new ClientApp().run();
+  }
+
+  void prepareNetwork() {
+    try {
+      socket = new Socket("localhost", 8888);
+      System.out.println("서버와 연결되었음!");
+
+      in = new DataInputStream(socket.getInputStream());
+      out = new DataOutputStream(socket.getOutputStream());
+
+      boardDao = new BoardDaoImpl("board", in, out);
+      greetingDao = new BoardDaoImpl("greeting", in, out);
+      assignmentDao = new AssignmentDaoImpl("assignment", in, out);
+      memberDao = new MemberDaoImpl("member", in, out);
+
+    } catch (Exception e) {
+      System.out.println("통신 오류!");
+      e.printStackTrace();
+    }
   }
 
   void prepareMenu() {
@@ -84,10 +112,22 @@ public class App {
       try {
         mainMenu.execute(prompt);
         prompt.close();
+        close();
         break;
       } catch (Exception e) {
         System.out.println("예외 발생!");
       }
+    }
+  }
+
+  void close() {
+    try (Socket socket = this.socket;
+        DataInputStream in = this.in;
+        DataOutputStream out = this.out) {
+      out.writeUTF("quit");
+      System.out.println(in.readUTF());
+    } catch (Exception e) {
+      //
     }
   }
 }

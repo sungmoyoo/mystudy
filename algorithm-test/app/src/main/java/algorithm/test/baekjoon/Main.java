@@ -11,14 +11,18 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     
-    int T = Integer.parseInt(br.readLine());
+    int N = Integer.parseInt(br.readLine());
+    String s = br.readLine();
+    String[] arr = s.split("");
     
-    for (int i = 0; i < T; i++) {
-      String str = br.readLine();
-      bw.write(str.charAt(0));
-      bw.write(str.charAt(str.length()-1) + "\n");
+    int sum = 0;
+    
+    for (int i = 0; i < N; i++) {
+      sum += Integer.parseInt(arr[i]);
     }
-    
+   
+    bw.write(sum + "\n");
+
     bw.close();
     br.close();
   }

@@ -779,10 +779,12 @@ run() 메서드
 - 네트워크 DAO 구현
 ```
 1. DaoImpl 그대로 복사해서 network 패키지에 생성
-2. Client에 필요없는 파일 삭제: json패키지
+2. Client에 필요없는 파일 삭제 json패키지
 3. 생성자 4개(dataName, in, out)- 파라미터 + gson 객체 생성
 4. try catch 모두 적용
 5. add~update 구현 , IndexOf 삭제
+- add: write 요청형식에 따라 요청, 상태코드 정상 아닐 경우에 리턴받는 entity throw Exception
+- delete: 
 ```
 
 - ClientApp/ServerApp 네트워크DAO 적용
@@ -819,3 +821,74 @@ ServerApp
 ```
 
 - 마지막으로 ServerApp, ClientApp에 new 인스턴스 생성 후 run() 메서드 호출 확인
+
+- 리팩토링, ServerApp 반복/종료 처리
+
+```
+ServerApp
+1. findMethod 메서드 생성, 파라미터(clazz, name)
+  - command 이름으로 메서드 찾는 명령 잘붙, Return 수정
+  - 본문에 findMethod 사용, + 요청값 틀릴경우 상태코드 400 리턴
+2. DAO찾는 경우에도 상태코드 에러 설정
+3. getArguments(method, json) 메서드 생성
+- 파라미터 찾고 배열 만드는 부분 잘붙
+- Object 배열 리턴
+4. findMethod RuntimeException 예외 throw
+5. 본문에서 예외 try ~ catch로 받아 응답코드 400, e.getMessage() 리턴 => if 삭제
+6. bitcamp에 RequestException 클래스 생성, RuntimeException 상속받아 세밀하게 예외 처리
+7. dao 찾을 때는 따로 if로 Request throw, 서버 쪽 문제가 발생할 경우 catch로 응답코드 500 리턴
+8. processRequest(DataInputStream, DataOutputStream) 메서드 생성
+- while문 안 내용 전부 잘붙
+9. service(Socket) 메서드 생성
+- Data I/O 입출력 객체 생성, processRequest 반복문 넣기
+- serverSocket.accept() service 파라미터로 넣고 무한 반복
+10. service에 try~catch 처리(클라이언트 연결 오류)
+
+ClientApp
+1. Socket. Data I/O 인스턴스 필드화
+2. close() 메서드 생성
+- try with resources 처리 - (this.socket, this.in, this.out)
+- writeUTF("quit") 하고 in.readUTF 출력
+- 예외 발생한 경우는 무시
+
+ServerApp
+1. processRequest에서 dataName 요청값이 quit인 경우 return -1 아니면 0
+2. service도 리턴값이 -1일 경우 반복문 종료, service의 try문도 try with resources로 변경
+- 쓰지도 않는 Socket s를 왜 넣었나? = 너무 길어지니까
+```
+
+
+41. 공통 기능을 서브 프로젝트로 분리하기 
+- temp 에 gradle init (참고용)
+- app-common 서브 프로젝트 폴더 생성
+- setting.gradle에 app-common include 추가
+- app-server build.gradle app-common에 복붙
+- app-client src app-common에 복붙
+- build.gradle 수정
+```
+1. id 'java-library'로 수정
+2. application, eclipse 설정, Run 설정 삭제
+3. server, client도 eclipse 설정 삭제
+4. app-client/server의 dependencies에 implementation project(':app-common') 추가
+```
+
+- app-common 수정
+```
+1.client와 관련된 클래스, 패키지 모두 삭제
+```
+
+- app-client/app-server 수정
+```
+1. vo 패키지 삭제
+2. dao 인터페이스 삭제
+```
+- gradle clean/build 
+
+- app-api 서브 프로젝트 생성: app-server에서 제공하는 DAO 객체의 stub을 분리
+```
+1. build.gradle id 'java-library'
+2. app-client가 포함
+3. app-client DAO stub 삭제
+4. app-api 필요 없는 파일 삭제
+```
+- gradle clean/build 
