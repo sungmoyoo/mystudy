@@ -3,10 +3,8 @@ package bitcamp.myapp;
 import bitcamp.menu.MenuGroup;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.DaoProxyGenerator;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.network.AssignmentDaoImpl;
-import bitcamp.myapp.dao.network.BoardDaoImpl;
-import bitcamp.myapp.dao.network.MemberDaoImpl;
 import bitcamp.myapp.handler.HelpHandler;
 import bitcamp.myapp.handler.assignment.AssignmentAddHandler;
 import bitcamp.myapp.handler.assignment.AssignmentDeleteHandler;
@@ -56,16 +54,13 @@ public class ClientApp {
 
   void prepareNetwork() {
     try {
-      socket = new Socket("localhost", 8888);
-      System.out.println("서버와 연결되었음!");
+      DaoProxyGenerator daoGenerator = new DaoProxyGenerator("localhost", 8888);
 
-      in = new DataInputStream(socket.getInputStream());
-      out = new DataOutputStream(socket.getOutputStream());
+      boardDao = daoGenerator.create(BoardDao.class, "board");
+      greetingDao = daoGenerator.create(BoardDao.class, "greeting");
+      assignmentDao = daoGenerator.create(AssignmentDao.class, "assignment");
+      memberDao = daoGenerator.create(MemberDao.class, "member");
 
-      boardDao = new BoardDaoImpl("board", in, out);
-      greetingDao = new BoardDaoImpl("greeting", in, out);
-      assignmentDao = new AssignmentDaoImpl("assignment", in, out);
-      memberDao = new MemberDaoImpl("member", in, out);
 
     } catch (Exception e) {
       System.out.println("통신 오류!");
@@ -112,7 +107,6 @@ public class ClientApp {
       try {
         mainMenu.execute(prompt);
         prompt.close();
-        close();
         break;
       } catch (Exception e) {
         System.out.println("예외 발생!");
@@ -120,14 +114,5 @@ public class ClientApp {
     }
   }
 
-  void close() {
-    try (Socket socket = this.socket;
-        DataInputStream in = this.in;
-        DataOutputStream out = this.out) {
-      out.writeUTF("quit");
-      System.out.println(in.readUTF());
-    } catch (Exception e) {
-      //
-    }
-  }
+
 }

@@ -892,3 +892,33 @@ ServerApp
 4. app-api 필요 없는 파일 삭제
 ```
 - gradle clean/build 
+
+42. DAO프록시 객체 자동생성
+- app-api dao패키지에 daoProxyGenerator 클래스 생성
+- T를 리턴하는 create(Class<T> clazz, String dataName) 메서드 생성
+```
+0. Data I/O Stream private 변수 생성자로 받기, gson빌더 생성자에 생성
+1. T타입의 Proxy.newProxyInstance를 리턴하는 익명클래스 작성
+2. functional ? 람다 문법 사용
+3. DAO 코드 복붙 후 수정
+- out.writeUTF 메서드명은 method.getName()으로 변경, 만약 args가 0인 경우 빈문자열 아니면 0번째 인덱스를 toJson하여 writeUTF
+4. return은 getReturnType을 해서 알아내 해당 타입으로 리턴
+- 주의! 리턴타입이 어떤 건지에 따라 다르게 리턴해주어야 함
+- 리스트, 클래스, 등
+```
+
+ClientApp 
+- Factory 메서드 방식으로 객체 생성
+
+
+43. Stateless 통신 방식
+ServerApp
+- processRequest 반복 삭제, return 타입 삭제
+- quit 받는것 삭제
+
+DaoProxyGenerator
+- 생성자 수정, (String host, int port)
+- try with resource를 통해 서버에 연결할 때마다 Socket을 연결하고 입출력 객체 생성하도록 변경
+
+ClientApp
+- 
