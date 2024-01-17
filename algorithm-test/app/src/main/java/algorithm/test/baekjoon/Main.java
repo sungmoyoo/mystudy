@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 
@@ -19,17 +18,19 @@ public class Main {
       StringTokenizer st = new StringTokenizer(br.readLine());
       int R = Integer.parseInt(st.nextToken());
       String S = st.nextToken();
-      
-      for (int j = 0; j < R-1; j++) {
-        S.concat(S);
-      }
+    
       char[] arr = S.toCharArray();
-      Arrays.sort(arr);
+      
+      StringBuilder strBuilder = new StringBuilder();
       
       for (char value : arr) {
-        bw.write(value);
+        for (int j = 0; j < R; j++) {
+          strBuilder.append(value);
+        }
       }
       
+      bw.write(strBuilder.toString());
+      bw.write("\n");
     }
     
     bw.close();

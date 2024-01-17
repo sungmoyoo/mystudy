@@ -5,17 +5,13 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class Exam0730 {
-
-  public static void main(String[] args) throws Exception {
-
+  public static void main(String[] args) {
     File dir = new File("bin/main");
-    System.out.println(dir.getCanonicalPath());
-
+    
     printClasses(dir);
   }
 
   static void printClasses(File dir) {
-
     File[] files = dir.listFiles(new FileFilter() {
       @Override
       public boolean accept(File pathname) {
