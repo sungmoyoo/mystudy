@@ -15,7 +15,7 @@ public class Exam0110 {
 
     // 1) 문자 단위로 출력할 도구 준비
     FileWriter out = new FileWriter("temp/test2.txt");
-
+    
     // 2) 문자 출력하기
     // - JVM은 문자 데이터를 다룰 때 UCS2(UTF16BE, 2바이트) 유니코드를 사용한다.
     // - character stream 클래스 FileWriter는 문자 데이터를 출력할 때

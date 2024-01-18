@@ -921,4 +921,5 @@ DaoProxyGenerator
 - try with resource를 통해 서버에 연결할 때마다 Socket을 연결하고 입출력 객체 생성하도록 변경
 
 ClientApp
-- 
+- 호스트랑 포트번호를 파라미터로 넘기고 소켓 연결 부분을 삭제
+- close() 메서드 필요 없어져서 삭제
