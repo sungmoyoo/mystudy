@@ -923,3 +923,22 @@ DaoProxyGenerator
 ClientApp
 - 호스트랑 포트번호를 파라미터로 넘기고 소켓 연결 부분을 삭제
 - close() 메서드 필요 없어져서 삭제
+
+
+4. 여러 클라이언트 요청 동시 처리: Thread
+run() 메서드의 service() 호출을 별도로 하기 위해
+ServerApp 수정
+
+**방법1**
+- Thread를 상속받아 non-static nested class 생성
+```
+1. socket 생성자로 받는다.
+
+```
+
+**방법2**
+
+
+**리팩토링**
+- 인터페이스 구현체 익명클래스로 변경
+- fucntional interface 람다 변환

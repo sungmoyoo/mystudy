@@ -34,12 +34,18 @@ public class Server0140 {
               out.println("Goodbye!");
               out.flush();
               break;
-            } else if (name.equalsIgnoreCase("stop")
-                // localhost 에서만 서버를 멈출 수 있다.
-                && inetAddr.getHostAddress().equals("127.0.0.1")) { // 서버 종료하기
+            } else if (name.equalsIgnoreCase("stop")) {
+                
               out.println("Goodbye!");
               out.flush();
-              break loop;
+           
+              // localhost 에서만 서버를 멈출 수 있다.
+              if (inetAddr.getHostAddress().equals("localhost")) { // 서버 종료하기
+                break loop;
+              } else {
+                break; // 클라이언트 연결만 끊는다.
+              }
+              
             }
 
             out.printf("%s 님 반갑습니다!\n", name);
@@ -47,6 +53,8 @@ public class Server0140 {
           }
         } catch (Exception e) {
           System.out.println("클라이언트와 통신 도중 오류 발생!");
+          e.printStackTrace();
+          
         }
         System.out.println("클라이언트와의 연결을 끊었음.");
       }
