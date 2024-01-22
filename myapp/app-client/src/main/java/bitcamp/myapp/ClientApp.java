@@ -22,14 +22,10 @@ import bitcamp.myapp.handler.member.MemberListHandler;
 import bitcamp.myapp.handler.member.MemberModifyHandler;
 import bitcamp.myapp.handler.member.MemberViewHandler;
 import bitcamp.util.Prompt;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
 
 public class ClientApp {
 
   Prompt prompt = new Prompt(System.in);
-
 
   BoardDao boardDao;
   BoardDao greetingDao;
@@ -37,10 +33,6 @@ public class ClientApp {
   MemberDao memberDao;
 
   MenuGroup mainMenu;
-
-  Socket socket;
-  DataInputStream in;
-  DataOutputStream out;
 
   ClientApp() {
     prepareNetwork();
@@ -60,7 +52,6 @@ public class ClientApp {
       greetingDao = daoGenerator.create(BoardDao.class, "greeting");
       assignmentDao = daoGenerator.create(AssignmentDao.class, "assignment");
       memberDao = daoGenerator.create(MemberDao.class, "member");
-
 
     } catch (Exception e) {
       System.out.println("통신 오류!");
@@ -113,6 +104,5 @@ public class ClientApp {
       }
     }
   }
-
 
 }

@@ -41,7 +41,7 @@
 - Scanner는 IOException을 숨긴다.
 - BufferedReader는 IOException을 던진다. 따라서 throws로 예외처리해주어야 한다.
 
-```
+```java
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

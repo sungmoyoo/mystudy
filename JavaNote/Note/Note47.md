@@ -178,22 +178,78 @@ while (true) {
 ```
 
 ## 클라이언트 요청 문제
-Stateful이나 Stateless에 상관없이 Single Thread인 경우 
+Stateful나 Stateless는 요청/응답이 종료될 때까지 다른 클라이언트들은 기다려야 하는 문제가 있다. 해당 문제는 Single Thread이기 때문에 발생한다. 
 
+예를 들어 카페의 키오스크를 빗대어 표현하면, 키오스크가 한 대만 존재한다고 볼 수 있다. 주문을 여러번 반복하던 한번만 하던 주문을 완료하지 못하면 뒤의 손님이 이용 못하는 것과 같은 개념이라고 볼 수 있다.
 
+이를 해결하기 위해서는 키오스크를 여러 대 두는 Multi Thread를 적용하면 된다.
+
+Multi Thread를 적용해보기 전에 Thread의 개념을 먼저 알아보자.
 
 # Thread
 ## Thread의 개념
-기본 실행흐름이다.
+기본 실행흐름이다. 각 프로세스는 최소한 하나의 Thread를 가지고 있는데, 이를 Main Thread라고 한다. Main Thread는 프로그램이 시작될 때 자동으로 생성되며, 프로그램이 종료될 때까지 실행을 담당한다. 
+
+<img src="../img/Thread.png">
+
+Main Thread는 프로그램의 진입점 역할을 하며 실행이 시작되면 해당 코드를 순차적으로 실행한다. 이 때 진입하는 곳이 main() 메서드이며 다른 메서드에 진입하더라도 프로그램을 종료할 때는 리턴되어 main()메서드에서만 종료된다. 
 
 ## Multi Thread
+Thread는 각각 독립적으로 실행되며 병렬적으로 동작한다. 즉 여러 작업을 동시에 처리할 수 있다. 이러한 방식을 Multi Thread라고 한다.
 
-## 스레드 만들기
+<img src="../img/Multi Thread.png">
+
+## 스레드 만들기 
+1. Thread를 상속받는 클래스를 생성한다.
+2. run() 메서드를 오버라이딩한다.
+3. 메서드 바디에 요청 처리 코드를 작성
+```java
+class MyThread extends Thread {
+  @Override void run() {
+    // main 실행흐름과 분리해서 독립적으로 실행하고 싶은 코드
+  }
+}
+```
 
 ## 스레드 실행
 **방법1**
 부모스레드로부터 실행을 분리하여 run()을 호출한다.
+```java
+public static void main(String[] args) {
+  MyThread t = new MyThread();
+  t.start();
+}
+```
 
 **방법2**
 부모스레드에 실행을 분리하고 t.run()을 호출한 다음 r.run() 호출하는 방법
 Runnable 인터페이스를 구현체를 사용한다.
+```java
+MyRunnable r = new MyRunnable();
+Thread t = new Thread(r);
+t.start();
+```
+
+## 리팩토링
+방법2에서 인터페이스 구현체를 한번만 사용하고자 할 때 익명클래스를 사용하여 코드의 가독성을 높이고 불필요한 클래스 정의를 피할 수 있다.
+
+```java
+public static void main(String[] args) {
+  new Thread(new Runnable() {
+    @Override
+    public void run() {
+      // main 실행흐름과 분리해서 독립적으로 실행하고 싶은 코드
+    }
+  }).start();
+}
+```
+
+하나의 추상 메서드만 가지는 Functional Interface이면 람다 표현식으로 작성할 수 있다.
+```java
+public static void main(String[] args) {
+  new Thread(() -> {
+      // main 실행흐름과 분리해서 독립적으로 실행하고 싶은 코드
+    }
+  }).start();
+}
+```

@@ -929,15 +929,17 @@ ClientApp
 run() 메서드의 service() 호출을 별도로 하기 위해
 ServerApp 수정
 
-**방법1**
-- Thread를 상속받아 non-static nested class 생성
+- Thread를 상속받아 non-static nested class RequestProcessor 생성
 ```
 1. socket 생성자로 받는다.
-
+2. run()을 오버라이딩
+3. main 실행흐름과 분리해서 독립적으로 실행하고 싶은 코드를 둔다
 ```
+**실행방법1**
+부모 스레드로부터 실행을 분리하여 run()을 호출한다.
 
-**방법2**
-
+**실행방법2**
+Runnable 인터페이스를 구현체를 Thread의 파라미터로 넘겨 생성한 객체를 실행하는 방법
 
 **리팩토링**
 - 인터페이스 구현체 익명클래스로 변경

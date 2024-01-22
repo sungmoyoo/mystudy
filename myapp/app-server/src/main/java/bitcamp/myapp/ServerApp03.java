@@ -15,12 +15,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-public class ServerApp01 {
+public class ServerApp03 {
 
   HashMap<String, Object> daoMap = new HashMap<>();
   Gson gson;
 
-  public ServerApp01() {
+  public ServerApp03() {
     daoMap.put("board", new BoardDaoImpl("board.json"));
     daoMap.put("greeting", new BoardDaoImpl("greeting.json"));
     daoMap.put("assignment", new AssignmentDaoImpl("assignment.json"));
@@ -30,7 +30,7 @@ public class ServerApp01 {
   }
 
   public static void main(String[] args) {
-    new ServerApp01().run();
+    new ServerApp03().run();
   }
 
   void run() {
@@ -41,7 +41,18 @@ public class ServerApp01 {
       System.out.println("서버 실행!");
 
       while (true) {
-        new RequestProcessor(serverSocket.accept()).start();
+        Socket socket = serverSocket.accept();
+        new Thread(new Runnable() {
+          @Override
+          public void run() {
+            try {
+              ServerApp03.this.service(socket);
+            } catch (Exception e) {
+              System.out.println("클라이언트 요청 처리 중 오류 발생!");
+              e.printStackTrace();
+            }
+          }
+        }).start();
       }
 
     } catch (Exception e) {
@@ -129,26 +140,5 @@ public class ServerApp01 {
     }
 
     return args;
-  }
-
-  // non-static nested class(inner class)는 바깥 클래스(enclosing class)의 인스턴스 주소를
-  // 자동으로 받는다. => 바깥 클래스의 인스턴스 멤버를 자기꺼처럼 사용할 수 있다.
-  class RequestProcessor extends Thread {
-
-    Socket socket;
-
-    RequestProcessor(Socket socket) {
-      this.socket = socket;
-    }
-
-    @Override
-    public void run() {
-      try {
-        ServerApp01.this.service(socket);
-      } catch (Exception e) {
-        System.out.println("클라이언트 요청 처리 중 오류 발생!");
-        e.printStackTrace();
-      }
-    }
   }
 }

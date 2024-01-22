@@ -31,4 +31,3 @@ tasks.withType(JavaCompile).configureEach {
     // $javac -encoding UTF-8 ..
     options.encoding = 'UTF-8'
 }
-

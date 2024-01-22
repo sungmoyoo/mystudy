@@ -10,7 +10,7 @@ dependencies {
     // VO 객체와 DAO 인터페이스
     implementation project(':app-common')
 
-    // DAO stub 객체
+    // DAO Stub 객체
     implementation project(':app-api')
 
     // JSON 라이브러리
