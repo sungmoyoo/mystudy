@@ -1,5 +1,9 @@
 # Connection-Oriented(TCP)
-TCP는 Connection-Oriented 방식으로 동작하며, 상태 유무에 따라 Stateful 또는 Stateless의 특성을 가질 수 있다. 
+**연결지향**
+연결 후에 데이터를 송수신 하기 때문에 데이터 송수신에 대한 신뢰를 보장한다.
+
+- TCP 통신 방법이 전형적인 예이다.
+- TCP는 상태 유무에 따라 Stateful 또는 Stateless의 특성을 가질 수 있다. 
 
 ---
 
