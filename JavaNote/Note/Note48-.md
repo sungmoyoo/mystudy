@@ -366,5 +366,4 @@ byte[] bytes2 = decoder.decode(base64Bytes);
 System.out.println(new String(bytes2, "UTF-8"));
 ```
 
-# 병행 처리
 
