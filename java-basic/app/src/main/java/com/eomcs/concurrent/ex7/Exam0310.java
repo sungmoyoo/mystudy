@@ -39,6 +39,8 @@ public class Exam0310 {
     // => 수행한 작업의 종료 여부를 확인할 수 없다.
     executorService.execute(new MyRunnable(6000));
 
+    executorService.shutdown();
+
     System.out.println("main() 종료!");
   }
 }

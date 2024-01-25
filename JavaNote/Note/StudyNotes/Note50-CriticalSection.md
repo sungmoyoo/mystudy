@@ -1,4 +1,4 @@
-# 스레드
+# 스레드 2
 
 ## 스레드 생명주기(Lifecycle)
 ```
@@ -301,4 +301,4 @@ public class Exam610 {
 <img src="../img/synchronized2.png">
 따라서 이를 동기화하려면 세 메서드 모두 synchronized 키워드를 선언해야 한다. 
 
->결국 synchronized 사용 시 가장 핵심이 되는 점은 Critical Section이 발생할 때 선언해야 하는 단위가 메서드가 아니라 객체 또는 스태틱 변수라는 것이다. 
+>결국 synchronized 사용 시 가장 핵심이 되는 점은 Critical Section이 발생할 때 메서드가 아니라 객체 또는 스태틱 변수 수준에서 선언을 고려해야 한다는 것이다.

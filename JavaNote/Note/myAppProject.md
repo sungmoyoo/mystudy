@@ -944,3 +944,86 @@ Runnable 인터페이스를 구현체를 Thread의 파라미터로 넘겨 생성
 **리팩토링**
 - 인터페이스 구현체 익명클래스로 변경
 - fucntional interface 람다 변환
+
+45. 
+**Pooling 기법을 활용하여 스레드 관리**
+- 서버에 util 패키지 생성
+- ThreadPool, WorkerThread 클래스 생성
+- Worker 인터페이스 생성
+Worker
+```
+1. void play() 메서드 
+```
+
+WorkerThread
+```
+1. Thread 상속
+2. setWorker에 Worker를 받는다.
+3. run() 메서드 오버라이딩 한 후 try catch
+4. try문 안에 반복문 넣고 this.wait()
+5. setWorker에 this.notify()
+6. wait()에 synchronized (this) 
+```
+
+ThreadPool
+```
+0. WorkerThread를 담는 ArrayList 생성
+1. WorkerThread를 리턴하는 get() 메서드 생성
+- 사이즈가 0보다 클 경우 list.remove(0)
+- 없으면 새 WorkerThread(this) 생성하여 리턴
+2. 반납 받는 revert(WorkerThread) 생성
+- list에 add
+```
+
+WorkerThread
+```
+1. ThreadPool을 생성자로 받는다.
+2. 작업을 완료했으면 pool.revert(this)
+```
+
+// 쌍방 참조 개선
+- Pooling<E> 인터페이스 생성
+```
+1. E get();
+2. void revert(E e);
+```
+
+ThreadPool
+```
+1. Pooling<WorkerThread> 구현
+2. 메서드 오버라이드
+```
+
+WorkerThread
+```
+1. ThreadPool을 Pooling으로 교체
+```
+
+// ServerApp 적용
+- 변수초기화 문장 ThreadPool 객체 생성
+- run에 적용
+```
+1. Threadpool 객체 생성
+2. run()메서드 threadpool.get()
+3. setWorker(Worker 구현)
+4. 리팩토링
+5. 클라이언트 연결/종료 포맷팅- 스레드명 출력하도록
+```
+
+// 스레드 미리 만들어두기
+ThreadPool
+- create() 메서드 생성
+```
+1. WorkerThread 객체 생성하여 start()
+2. try catch문에서 Thread.sleep(), 스레드가 wait할 시간 확보
+3. 스레드 리턴
+```
+
+- 생성자로 초기사이즈(initSize) 받기
+```
+1. 기본 생성자 생성, 매개변수 없는 ThreadPool 만들 수도 있어서
+2. 초기사이즈를 파라미터로 받는 생성자 생성
+  - 만약 초기사이즈가 0보다 작거나, 100이 넘어가면 그냥 return
+  - 초기사이즈만큼 반복해서 WorkerThread 객체 생성하여 list에 추가
+3. ServerApp에서 초기사이즈 주면 됨
+```

@@ -50,6 +50,8 @@ public class Exam0220 {
     //
     executorService.execute(new MyRunnable(4000));
 
+    executorService.shutdown();
+
     System.out.println("main() 종료!");
   }
 }

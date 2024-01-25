@@ -50,3 +50,20 @@
 ### 14. context switching에 대해 설명할 수 있는가?
 
 
+# 50일차 (2024-01-24, 수)
+### 1. 스레드의 생명주기를 설명할 수 있는가?
+
+### 2. sleep(), join() 메서드의 사용법을 아는가?
+
+### 3. 스레드 우선순위를 설명할 수 있는가?
+
+### 4. critical section(critical region)을 설명할 수 있는가?
+
+### 5. Thread-Safe를 설명할 수 있는가?
+
+### 6. critical section을 thread-safe로 만드는 방법을 설명할 수 있는가?
+
+### 7. semaphore(n)와 mutex를 설명할 수 있는가?
+
+### 8. synchronized 메서드 또는 블록의 동작을 이해하는가?
+

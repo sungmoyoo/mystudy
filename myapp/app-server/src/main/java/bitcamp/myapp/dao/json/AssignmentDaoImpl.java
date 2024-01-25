@@ -35,8 +35,14 @@ public class AssignmentDaoImpl extends AbstractDao<Assignment> implements Assign
 
   @Override
   public List<Assignment> findAll() {
+    try {
+      Thread.sleep(2000);
+    } catch (Exception e) {
+      System.out.println("목록 조회 중 오류 발생");
+    }
     return list.subList(0, list.size());
   }
+
 
   @Override
   public Assignment findBy(int no) {
