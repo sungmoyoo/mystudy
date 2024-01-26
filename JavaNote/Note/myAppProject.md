@@ -899,7 +899,7 @@ ServerApp
 ```
 0. Data I/O Stream private 변수 생성자로 받기, gson빌더 생성자에 생성
 1. T타입의 Proxy.newProxyInstance를 리턴하는 익명클래스 작성
-2. functional ? 람다 문법 사용
+2. functional Interface 람다 문법 사용
 3. DAO 코드 복붙 후 수정
 - out.writeUTF 메서드명은 method.getName()으로 변경, 만약 args가 0인 경우 빈문자열 아니면 0번째 인덱스를 toJson하여 writeUTF
 4. return은 getReturnType을 해서 알아내 해당 타입으로 리턴
@@ -945,7 +945,7 @@ Runnable 인터페이스를 구현체를 Thread의 파라미터로 넘겨 생성
 - 인터페이스 구현체 익명클래스로 변경
 - fucntional interface 람다 변환
 
-45. 
+45. Pooling 기법 적용(스레드 재사용)
 **Pooling 기법을 활용하여 스레드 관리**
 - 서버에 util 패키지 생성
 - ThreadPool, WorkerThread 클래스 생성
@@ -1019,6 +1019,11 @@ ThreadPool
 3. 스레드 리턴
 ```
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+AssignmentList 
+- thread.sleep();
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 - 생성자로 초기사이즈(initSize) 받기
 ```
 1. 기본 생성자 생성, 매개변수 없는 ThreadPool 만들 수도 있어서
@@ -1027,3 +1032,72 @@ ThreadPool
   - 초기사이즈만큼 반복해서 WorkerThread 객체 생성하여 list에 추가
 3. ServerApp에서 초기사이즈 주면 됨
 ```
+
+46. ExecutorService, Executor 적용
+- ExecutorService newCashedThreadPool 정적 메서드 팩토리 사용
+- execute() 메서드 안에 Runnable 인터페이스 구현 후 람다 문법으로 리팩토링
+
+47. DBMS 도입
+
+- MySql 설치
+```
+1. brew update
+2. brew install mysql
+3. brew services start mysql or mysql.server start
+4. mysql_secure_installation
+5. mysql -u root -p
+```
+
+- MySql 빌드스크립트 수정
+```
+1. 기존 app-api, api-server 프로젝트에서 제외
+2. app-common의 dao, vo myapp으로 복사 
+3. app-client build.gradle implementation 수정
+  - app-api, app-common 주석처리
+  - MySql JDBC Driver 의존 라이브러리에 추가 
+```
+
+- mysql 구현체 생성
+```
+1. BoardDao,AssignmentDao,MemberDao를 구현하는 Impl생성
+2. 메서드 구현
+```
+
+
+- ClientApp에서 DaoProxyGenerator 삭제, 그냥 구현체 객체 생성
+- JDBC 드라이버 준비
+```
+0. 드라이버 생성은 
+1. DriverManager.getConnection(-) 하여 DBMS와 드라이버매니저 연결
+```
+- Connection 객체 Dao에서 생성자로 받기
+
+- MySql 사용자 추가해서 studydb 데이터베이스 생성
+```
+1. 로컬호스트에서만 접속할 수 있는 사용자
+  CREATE USER 'study'@'localhost' IDENTIFIED BY '암호';
+ 
+2. 데이터베이스 생성
+  CREATE DATABASE 데이터베이스명
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+
+3. 사용자 권한 부여
+  GRANT ALL ON studydb.* TO 'study'@'localhost'
+```
+이후 getConnection 잘됨
+
+- 테이블 생성
+```
+create table boards(
+  board_no int primary key auto_increment,
+  title varchar(255) not null,
+  content text not null,
+  writer varchar(30) not null,
+  created_date datetime null default now()
+);
+
+어떤 데이터베이스 쓸지 지정을 안하면 에러 발생 table 뒤에 데이터베이스 이름을 지정해도 되지만 매번 지정하기 귀찮기 때문에 "use studydb"해서 지정
+```
+
+- 테이블에 값 집어넣기
