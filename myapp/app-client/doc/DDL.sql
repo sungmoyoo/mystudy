@@ -54,7 +54,7 @@ create table members(
   member_no int primary key auto_increment,
   email varchar(255) not null,
   name varchar(30) not null,
-  password varchar(30) not null,
+  password varchar(256) not null,
   created_date datetime null default now()
 );
 

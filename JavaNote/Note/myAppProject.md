@@ -1143,3 +1143,12 @@ update()
 2. update xxx set + where로 변경 후 int 리턴
 ```
 
+48. DB 교체
+네이버 클라우드 DB 생성
+- cloud db for mysql에서 DB생성
+- public domain 신청
+- 방화벽(ACG) 설정
+```
+1. inbound 내 IP만
+2. Outbount 제한 x
+```

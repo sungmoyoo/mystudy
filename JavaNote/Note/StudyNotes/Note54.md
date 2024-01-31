@@ -7,7 +7,7 @@ DBMS에게 내릴 명령을 작성하는 프로그래밍 언어
 
 ## SQL 문법 유형
 **DDL(Data Definition Language)**
-테이블, 뷰, 함수 등을 정의/삭제/변경하는 문법
+DB 객체(테이블, 뷰, 함수, 프로시저, 트리거) 등을 정의/삭제/변경하는 문법
 
 **DML(Data Manipulation Language)** 
 데이터를 입력/변경/삭제하는 문법
@@ -101,7 +101,7 @@ candidate key 중에서 관리자가 사용하기로 결정한 키,테이블에�
 **대안키(alternate key)**
 candidate key 중에서 primary key로 선택된 키를 제외한 나머지 키. primary 키는 아니지만 primary key처럼 데이터를 구분하는 용도로 대신 사용할 수 있어서 `대안키`라고 부른다. 
 
-**인공키(artificial key)**
+**인공키(artificial key = surrogate key)**
 primary key로 사용하기에 
 적절한 컬럼이 없다면(조건을 만족하는 키 존재x, 기본키가 복합키인 경우) 
 또는 데이터 무결성을 유지하기 위해 
