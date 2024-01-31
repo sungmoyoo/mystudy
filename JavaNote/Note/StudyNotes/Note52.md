@@ -6,7 +6,7 @@
 
 ## DBMS 통신 방법
 
-Client Application과 DBMS가 데이터를 주고 받기 위해 통신을 하려면 DBMS 전용 프로토콜을 사용해서 소켓통신을 해야한다. 문제는 DBMS사에서 전용 프로토콜을 공개하지 않는다.프로토콜도 회사가 가진 기술이자 자산이기 때문이다.
+Client Application과 DBMS가 데이터를 주고 받기 위해 통신을 하려면 DBMS 전용 프로토콜을 사용해서 소켓통신을 해야한다. 문제는 DBMS사에서 전용 프로토콜을 공개하지 않는다.프로토콜도 회사가 가진 기술이자 자산이기도 하고 보안적인 측면에서 위험하기 때문이다. 
 
 따라서 각 DBMS에서는 프로토콜을 공개하지 않으면서 DBMS와 통신할 수 있는 전용 Client API를 제공한다.  
 DBMS마다 DBMS Client API가 다르며 (ex/ Oracle Client API) 이를 `Vendor API` 또는 `Native API`라고 한다.  
@@ -169,3 +169,25 @@ DriverManager.registerDriver(driver);
 Connection con = DriverManager.getConnection("jdbc:mysql://호스트주소/","아이디","패스워드");
 ```
 
+**3. SQL을 DBMS에 전달해줄 객체 준비**
+```java
+Statement stml = con.creatStatement();
+```
+**4. SQL을 DBMS에 전달**
+```java
+ResultSet rs = stmt.executeQuery(SQL문)
+```
+이 때 ResultSet은 데이터를 가져올 때 필요한 정보를 가진다. 데이터 그 자체가 아니다. 
+
+**5. 실행결과 데이터 중 한개의 데이터를 서버에서 가져오기**
+여기서 한개의 데이터는 record 또는 row 또는 tuple이라고 한다. 
+```java
+rs.next();
+```
+
+**6. 서버에서 가져온 레코드에서 컬럼 값 꺼내기**
+```java
+rs.getInt();
+rs.getString();
+...
+```

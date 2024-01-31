@@ -945,6 +945,9 @@ Runnable 인터페이스를 구현체를 Thread의 파라미터로 넘겨 생성
 - 인터페이스 구현체 익명클래스로 변경
 - fucntional interface 람다 변환
 
+
+
+
 45. Pooling 기법 적용(스레드 재사용)
 **Pooling 기법을 활용하여 스레드 관리**
 - 서버에 util 패키지 생성
@@ -1037,6 +1040,8 @@ AssignmentList
 - ExecutorService newCashedThreadPool 정적 메서드 팩토리 사용
 - execute() 메서드 안에 Runnable 인터페이스 구현 후 람다 문법으로 리팩토링
 
+
+
 47. DBMS 도입
 
 - MySql 설치
@@ -1101,3 +1106,40 @@ create table boards(
 ```
 
 - 테이블에 값 집어넣기
+
+- mysql 구현체 
+findAll()
+```
+1. Statement 객체 준비 con.createState()
+2. 실행문을 전달하고 ResultSet 객체에 필요 정보 저장
+3. list 생성
+3. ResultSet을 사용해 가져온 column 값을 객체에 저장
+4. next()와 반복문을 사용해 객체를 list에 추가하여 리턴
+```
+
+findBy()
+```
+1. findAll과 동일하게 ResultSet을 리턴받는 executeQuery 메서드로 SQL 실행문 전달 where로 no 조건 걸어야함
+2. 만약 값이 존재할 경우 객체에 값을 담아 리턴
+3. 없으면 null
+```
+
+add()
+```
+1. return받을 필요없음, 따라서 executeUpdate를 사용
+2. insert into + String.format으로 SQL문 전달
+```
+
+delete()
+```
+1. executeUpdate로 실행문 전달.
+2. delete from + where 사용
+3. int return
+```
+
+update()
+```
+1. executeUpdate로 실행문 전달.
+2. update xxx set + where로 변경 후 int 리턴
+```
+
