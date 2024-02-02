@@ -25,9 +25,9 @@ public class InfoViewHandler extends AbstractMenuHandler {
       return;
     }
 
-    System.out.printf("제품번호: %d\n", info.getProductNo());
+    System.out.printf("상품번호: %d\n", info.getProductNo());
     System.out.printf("종류: %s\n", info.getClassification());
-    System.out.printf("제품명: %s\n", info.getProductName());
+    System.out.printf("상품명: %s\n", info.getProductName());
 
   }
 }

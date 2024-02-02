@@ -5,18 +5,26 @@ import java.sql.Date;
 public class Stock {
 
   private int stockNo;
-  private String classification;
-  private String product;
   private int stock;
   private Date expirationDate;
+  private int productNo;
+  private String classification;
+  private String productName;
 
-
-  public int getNo() {
+  public int getStockNo() {
     return stockNo;
   }
 
-  public void setNo(int stockNo) {
+  public void setStockNo(int stockNo) {
     this.stockNo = stockNo;
+  }
+
+  public int getProductNo() {
+    return productNo;
+  }
+
+  public void setProductNo(int productNo) {
+    this.productNo = productNo;
   }
 
   public String getClassification() {
@@ -27,12 +35,12 @@ public class Stock {
     this.classification = classification;
   }
 
-  public String getProduct() {
-    return product;
+  public String getProductName() {
+    return productName;
   }
 
-  public void setProduct(String product) {
-    this.product = product;
+  public void setProductName(String productName) {
+    this.productName = productName;
   }
 
   public Date getExpirationDate() {

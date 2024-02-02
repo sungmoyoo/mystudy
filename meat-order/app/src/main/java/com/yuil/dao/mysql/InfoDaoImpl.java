@@ -20,11 +20,10 @@ public class InfoDaoImpl implements InfoDao {
 
   @Override
   public void add(Info info) {
-    try {
-      Statement stmt = con.createStatement();
+    try(Statement stmt = con.createStatement()) {
       stmt.executeUpdate(
           String.format(
-              "insert into orders(classification,product) values('%s','%s')",
+              "insert into info(classification,product) values('%s','%s')",
               info.getClassification(), info.getProductName()));
 
     } catch (Exception e) {
@@ -35,9 +34,8 @@ public class InfoDaoImpl implements InfoDao {
 
   @Override
   public int delete(int no) {
-    try {
-      Statement stmt = con.createStatement();
-      return stmt.executeUpdate(String.format("delete from orders where product_no = %d", no));
+    try(Statement stmt = con.createStatement()) {
+      return stmt.executeUpdate(String.format("delete from info where product_no = %d", no));
     } catch (Exception e) {
       throw new DaoException("데이터 수정 오류", e);
     }
@@ -45,9 +43,8 @@ public class InfoDaoImpl implements InfoDao {
 
   @Override
   public List<Info> findAll() {
-    try {
-      Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery("select * from info");
+    try(Statement stmt = con.createStatement()) {
+      ResultSet rs = stmt.executeQuery("select * from info order by classification");
       ArrayList<Info> list = new ArrayList<>();
 
       while (rs.next()) {
@@ -68,14 +65,13 @@ public class InfoDaoImpl implements InfoDao {
 
   @Override
   public Info findBy(int no) {
-    try {
-      Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery("select * from orders where product_no = " + no);
+    try(Statement stmt = con.createStatement()) {
+      ResultSet rs = stmt.executeQuery("select * from info where product_no = " + no);
 
       Info info = new Info();
 
       if (rs.next()) {
-        info.setProductNo(rs.getInt("order_no"));
+        info.setProductNo(rs.getInt("info_no"));
         info.setClassification(rs.getString("classification"));
         info.setProductName(rs.getString("product_name"));
         return info;
@@ -89,10 +85,9 @@ public class InfoDaoImpl implements InfoDao {
 
   @Override
   public int update(Info info) {
-    try {
-      Statement stmt = con.createStatement();
+    try(Statement stmt = con.createStatement()) {
       return stmt.executeUpdate(String.format(
-          "update orders set classification='%s', product_name='%s' where order_no=%d",
+          "update info set classification='%s', product_name='%s' where info_no=%d",
           info.getClassification(), info.getProductName()));
     } catch (Exception e) {
       throw new DaoException("데이터 수정 오류", e);

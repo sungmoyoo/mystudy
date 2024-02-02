@@ -16,11 +16,6 @@ import com.yuil.handler.info.InfoDeleteHandler;
 import com.yuil.handler.info.InfoListHandler;
 import com.yuil.handler.info.InfoModifyHandler;
 import com.yuil.handler.info.InfoViewHandler;
-import com.yuil.handler.order.OrderAddHandler;
-import com.yuil.handler.order.OrderDeleteHandler;
-import com.yuil.handler.order.OrderListHandler;
-import com.yuil.handler.order.OrderModifyHandler;
-import com.yuil.handler.order.OrderViewHandler;
 import com.yuil.handler.stock.StockAddHandler;
 import com.yuil.handler.stock.StockDeleteHandler;
 import com.yuil.handler.stock.StockListHandler;
@@ -67,26 +62,28 @@ public class App {
     void prepareMenu() {
         mainMenu = MenuGroup.getInstance("메인");
 
-        MenuGroup infoMenu = mainMenu.addGroup("제품 관리");
+        MenuGroup infoMenu = mainMenu.addGroup("상품 정보");
         infoMenu.addItem("등록", new InfoAddHandler(infoDao, prompt));
         infoMenu.addItem("조회", new InfoViewHandler(infoDao, prompt));
         infoMenu.addItem("변경", new InfoModifyHandler(infoDao, prompt));
         infoMenu.addItem("삭제", new InfoDeleteHandler(infoDao, prompt));
         infoMenu.addItem("목록", new InfoListHandler(infoDao, prompt));
 
-        MenuGroup orderMenu = mainMenu.addGroup("주문 관리");
-        orderMenu.addItem("등록", new OrderAddHandler(orderDao, prompt));
-        orderMenu.addItem("조회", new OrderViewHandler(orderDao, prompt));
-        orderMenu.addItem("변경", new OrderModifyHandler(orderDao, prompt));
-        orderMenu.addItem("삭제", new OrderDeleteHandler(orderDao, prompt));
-        orderMenu.addItem("목록", new OrderListHandler(orderDao, prompt));
-
         MenuGroup stockMenu = mainMenu.addGroup("재고 관리");
-        stockMenu.addItem("등록", new StockAddHandler(stockDao, prompt));
+        stockMenu.addItem("등록", new StockAddHandler(stockDao, infoDao ,prompt));
         stockMenu.addItem("조회", new StockViewHandler(stockDao, prompt));
         stockMenu.addItem("변경", new StockModifyHandler(stockDao, prompt));
         stockMenu.addItem("삭제", new StockDeleteHandler(stockDao, prompt));
         stockMenu.addItem("목록", new StockListHandler(stockDao, prompt));
+
+//        MenuGroup orderMenu = mainMenu.addGroup("주문 관리");
+//        orderMenu.addItem("등록", new OrderAddHandler(orderDao, prompt));
+//        orderMenu.addItem("조회", new OrderViewHandler(orderDao, prompt));
+//        orderMenu.addItem("변경", new OrderModifyHandler(orderDao, prompt));
+//        orderMenu.addItem("삭제", new OrderDeleteHandler(orderDao, prompt));
+//        orderMenu.addItem("목록", new OrderListHandler(orderDao, prompt));
+
+
     }
 
     void run() {

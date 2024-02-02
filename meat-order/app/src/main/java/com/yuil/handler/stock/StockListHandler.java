@@ -18,16 +18,16 @@ public class StockListHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    System.out.printf("%-10s  %-20s  %-15s  %-6s  %s\n", "재고번호", "종류", "제품", "수량", "유통기한");
+    System.out.printf("%-10s  %-20s  %-15s  %-6s  %s\n", "재고번호", "종류", "상품", "수량", "유통기한");
 
     List<Stock> list = stockDao.findAll();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     for (Stock stock : list) {
       System.out.printf("%-10d  %-20s  %-15s  %-6d  %s\n",
-          stock.getNo(),
+          stock.getStockNo(),
           stock.getClassification(),
-          stock.getProduct(),
+          stock.getProductName(),
           stock.getStock(),
           dateFormat.format(stock.getExpirationDate()));
     }

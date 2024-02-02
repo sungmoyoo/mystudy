@@ -4,18 +4,26 @@ import java.util.Date;
 
 public class Order {
   private int orderNo;
+  private int stockNo;
   private String classification;
   private String product;
   private int count;
   private Date orderDate;
 
-
-  public int getNo() {
+  public int getOrderNo() {
     return orderNo;
   }
 
-  public void setNo(int orderNo) {
+  public void setOrderNo(int orderNo) {
     this.orderNo = orderNo;
+  }
+
+  public int getStockNo() {
+    return stockNo;
+  }
+
+  public void setStockNo(int stockNo) {
+    this.stockNo = stockNo;
   }
 
   public String getClassification() {

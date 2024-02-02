@@ -25,7 +25,7 @@ public class OrderListHandler extends AbstractMenuHandler {
 
     for (Order order : list) {
       System.out.printf("%-10d  %-20s  %-15s  %-6d  %s\n",
-          order.getNo(),
+          order.getOrderNo(),
           order.getClassification(),
           order.getProduct(),
           order.getCount(),

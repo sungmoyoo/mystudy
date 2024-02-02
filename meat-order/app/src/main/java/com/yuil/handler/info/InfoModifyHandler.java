@@ -4,13 +4,13 @@ package com.yuil.handler.info;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.InfoDao;
-import com.yuil.handler.Choice;
+import com.yuil.handler.PrintType;
 import com.yuil.vo.Info;
 
 public class InfoModifyHandler extends AbstractMenuHandler {
 
   private InfoDao infoDao;
-  Choice c = new Choice(prompt);
+  PrintType c = new PrintType(prompt);
   public InfoModifyHandler(InfoDao infoDao, Prompt prompt) {
     super(prompt);
     this.infoDao = infoDao;
@@ -29,7 +29,7 @@ public class InfoModifyHandler extends AbstractMenuHandler {
     Info info = new Info();
     info.setProductNo(old.getProductNo()); // 기존 게시글의 번호를 그대로 설정한다.
     info.setClassification(c.getTypeChoice());
-    info.setProductName(this.prompt.input("제품명(%s)? ", old.getProductName()));
+    info.setProductName(this.prompt.input("상품명(%s)? ", old.getProductName()));
 
 
     infoDao.update(info);

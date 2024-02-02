@@ -1065,7 +1065,7 @@ AssignmentList
 - mysql 구현체 생성
 ```
 1. BoardDao,AssignmentDao,MemberDao를 구현하는 Impl생성
-2. 메서드 구현
+2. 메서드 구현s
 ```
 
 

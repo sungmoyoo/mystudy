@@ -4,13 +4,13 @@ package com.yuil.handler.order;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.OrderDao;
-import com.yuil.handler.Choice;
+import com.yuil.handler.PrintType;
 import com.yuil.vo.Order;
 
 public class OrderModifyHandler extends AbstractMenuHandler {
 
   private OrderDao orderDao;
-  Choice c = new Choice(prompt);
+  PrintType c = new PrintType(prompt);
   public OrderModifyHandler(OrderDao orderDao, Prompt prompt) {
     super(prompt);
     this.orderDao = orderDao;
@@ -27,7 +27,7 @@ public class OrderModifyHandler extends AbstractMenuHandler {
     }
 
     Order order = new Order();
-    order.setNo(old.getNo()); // 기존 게시글의 번호를 그대로 설정한다.
+    order.setOrderNo(old.getOrderNo()); // 기존 게시글의 번호를 그대로 설정한다.
     order.setClassification(c.getTypeChoice());
     order.setProduct(this.prompt.input("변경 제품(%s)? ", old.getProduct()));
     order.setCount(this.prompt.inputInt("변경 수량(%s)? ", old.getCount()));

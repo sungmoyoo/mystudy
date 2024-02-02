@@ -2,10 +2,10 @@ package com.yuil.handler;
 
 import com.util.Prompt;
 
-public class Choice {
+public class PrintType {
   Prompt prompt;
 
-  public Choice(Prompt prompt) {
+  public PrintType(Prompt prompt) {
     this.prompt = prompt;
   }
 

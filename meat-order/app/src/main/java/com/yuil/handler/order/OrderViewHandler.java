@@ -25,7 +25,7 @@ public class OrderViewHandler extends AbstractMenuHandler {
       return;
     }
 
-    System.out.printf("번호: %d\n", order.getNo());
+    System.out.printf("번호: %d\n", order.getOrderNo());
     System.out.printf("종류: %s\n", order.getClassification());
     System.out.printf("제품명: %s\n", order.getProduct());
     System.out.printf("수량: %s\n", order.getCount());

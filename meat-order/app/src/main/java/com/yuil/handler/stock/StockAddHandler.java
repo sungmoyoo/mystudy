@@ -3,30 +3,53 @@ package com.yuil.handler.stock;
 
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
+import com.yuil.dao.InfoDao;
 import com.yuil.dao.StockDao;
-import com.yuil.handler.Choice;
+import com.yuil.vo.Info;
 import com.yuil.vo.Stock;
+import java.util.List;
 
 public class StockAddHandler extends AbstractMenuHandler {
 
-  private StockDao stockDao;
-  Choice c = new Choice(prompt);
 
-  public StockAddHandler(StockDao stockDao, Prompt prompt) {
+  private InfoDao infoDao;
+  private StockDao stockDao;
+
+  public StockAddHandler(StockDao stockDao, InfoDao infoDao, Prompt prompt) {
     super(prompt);
+    this.infoDao = infoDao;
     this.stockDao = stockDao;
   }
 
   @Override
   protected void action() {
-    Stock stock = new Stock();
-    stock.setClassification(c.getTypeChoice());
-    stock.setProduct(prompt.input("제품(부위): "));
-    stock.setStock(prompt.inputInt("재고수: "));
-    stock.setExpirationDate(prompt.inputDate("유통기한: "));
 
-    stockDao.add(stock);
+    List<Info> list = infoDao.findAll();
+    List<Stock> checkList = stockDao.findAll();
+    Stock stock = new Stock();
+
+    try {
+      for (Info info : list) {
+        System.out.printf("[%d] %s\n", info.getProductNo(), info.getProductName());
+      }
+
+      stock.setProductNo(prompt.inputInt("입고하실 상품번호: "));
+      stock.setStock(prompt.inputInt("입고 수량: "));
+      stock.setExpirationDate(prompt.inputDate("유통기한: "));
+
+
+      if (DateValidator.isExist(checkList, stock)) {
+        stockDao.update(stock);
+      } else {
+        stockDao.add(stock);
+      }
+
+    } catch (Exception e) {
+      System.out.println("재고 입고 중 오류 발생");
+      e.printStackTrace();
+    }
   }
+
 
 
 }

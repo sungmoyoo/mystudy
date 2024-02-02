@@ -25,9 +25,9 @@ public class StockViewHandler extends AbstractMenuHandler {
       return;
     }
 
-    System.out.printf("번호: %d\n", stock.getNo());
+    System.out.printf("재고번호: %d\n", stock.getStockNo());
     System.out.printf("종류: %s\n", stock.getClassification());
-    System.out.printf("제품명: %s\n", stock.getProduct());
+    System.out.printf("상품명: %s\n", stock.getProductName());
     System.out.printf("수량: %s\n", stock.getStock());
     System.out.printf("유통기한: %1$tY-%1$tm-%1$td\n", stock.getExpirationDate());
   }
