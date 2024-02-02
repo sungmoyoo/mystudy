@@ -4,10 +4,20 @@ import java.sql.Date;
 
 public class Stock {
 
+  private int stockNo;
   private String classification;
   private String product;
-  private Date expirationDate;
   private int stock;
+  private Date expirationDate;
+
+
+  public int getNo() {
+    return stockNo;
+  }
+
+  public void setNo(int stockNo) {
+    this.stockNo = stockNo;
+  }
 
   public String getClassification() {
     return classification;

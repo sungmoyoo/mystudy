@@ -6,7 +6,7 @@ public class Order {
   private int orderNo;
   private String classification;
   private String product;
-  private int gram;
+  private int count;
   private Date orderDate;
 
 
@@ -34,12 +34,12 @@ public class Order {
     this.product = product;
   }
 
-  public int getGram() {
-    return gram;
+  public int getCount() {
+    return count;
   }
 
-  public void setGram(int count) {
-    this.gram = count;
+  public void setCount(int count) {
+    this.count = count;
   }
 
   public Date getOrderDate() {

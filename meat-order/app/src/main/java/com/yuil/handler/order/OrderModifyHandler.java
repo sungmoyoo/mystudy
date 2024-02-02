@@ -4,6 +4,7 @@ package com.yuil.handler.order;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.OrderDao;
+import com.yuil.handler.Choice;
 import com.yuil.vo.Order;
 
 public class OrderModifyHandler extends AbstractMenuHandler {
@@ -19,20 +20,20 @@ public class OrderModifyHandler extends AbstractMenuHandler {
   protected void action() {
     int no = this.prompt.inputInt("번호? ");
 
-    Order oldBoard = orderDao.findBy(no);
-    if (oldBoard == null) {
+    Order old = orderDao.findBy(no);
+    if (old == null) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
       return;
     }
 
-    Order board = new Order();
-    board.setNo(oldBoard.getNo()); // 기존 게시글의 번호를 그대로 설정한다.
-    board.setClassification(c.getTypeChoice());
-    board.setContent(this.prompt.input("내용(%s)? ", oldBoard.getContent()));
-    board.setWriter(this.prompt.input("작성자(%s)? ", oldBoard.getWriter()));
-    board.setCreatedDate(oldBoard.getCreatedDate());
+    Order order = new Order();
+    order.setNo(old.getNo()); // 기존 게시글의 번호를 그대로 설정한다.
+    order.setClassification(c.getTypeChoice());
+    order.setProduct(this.prompt.input("변경 제품(%s)? ", old.getProduct()));
+    order.setCount(this.prompt.inputInt("변경 수량(%s)? ", old.getCount()));
+    order.setOrderDate(old.getOrderDate());
 
-    boardDao.update(board);
+    orderDao.update(order);
     System.out.println("게시글을 변경했습니다.");
   }
 }

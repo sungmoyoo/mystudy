@@ -11,12 +11,11 @@ import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
 
-  int category;
+
   Connection con;
 
-  public OrderDaoImpl(Connection con, int category) {
+  public OrderDaoImpl(Connection con) {
     this.con = con;
-    this.category = category;
   }
 
   @Override
@@ -25,8 +24,8 @@ public class OrderDaoImpl implements OrderDao {
       Statement stmt = con.createStatement();
       stmt.executeUpdate(
           String.format(
-              "insert into boards(classification,product,gram) values('%d','%s','%s','%d')",
-              order.getClassification(), order.getProduct(), order.getGram()));
+              "insert into orders(classification,product,count) values('%s','%s','%d')",
+              order.getClassification(), order.getProduct(), order.getCount()));
 
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
@@ -38,7 +37,7 @@ public class OrderDaoImpl implements OrderDao {
   public int delete(int no) {
     try {
       Statement stmt = con.createStatement();
-      return stmt.executeUpdate(String.format("delete from boards where board_no = %d", no));
+      return stmt.executeUpdate(String.format("delete from orders where order_no = %d", no));
     } catch (Exception e) {
       throw new DaoException("데이터 수정 오류", e);
     }
@@ -48,7 +47,7 @@ public class OrderDaoImpl implements OrderDao {
   public List<Order> findAll() {
     try {
       Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery("select * from boards where category=" + this.category);
+      ResultSet rs = stmt.executeQuery("select * from orders");
       ArrayList<Order> list = new ArrayList<>();
 
       while (rs.next()) {
@@ -57,8 +56,8 @@ public class OrderDaoImpl implements OrderDao {
         order.setNo(rs.getInt("order_no"));
         order.setClassification(rs.getString("classification"));
         order.setProduct(rs.getString("product"));
-        order.setGram(rs.getInt("gram"));
-        order.setOrderDate(rs.getDate("created_date"));
+        order.setCount(rs.getInt("count"));
+        order.setOrderDate(rs.getDate("ordered_date"));
 
         list.add(order);
       }
@@ -70,19 +69,19 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-  public OrderDao findBy(int no) {
+  public Order findBy(int no) {
     try {
       Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery("select * from boards where board_no = " + no);
+      ResultSet rs = stmt.executeQuery("select * from orders where order_no = " + no);
 
-      OrderDao board = new OrderDao();
+      Order order = new Order();
 
       if (rs.next()) {
-        order.setNo(rs.getInt("board_no"));
-        order.setTitle(rs.getString("classification"));
-        order.setContent(rs.getString("product"));
-        order.setWriter(rs.getString("gram"));
-        order.setCreatedDate(rs.getDate("created_date"));
+        order.setNo(rs.getInt("order_no"));
+        order.setClassification(rs.getString("classification"));
+        order.setProduct(rs.getString("product"));
+        order.setCount(rs.getInt("count"));
+        order.setOrderDate(rs.getDate("ordered_date"));
         return order;
       }
       return null;
@@ -93,15 +92,12 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-
-
-  @Override
-  public int update(OrderDao order) {
+  public int update(Order order) {
     try {
       Statement stmt = con.createStatement();
       return stmt.executeUpdate(String.format(
-          "update boards set title='%s', content='%s', writer='%s' where board_no=%d",
-          order.getTitle(), order.getContent(), order.getWriter(), order.getNo()));
+          "update orders set classification='%s', product='%s', count='%s' where order_no=%d",
+          order.getClassification(), order.getProduct(), order.getCount(), order.getNo()));
     } catch (Exception e) {
       throw new DaoException("데이터 수정 오류", e);
     }

@@ -1,4 +1,4 @@
-package com.yuil.handler.order;
+package com.yuil.handler;
 
 import com.util.Prompt;
 
@@ -9,7 +9,7 @@ public class Choice {
     this.prompt = prompt;
   }
 
-  private String[] typeList= {"Beef", "Pork", "Chicken", "Lamb"};
+  private String[] typeList= {"소고기", "돼지고기", "닭고기", "양고기"};
 
   private void typeDisplay() {
     System.out.println("[고기 종류]");
@@ -23,7 +23,7 @@ public class Choice {
 
     int choiceNo;
     while (true) {
-      choiceNo = prompt.inputInt("번호?");
+      choiceNo = prompt.inputInt("종류 선택: ");
       if (choiceNo < 1 || choiceNo > typeList.length) {
         System.out.println("유효하지 않은 번호입니다.");
       } else {
