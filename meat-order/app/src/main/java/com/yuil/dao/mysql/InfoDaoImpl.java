@@ -49,7 +49,7 @@ public class InfoDaoImpl implements InfoDao {
             i.product_no,
             i.product_name,
             i.classification,
-            sum(s.stock)
+            sum(s.stock) as total_stock
           from info i
             join stocks s on i.product_no=s.product_no
           group by
@@ -66,7 +66,7 @@ public class InfoDaoImpl implements InfoDao {
         info.setProductNo(rs.getInt("product_no"));
         info.setClassification(rs.getString("classification"));
         info.setProductName(rs.getString("product_name"));
-        info.setStock(rs.getInt("sum"));
+        info.setStock(rs.getInt("total_stock"));
         list.add(info);
       }
       return list;

@@ -72,7 +72,7 @@ public class OrderDaoImpl implements OrderDao {
         order.setClassification(rs.getString("classification"));
         order.setProductName(rs.getString("product_name"));
         order.setStockNo(rs.getInt("stock_no"));
-        order.setStock(rs.getInt("stock"));
+        order.setStock(rs.getInt("total_stock"));
         order.setExpirationDate(rs.getDate("expiration_date"));
         list.add(order);
       }

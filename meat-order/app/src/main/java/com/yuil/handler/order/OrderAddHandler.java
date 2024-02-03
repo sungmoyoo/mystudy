@@ -31,8 +31,7 @@ public class OrderAddHandler extends AbstractMenuHandler {
     List<Stock> stockList = stockDao.findAll();
     List<Info> infoList = infoDao.findAll();
     for (Info info : infoList) {
-      if ()
-      System.out.printf("%d. %s (남은 재고: %d)", info.getProductNo(), info.getProductName(), );
+      System.out.printf("%d. %s (남은 재고: %d\n)", info.getProductNo(), info.getProductName(), info.getStock());
     }
     order.setProductName(prompt.input("구매하실 상품명을 입력하세요: "));
     order.setCount(prompt.inputInt("수량: "));
