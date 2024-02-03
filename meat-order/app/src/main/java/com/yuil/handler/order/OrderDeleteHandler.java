@@ -16,7 +16,7 @@ public class OrderDeleteHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    int no = this.prompt.inputInt("번호? ");
+    int no = this.prompt.inputInt("주문 번호? ");
     if (orderDao.delete(no) == 0) {
       System.out.println("주문 번호가 유효하지 않습니다.");
     } else {

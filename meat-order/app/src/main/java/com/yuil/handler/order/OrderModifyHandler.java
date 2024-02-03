@@ -29,7 +29,7 @@ public class OrderModifyHandler extends AbstractMenuHandler {
     Order order = new Order();
     order.setOrderNo(old.getOrderNo()); // 기존 게시글의 번호를 그대로 설정한다.
     order.setClassification(c.getTypeChoice());
-    order.setProduct(this.prompt.input("변경 제품(%s)? ", old.getProduct()));
+    order.setProductName(this.prompt.input("변경 제품(%s)? ", old.getProductName()));
     order.setCount(this.prompt.inputInt("변경 수량(%s)? ", old.getCount()));
     order.setOrderDate(old.getOrderDate());
 

@@ -3,7 +3,6 @@ package com.yuil.handler.stock;
 
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
-import com.yuil.dao.OrderDao;
 import com.yuil.dao.StockDao;
 
 public class StockDeleteHandler extends AbstractMenuHandler {
@@ -17,7 +16,7 @@ public class StockDeleteHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    int no = this.prompt.inputInt("번호? ");
+    int no = this.prompt.inputInt("재고 번호? ");
     if (stockDao.delete(no) == 0) {
       System.out.println("재고 번호가 유효하지 않습니다.");
     } else {

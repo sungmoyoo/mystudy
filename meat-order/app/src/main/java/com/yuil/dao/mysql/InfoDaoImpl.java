@@ -44,7 +44,20 @@ public class InfoDaoImpl implements InfoDao {
   @Override
   public List<Info> findAll() {
     try(Statement stmt = con.createStatement()) {
-      ResultSet rs = stmt.executeQuery("select * from info order by classification");
+      ResultSet rs = stmt.executeQuery("""
+          select
+            i.product_no,
+            i.product_name,
+            i.classification,
+            sum(s.stock)
+          from info i
+            join stocks s on i.product_no=s.product_no
+          group by
+            product_no
+          order by
+            product_no
+          
+          """);
       ArrayList<Info> list = new ArrayList<>();
 
       while (rs.next()) {
@@ -53,7 +66,7 @@ public class InfoDaoImpl implements InfoDao {
         info.setProductNo(rs.getInt("product_no"));
         info.setClassification(rs.getString("classification"));
         info.setProductName(rs.getString("product_name"));
-
+        info.setStock(rs.getInt("sum"));
         list.add(info);
       }
       return list;

@@ -89,9 +89,10 @@ public class StockDaoImpl implements StockDao {
                 i.product_name
               from stocks s
                 left outer join info i on s.product_no=i.product_no
-              where stock_no=%d
+              where
+                stock_no=%d
               order by
-              s.stock_no;
+                s.stock_no
               """, no));
 
       Stock stock = new Stock();

@@ -17,7 +17,7 @@ public class OrderViewHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    int no = this.prompt.inputInt("번호? ");
+    int no = this.prompt.inputInt("주문 번호? ");
 
     Order order = orderDao.findBy(no);
     if (order == null) {
@@ -25,9 +25,9 @@ public class OrderViewHandler extends AbstractMenuHandler {
       return;
     }
 
-    System.out.printf("번호: %d\n", order.getOrderNo());
+    System.out.printf("주민번호: %d\n", order.getOrderNo());
     System.out.printf("종류: %s\n", order.getClassification());
-    System.out.printf("제품명: %s\n", order.getProduct());
+    System.out.printf("상품명: %s\n", order.getProductName());
     System.out.printf("수량: %s\n", order.getCount());
     System.out.printf("주문일: %1$tY-%1$tm-%1$td\n", order.getOrderDate());
   }

@@ -4,19 +4,13 @@ import java.util.Date;
 
 public class Order {
   private int orderNo;
-  private int stockNo;
-  private String classification;
-  private String product;
   private int count;
   private Date orderDate;
-
-  public int getOrderNo() {
-    return orderNo;
-  }
-
-  public void setOrderNo(int orderNo) {
-    this.orderNo = orderNo;
-  }
+  private String classification;
+  private String productName;
+  private int stockNo;
+  private int stock;
+  private Date expirationDate;
 
   public int getStockNo() {
     return stockNo;
@@ -24,6 +18,30 @@ public class Order {
 
   public void setStockNo(int stockNo) {
     this.stockNo = stockNo;
+  }
+
+  public Date getExpirationDate() {
+    return expirationDate;
+  }
+
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
+  }
+
+  public int getStock() {
+    return stock;
+  }
+
+  public void setStock(int stock) {
+    this.stock = stock;
+  }
+
+  public int getOrderNo() {
+    return orderNo;
+  }
+
+  public void setOrderNo(int orderNo) {
+    this.orderNo = orderNo;
   }
 
   public String getClassification() {
@@ -34,12 +52,12 @@ public class Order {
     this.classification = classification;
   }
 
-  public String getProduct() {
-    return product;
+  public String getProductName() {
+    return productName;
   }
 
-  public void setProduct(String product) {
-    this.product = product;
+  public void setProductName(String productName) {
+    this.productName = productName;
   }
 
   public int getCount() {
