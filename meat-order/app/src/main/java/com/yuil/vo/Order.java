@@ -11,6 +11,15 @@ public class Order {
   private int stockNo;
   private int stock;
   private Date expirationDate;
+  private int productNo;
+
+  public int getProductNo() {
+    return productNo;
+  }
+
+  public void setProductNo(int productNo) {
+    this.productNo = productNo;
+  }
 
   public int getStockNo() {
     return stockNo;

@@ -3,17 +3,20 @@ package com.yuil.handler.stock;
 import com.yuil.vo.Stock;
 import java.util.List;
 
-public class DateValidator {
-  protected static int isExist(List<Stock> checkList, Stock stock) {
+public class ExistDateAdd {
+  public static boolean isExist(List<Stock> checkList, Stock stock) {
 
     for (Stock valid : checkList) {
       if (valid.getExpirationDate() != null
           && valid.getExpirationDate().equals(stock.getExpirationDate())
           && valid.getProductNo() == stock.getProductNo()) {
 
-        return valid.getStockNo();
+        stock.setProductNo(valid.getProductNo());
+        stock.setStockNo(valid.getStockNo());
+        stock.setStock(valid.getStock() + stock.getStock());
+        return true;
       }
     }
-    return -1;
+    return false;
   }
 }

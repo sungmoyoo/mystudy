@@ -19,7 +19,6 @@ import com.yuil.handler.info.InfoViewHandler;
 import com.yuil.handler.order.OrderAddHandler;
 import com.yuil.handler.order.OrderDeleteHandler;
 import com.yuil.handler.order.OrderListHandler;
-import com.yuil.handler.order.OrderModifyHandler;
 import com.yuil.handler.order.OrderViewHandler;
 import com.yuil.handler.stock.StockAddHandler;
 import com.yuil.handler.stock.StockDeleteHandler;
@@ -84,8 +83,7 @@ public class App {
         MenuGroup orderMenu = mainMenu.addGroup("주문 관리");
         orderMenu.addItem("등록", new OrderAddHandler(orderDao, stockDao, infoDao, prompt));
         orderMenu.addItem("조회", new OrderViewHandler(orderDao, prompt));
-        orderMenu.addItem("변경", new OrderModifyHandler(orderDao, prompt));
-        orderMenu.addItem("삭제", new OrderDeleteHandler(orderDao, prompt));
+        orderMenu.addItem("취소", new OrderDeleteHandler(orderDao,stockDao, prompt));
         orderMenu.addItem("목록", new OrderListHandler(orderDao, prompt));
 
 

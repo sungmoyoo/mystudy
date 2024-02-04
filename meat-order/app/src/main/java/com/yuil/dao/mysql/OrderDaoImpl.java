@@ -91,6 +91,7 @@ public class OrderDaoImpl implements OrderDao {
             o.ordered_date,
             i.classification,
             i.product_name,
+            i.product_no,
             s.stock,
             s.expiration_date
           from orders o
@@ -113,6 +114,8 @@ public class OrderDaoImpl implements OrderDao {
         order.setClassification(rs.getString("classification"));
         order.setProductName(rs.getString("product_name"));
         order.setStock(rs.getInt("stock"));
+        order.setProductNo(rs.getInt("product_no"));
+        order.setExpirationDate(rs.getDate("expiration_date"));
 
         return order;
       }

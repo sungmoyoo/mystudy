@@ -5,7 +5,6 @@ import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.StockDao;
 import com.yuil.vo.Stock;
-import java.util.List;
 
 public class StockModifyHandler extends AbstractMenuHandler {
 
@@ -17,7 +16,6 @@ public class StockModifyHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    List<Stock> checkList = stockDao.findAll();
     Stock old = stockDao.findBy(this.prompt.inputInt("변경하실 재고번호? "));
     Stock stock = new Stock();
 
@@ -26,17 +24,13 @@ public class StockModifyHandler extends AbstractMenuHandler {
       return;
     }
 
+    stock.setStockNo(old.getStockNo());
     stock.setProductNo(old.getProductNo());
     stock.setStock(prompt.inputInt("변경 수량(%s)? ", old.getStock()));
     stock.setExpirationDate(prompt.inputDate("변경할 유통기한(%s)? ", old.getExpirationDate()));
 
-    int existNo = DateValidator.isExist(checkList, stock);
-    if (existNo != -1) {
-      stockDao.update(stock);
-    } else {
-      stockDao.delete(old.getStockNo());
-      stockDao.add(stock);
-    }
+    stockDao.update(stock);
+
 
     System.out.println("게시글을 변경했습니다.");
   }

@@ -10,6 +10,7 @@ public class SoldOutValidator {
     for (Stock stock : stockList) {
       if (stock.getProductName().equals(order.getProductName())) {
         order.setStockNo(stock.getStockNo());
+        order.setExpirationDate(stock.getExpirationDate());
         if (stock.getStock() - order.getCount() < 0 ) {
           return false;
 
