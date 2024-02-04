@@ -17,4 +17,5 @@ public interface InfoDao {
 
   int update(Info info);
 
+  List<Info> findJoin();
 }

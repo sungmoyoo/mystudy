@@ -37,8 +37,11 @@ public class StockAddHandler extends AbstractMenuHandler {
       stock.setStock(prompt.inputInt("입고 수량: "));
       stock.setExpirationDate(prompt.inputDate("유통기한: "));
 
-
-      if (DateValidator.isExist(checkList, stock)) {
+      int existNo = DateValidator.isExist(checkList, stock);
+      if (existNo != -1) {
+        stock.setProductNo(checkList.get(existNo).getProductNo());
+        stock.setStockNo(checkList.get(existNo).getStockNo());
+        stock.setStock(checkList.get(existNo).getStock() + stock.getStock());
         stockDao.update(stock);
       } else {
         stockDao.add(stock);

@@ -23,7 +23,7 @@ public class InfoDaoImpl implements InfoDao {
     try(Statement stmt = con.createStatement()) {
       stmt.executeUpdate(
           String.format(
-              "insert into info(classification,product) values('%s','%s')",
+              "insert into info(classification,product_name) values('%s','%s')",
               info.getClassification(), info.getProductName()));
 
     } catch (Exception e) {
@@ -40,16 +40,36 @@ public class InfoDaoImpl implements InfoDao {
       throw new DaoException("데이터 수정 오류", e);
     }
   }
-
   @Override
   public List<Info> findAll() {
+    try(Statement stmt = con.createStatement()) {
+      ResultSet rs = stmt.executeQuery("select * from info");
+      ArrayList<Info> list = new ArrayList<>();
+
+      while (rs.next()) {
+
+        Info info = new Info();
+        info.setProductNo(rs.getInt("product_no"));
+        info.setProductName(rs.getString("product_name"));
+        info.setClassification(rs.getString("classification"));
+        list.add(info);
+      }
+      return list;
+
+    } catch (Exception e) {
+      throw new DaoException("데이터 가져오기 오류", e);
+    }
+  }
+
+  @Override
+  public List<Info> findJoin() {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("""
           select
             i.product_no,
             i.product_name,
             i.classification,
-            sum(s.stock) as total_stock
+            s.stock
           from info i
             join stocks s on i.product_no=s.product_no
           group by
@@ -64,9 +84,9 @@ public class InfoDaoImpl implements InfoDao {
 
         Info info = new Info();
         info.setProductNo(rs.getInt("product_no"));
-        info.setClassification(rs.getString("classification"));
         info.setProductName(rs.getString("product_name"));
-        info.setStock(rs.getInt("total_stock"));
+        info.setClassification(rs.getString("classification"));
+        info.setStock(rs.getInt("stock"));
         list.add(info);
       }
       return list;

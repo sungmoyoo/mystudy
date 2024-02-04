@@ -6,6 +6,8 @@ public class Info {
   private String productName;
   private int stock;
 
+
+
   public int getStock() {
     return stock;
   }

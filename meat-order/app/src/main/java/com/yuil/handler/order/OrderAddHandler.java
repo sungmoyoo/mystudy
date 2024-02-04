@@ -29,25 +29,36 @@ public class OrderAddHandler extends AbstractMenuHandler {
   protected void action() {
     Order order = new Order();
     List<Stock> stockList = stockDao.findAll();
-    List<Info> infoList = infoDao.findAll();
+    List<Info> infoList = infoDao.findJoin();
+    int i = 1;
     for (Info info : infoList) {
-      System.out.printf("%d. %s (남은 재고: %d\n)", info.getProductNo(), info.getProductName(), info.getStock());
+      System.out.printf("%d. %s (남은 재고: %d)\n", i++, info.getProductName(), info.getStock());
     }
+
     order.setProductName(prompt.input("구매하실 상품명을 입력하세요: "));
     order.setCount(prompt.inputInt("수량: "));
     order.setOrderDate(new Date());
 
-    if (SoldOutValidator.isOut(stockList, order, stockDao)) {
-      orderDao.add(order);
-      System.out.println("주문이 완료되었습니다.");
-    } else {
-      orderDao.delete(order.getStockNo());
-      System.out.println("주문하신 상품이 품절되었습니다.");
+    boolean foundMatch = false;
+
+    for (Info info : infoList) {
+      if (order.getProductName().equals(info.getProductName())) {
+        foundMatch = true;
+      }
     }
 
+    if (foundMatch) {
+      if (SoldOutValidator.isOut(stockList, order, stockDao)) {
+        orderDao.add(order);
+        System.out.println("주문이 완료되었습니다.");
 
+      } else {
+        System.out.println("주문가능한 상품을 초과 또는 품절되었습니다.");
 
+      }
+    } else {
+      System.out.println("올바르지 않은 상품명입니다.");
+
+    }
   }
-
-
 }

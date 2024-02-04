@@ -9,16 +9,23 @@ public class SoldOutValidator {
   protected static boolean isOut(List<Stock> stockList, Order order, StockDao stockDao) {
     for (Stock stock : stockList) {
       if (stock.getProductName().equals(order.getProductName())) {
-        if (stock.getStock() - order.getCount() < 0) {
-          stockDao.delete(order.getStockNo());
+        order.setStockNo(stock.getStockNo());
+        if (stock.getStock() - order.getCount() < 0 ) {
           return false;
-        } else {
+
+        } else if(stock.getStock() - order.getCount() == 0) {
+          stock.setStock(stock.getStock() - order.getCount());
+          stockDao.delete(order.getStockNo());
+          return true;
+
+        } else if (stock.getStock() - order.getCount() > 0){
           stock.setStock(stock.getStock() - order.getCount());
           stockDao.update(stock);
+          return true;
 
         }
       }
     }
-    return true;
+    return false;
   }
 }

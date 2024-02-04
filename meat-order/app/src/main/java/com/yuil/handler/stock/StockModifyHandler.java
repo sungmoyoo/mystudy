@@ -30,11 +30,11 @@ public class StockModifyHandler extends AbstractMenuHandler {
     stock.setStock(prompt.inputInt("변경 수량(%s)? ", old.getStock()));
     stock.setExpirationDate(prompt.inputDate("변경할 유통기한(%s)? ", old.getExpirationDate()));
 
-
-    if (DateValidator.isExist(checkList, stock)) {
+    int existNo = DateValidator.isExist(checkList, stock);
+    if (existNo != -1) {
       stockDao.update(stock);
-      stockDao.delete(old.getStockNo());
     } else {
+      stockDao.delete(old.getStockNo());
       stockDao.add(stock);
     }
 
