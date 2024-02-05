@@ -104,7 +104,7 @@ public class InfoDaoImpl implements InfoDao {
       Info info = new Info();
 
       if (rs.next()) {
-        info.setProductNo(rs.getInt("info_no"));
+        info.setProductNo(rs.getInt("product_no"));
         info.setClassification(rs.getString("classification"));
         info.setProductName(rs.getString("product_name"));
         return info;
