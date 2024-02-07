@@ -34,12 +34,12 @@ public class Exam0320 {
 
     // execute()와 같다.
     // => 단 작업의 종료 상태를 확인할 수 있는 Future 객체를 리턴한다.
-    // => 커피숍에서 주문한 후 진동벨을 받는 것과 같다. 
+    // => 커피숍에서 주문한 후 알람벨을 받는 것과 같다!
     Future<?> future1 = executorService.submit(new MyRunnable(2000));
     Future<?> future2 = executorService.submit(new MyRunnable(4000));
 
     // Future.get()
-    // => 요청한 작업이 완료될 때 까지 기다린다.(pending\\ = blocking)
+    // => 요청한 작업이 완료될 때 까지 기다린다.(pending)
     // => 요청한 작업이 완료되면 null을 리턴한다.
     //
     future2.get();

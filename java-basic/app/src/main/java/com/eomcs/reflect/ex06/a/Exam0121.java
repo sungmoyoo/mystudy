@@ -8,14 +8,14 @@ public class Exam0121 {
     Object obj = Proxy.newProxyInstance(
         Exam0121.class.getClassLoader(), 
         new Class<?>[] {A.class, B.class, C.class}, 
-        (proxy, method, params) -> {
-          System.out.println("==> " + method.getName());
+        (proxy, method, params)  -> {
+          System.out.println("===> " + method.getName());
           return null;
         });
-    
+
     ((A) obj).m1();
     ((B) obj).m2();
-//    ((String) obj).replaceFirst(null, null);
-    
+    ((C) obj).m3();
+
   }
 }

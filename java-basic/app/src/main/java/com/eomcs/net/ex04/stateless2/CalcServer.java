@@ -1,4 +1,4 @@
-// stateless 방식 단점 - 작업 결과 유지 X
+// stateless 방식 - 계산기 서버 만들기 + 서버쪽에 계산 결과 유지하기
 package com.eomcs.net.ex04.stateless2;
 
 import java.io.DataInputStream;
@@ -30,7 +30,6 @@ public class CalcServer {
         DataInputStream in = new DataInputStream(socket.getInputStream());
         PrintStream out = new PrintStream(socket.getOutputStream());) {
 
-
       String op = in.readUTF();
       int value = in.readInt();
       int result = 0;
@@ -52,7 +51,7 @@ public class CalcServer {
           out.println("해당 연산을 지원하지 않습니다.");
           return;
       }
-      out.printf("계산결과 = %d\n", result);
+      out.printf("계산 결과: %d\n", result);
     }
   }
 }

@@ -15,7 +15,7 @@ public class CalculatorClient {
 
       String input = in.readLine();
       System.out.println(input);
-      
+
       input = in.readLine();
       System.out.println(input);
 

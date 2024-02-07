@@ -18,10 +18,6 @@ public class Client0210 {
     // - 물론 OS가 자동으로 부여할 것이다.
     DatagramSocket socket = new DatagramSocket();
 
-    // 데이터를 받을 상대편 주소와 포트 번호
-    String receiver = "localhost";
-    int port = 8888;
-
     // 보낼 데이터를 바이트 배열로 준비
     //    String message = new String("Hello"); // Heap에 String 객체 생성
     //    String message = "Hello"; // constant pool에 String 객체 생성

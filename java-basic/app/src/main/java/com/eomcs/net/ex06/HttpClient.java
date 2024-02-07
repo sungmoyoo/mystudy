@@ -26,7 +26,7 @@ public class HttpClient {
     // => macOS에서 JVM을 실행할 때, println()은 문자열 뒤에 0a(LF) 코드만 붙인다.
     // => 이를 해결하려면, 다음과 같이 명확하게 CRLF 코드를 붙여라.
     // 
-    out.print("GET / HTTP/1.1\r\n");
+    out.print("GET /news/article.html?id=20240112090002 HTTP/1.1\r\n");
     out.print("Host: www.rpm9.com\r\n");
     out.print("\r\n");
     out.flush();

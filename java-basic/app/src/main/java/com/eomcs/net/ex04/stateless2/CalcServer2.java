@@ -86,7 +86,6 @@ public class CalcServer2 {
 
       // 클라이언트로 응답할 때 항상 클라이언트 아이디와 결과를 출력한다.
       // => 클라이언트 아이디 출력
-      
       out.writeLong(clientId);
 
       // => 계산 결과 출력

@@ -29,7 +29,7 @@ public class Exam0210 {
     }
   }
   public static void main(String[] args) {
-    ExecutorService executorService = Executors.newFixedThreadPool(1);
+    ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     // 일단 스레드풀의 크기(3 개)만큼 작업 수행을 요청한다.
     // - 작업은 큐에 등록된 순서대로 보관된다.

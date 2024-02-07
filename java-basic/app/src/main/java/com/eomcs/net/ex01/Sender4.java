@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class Sender4 {
 
   public static void main(String[] args) throws Exception {
-    File file = new File("temp/kk.jpeg");
+    File file = new File("temp/test.jpeg");
 
     FileInputStream fileIn = new FileInputStream(file);
 
     System.out.println("서버에 연결 중...");
-    Socket socket = new Socket("192.168.0.12", 8888);
+    Socket socket = new Socket("192.168.0.46", 8888);
     System.out.println("서버에 연결 완료!");
 
     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -33,12 +33,12 @@ public class Sender4 {
 
     // 3) 파일 데이터 보내기
     int b;
-    int cnt = 0;
+    int count = 0;
     while ((b = fileIn.read()) != -1) {
       out.write(b);
-      cnt++;
-      if (cnt % 1024 == 0) {
-        System.out.println("1KB 전송");
+      count++;
+      if (count % 1024 == 0) {
+        System.out.println("1KB 보냄!");
       }
     }
 
@@ -55,6 +55,7 @@ public class Sender4 {
     socket.close();
     fileIn.close();
   }
+
 }
 
 

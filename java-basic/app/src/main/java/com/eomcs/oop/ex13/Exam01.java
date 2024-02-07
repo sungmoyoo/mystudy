@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.Properties;
 
 public class Exam01 {
-  static String filename = "Label";
+  static String filename = "label";
   static String userCountry = "US";
   static String userLanguage = "en";
   static Properties label;
@@ -16,18 +16,18 @@ public class Exam01 {
 
     if (System.getProperty("user.language") != null)
       userLanguage = System.getProperty("user.language");
-    
+
     System.out.printf("지역: %s\n", userCountry);
     System.out.printf("언어: %s\n", userLanguage);
-    
-//    Properties props = System.getProperties();
-//    props.forEach((k, v) -> System.out.printf("%s = %s\n", k, v));
-    
+
+    //    Properties props = System.getProperties();
+    //    props.forEach((k, v) -> System.out.printf("%s = %s\n", k, v));
+
     label = new Properties();
     label.load(new FileReader(
         String.format("%s-%s_%s.properties", 
             filename, userLanguage, userCountry)));
-    
+
   }
 
   public static void main(String[] args) throws Exception {

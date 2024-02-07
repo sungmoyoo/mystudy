@@ -31,7 +31,7 @@ public class Exam0640 {
     // 기존의 My의 m()을 test() 메서드를 구현하는데 사용하기
     //
     Predicate<My> obj = (My value) -> {return value.m();};
-    
+
     // 코드를 좀 더 줄이기
     Predicate<My> obj2 = value -> value.m();
 

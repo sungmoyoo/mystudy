@@ -10,7 +10,7 @@ public class Client0121 {
   public static void main(String[] args) {
     Scanner keyScan = new Scanner(System.in);
 
-    try (Socket socket = new Socket("192.168.0.12", 8888);
+    try (Socket socket = new Socket("localhost", 8888);
         OutputStream out = socket.getOutputStream();
         InputStream in = socket.getInputStream()) {
 
@@ -25,8 +25,9 @@ public class Client0121 {
         if (i > 0 && (i % 20) == 0) {
           System.out.println(); // 20바이트 출력한 후 줄 바꾼다.
         }
-        System.out.printf("%x ", buf[i]);
+        System.out.printf("%02x ", buf[i]);
       }
+
 
     } catch (Exception e) {
       e.printStackTrace();

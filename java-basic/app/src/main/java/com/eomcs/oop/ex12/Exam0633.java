@@ -17,9 +17,9 @@ public class Exam0633 {
 
 
     // 4) 메서드 레퍼런스를 사용하여 기존 클래스의 메서드를 인터페이스 구현체로 사용하기
-        String s1 = "";
+    //    String s1 = "";
     //    Predicate<String> p4 = s1::isEmpty; // 컴파일 오류!
-//     Predicate<String> p4 = (String value) -> { return s1.isEmpty(value); };
+    // => Predicate<String> p4 = (String value) -> { return s1.isEmpty(value); };
 
     Predicate<String> p4 = String::isEmpty; // OK?
     //

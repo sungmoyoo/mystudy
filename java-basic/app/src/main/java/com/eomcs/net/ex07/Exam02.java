@@ -11,7 +11,7 @@ public class Exam02 {
     // - http://서버주소:포트번호/자원경로?파라미터명=값&파라미터명=값&파라미터명=값 
     //    URL url = new URL("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=bitcamp");
     URL url = new URI("https://search.naver.com/search.naver").toURL();
-    
+
     // URL 분석
     System.out.printf("프로토콜: %s\n", url.getProtocol());
     System.out.printf("서버주소: %s\n", url.getHost());

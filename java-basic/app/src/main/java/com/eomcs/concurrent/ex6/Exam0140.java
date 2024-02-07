@@ -45,7 +45,7 @@ public class Exam0140 {
             //    예) synchronized(접근대상) {...}
             //
             synchronized (this) {
-              wait();
+              this.wait();
               // valueBox 객체에 대해 사용하라는 신호가 올 때까지 이 스레드에게 기다리라는 명령이다.
               // 즉 wait()를 호출한 스레드는 Not Runnable 상태에 진입한다.
               // => 실행을 멈추고 CPU 사용권을 받지 않는 상태가 된다.
@@ -75,7 +75,6 @@ public class Exam0140 {
       }
     }
 
-
     MyThread t = new MyThread();
     t.start(); // 이 스레드는 main 스레드가 실행하라고 신호를 줄 때까지 기다린다
 
@@ -84,10 +83,12 @@ public class Exam0140 {
     while (true) {
       System.out.print("카운트? ");
       String str = keyScan.nextLine();
+
       if (str.equals("quit")) {
-        t.setCount(-1); // 스레드를 종료하도록 count를 -1로 설정
+        t.setCount(-1); // 스레드를 종료하도록 count를 -1로 설정한다.
         break;
       }
+
       t.setCount(Integer.parseInt(str));
       // setCount()
       // - 사용자가 입력한 카운트 값을 설정할 때

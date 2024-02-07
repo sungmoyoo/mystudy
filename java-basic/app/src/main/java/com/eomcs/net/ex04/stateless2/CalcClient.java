@@ -1,4 +1,4 @@
-// stateless 방식 단점 - 작업 결과 유지 X
+// stateless 방식 - 계산기 클라이언트 만들기
 package com.eomcs.net.ex04.stateless2;
 
 import java.io.DataOutputStream;
@@ -10,7 +10,6 @@ public class CalcClient {
     Scanner keyScan = new Scanner(System.in);
 
     while (true) {
-
       System.out.print("연산자? ");
       String op = keyScan.nextLine();
 
@@ -20,7 +19,6 @@ public class CalcClient {
       try (Socket socket = new Socket("localhost", 8888);
           Scanner in = new Scanner(socket.getInputStream());
           DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-
 
         out.writeUTF(op);
         out.writeInt(value);

@@ -1152,3 +1152,8 @@ update()
 1. inbound 내 IP만
 2. Outbount 제한 x
 ```
+
+49. PreparedStatement 적용
+- 기존 Statement -> PreparedStatement로 변경
+- SQL 실행문을 안으로 집어넣기
+- try with resouces로 변경

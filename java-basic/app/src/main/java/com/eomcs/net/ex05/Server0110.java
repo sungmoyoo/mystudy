@@ -13,8 +13,6 @@ import java.util.Scanner;
 // 
 public class Server0110 {
   public static void main(String[] args) throws Exception {
-    Scanner keyboardScanner = new Scanner(System.in);
-
     System.out.println("서버 실행 중...");
     ServerSocket ss = new ServerSocket(8888);
 
@@ -36,7 +34,6 @@ public class Server0110 {
     System.out.println("클라이언트 연결 끊기!");
 
     ss.close();
-    keyboardScanner.close();
   }
 }
 

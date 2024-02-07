@@ -1,3 +1,4 @@
+// sychronized 스태틱 메서드 - 적용 전
 package com.eomcs.concurrent.ex5;
 
 public class Exam0410 {
@@ -7,9 +8,10 @@ public class Exam0410 {
 
     w1.start();
     w2.start();
+
   }
 
-  static void play(String threadName) throws Exception{
+  static void play(String threadName) throws Exception {
     System.out.println(threadName);
     Thread.sleep(10000);
   }
@@ -23,8 +25,7 @@ public class Exam0410 {
     public void run() {
       try {
         play(getName());
-
-      }catch (Exception e) {
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }

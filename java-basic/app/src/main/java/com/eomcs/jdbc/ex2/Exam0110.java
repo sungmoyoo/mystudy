@@ -1,9 +1,7 @@
 // 게시판 관리 - 등록
 package com.eomcs.jdbc.ex2;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.Scanner;
 
 // 다음과 같이 게시물을 등록하는 프로그램을 작성하라!
@@ -39,9 +37,9 @@ public class Exam0110 {
       }
     }
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement();) {
+    try (java.sql.Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb","study","Bitcamp!@#123");
+        java.sql.Statement stmt = con.createStatement();) {
 
       String sql = String.format(
           "insert into x_board(title,contents) values('%s','%s')",

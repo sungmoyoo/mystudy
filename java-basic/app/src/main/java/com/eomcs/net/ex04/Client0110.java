@@ -55,7 +55,7 @@ public class Client0110 {
   public static void main(String[] args) {
     Scanner keyScan = new Scanner(System.in);
 
-    try (Socket socket = new Socket("192.168.0.12", 8888);
+    try (Socket socket = new Socket("localhost", 8888);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 

@@ -17,19 +17,17 @@ public class Exam0420 {
     @Override
     public void run() {
       try {
-        System.out.printf("[%s] '%s' 실행 중...\n",
-            Thread.currentThread().getName(), this.name);
+        System.out.printf("[%s] '%s' 실행 중...\n", Thread.currentThread().getName(), this.name);
 
+        // 스레드의 실행 시간을 임의로 지연시키기 위함.
         for (long i = 0; i < 1000_0000; i++) {
           double r = Math.tan(3456.77889) / Math.random();
         }
 
-        System.out.printf("[%s] 스레드 종료!\n",
-            Thread.currentThread().getName());
+        System.out.printf("[%s] 스레드 종료!\n", Thread.currentThread().getName());
 
       } catch (Exception e) {
-        System.out.printf("[%s] 스레드 실행 중 오류 발생!\n",
-            Thread.currentThread().getName());
+        System.out.printf("[%s] 스레드 실행 중 오류 발생!\n", Thread.currentThread().getName());
       }
     }
   }
@@ -50,7 +48,8 @@ public class Exam0420 {
     //    - 즉 실행 중인 작업만 완료시키고, 대기 중인 작업은 취소시키는 효과가 있다.
     // => Running 상태에서 Not Runnable 상태가 될 때까지 기다린다.
     // => 그리고 취소한 대기 작업 목록을 리턴해준다.
-    //
+    // => "현재 스레드가 실행 중인 작업은 완료하고 나머지 작업은 취소해!."
+    //    "취소한 작업 목록은 내가 리턴해줘!"
     List<Runnable> tasks = executorService.shutdownNow();
     System.out.println("실행 취소된 작업들:");
     System.out.println("--------------------------------");
@@ -70,5 +69,6 @@ public class Exam0420 {
     //   진행 중인 작업은 완료하고, 대기 중인 작업은 취소하고 그 목록을 리턴한다.
     System.out.println("main() 종료!");
   }
+
 }
 

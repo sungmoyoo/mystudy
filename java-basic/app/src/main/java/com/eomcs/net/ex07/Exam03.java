@@ -8,7 +8,7 @@ public class Exam03 {
 
   public static void main(String[] args) throws Exception {
     // 자원의 내부 위치를 표현하는 방법
-    // - http://서버주소:포트/자원의경로/../xxx#문서의 내부 위치(문서 레퍼런스)
+    // - http://서버주소:포트/자원의경로/../xxx#문서의 내부 위치
     URL url = new URI("https://tools.ietf.org/html/rfc2616#section-5.1").toURL();
 
     // URL 분석

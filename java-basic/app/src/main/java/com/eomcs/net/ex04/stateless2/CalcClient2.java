@@ -34,11 +34,11 @@ public class CalcClient2 {
         out.flush();
 
         // => 서버에서 보낸 클라이언트 아이디를 읽는다.
-        
         long id = in.readLong();
-        if(clientId != id) { // 기존에 저장된 ID와 서버에서 받은 아이디가 다를 경
-         clientId = id;  // 서버에서 받은 ID를 새 아이디로 저장한다.
+        if (clientId != id) { // 기존에 저장된 ID와 서버에서 받은 아이디가 다르다면 
+          clientId = id; // 서버에서 받은 ID를 clientId로 사용한다.
         }
+
         // => 서버에서 보낸 결과를 읽는다.
         System.out.println(in.readUTF());
 
@@ -48,10 +48,8 @@ public class CalcClient2 {
 
       System.out.print("계속하시겠습니까?(Y/n)");
       if (keyScan.nextLine().equalsIgnoreCase("n")) {
-        System.out.println("클라이언트를 종료합니다.");
         break;
       }
-      
     }
 
     keyScan.close();
