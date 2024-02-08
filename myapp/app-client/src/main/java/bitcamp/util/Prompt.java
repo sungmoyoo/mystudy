@@ -1,12 +1,17 @@
 package bitcamp.util;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Date;
 import java.util.Scanner;
 
-public class Prompt {
+public class Prompt implements AutoCloseable{
 
   private Scanner keyIn;
+
 
   public Prompt(InputStream in) {
 

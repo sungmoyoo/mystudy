@@ -946,8 +946,6 @@ Runnable 인터페이스를 구현체를 Thread의 파라미터로 넘겨 생성
 - fucntional interface 람다 변환
 
 
-
-
 45. Pooling 기법 적용(스레드 재사용)
 **Pooling 기법을 활용하여 스레드 관리**
 - 서버에 util 패키지 생성
@@ -1143,6 +1141,7 @@ update()
 2. update xxx set + where로 변경 후 int 리턴
 ```
 
+
 48. DB 교체
 네이버 클라우드 DB 생성
 - cloud db for mysql에서 DB생성
@@ -1155,5 +1154,105 @@ update()
 
 49. PreparedStatement 적용
 - 기존 Statement -> PreparedStatement로 변경
-- SQL 실행문을 안으로 집어넣기
-- try with resouces로 변경
+```
+1. SQL 실행문을 안으로 집어넣고 수정
+2. try with resouces로 변경
+3. ? in-parameter 삽입
+```
+
+
+50. Application Server Architecture
+app-client 분리
+- app-client 복사 app-server로 이름 바꾸기
+- setting.gradle에서 include
+- build.gradle mainClass ServerApp 설정
+- main() 있는 파일 ServerApp으로 변경
+
+**ClientApp 수정**
+- main, run 메서드 제외 모두 삭제
+- run 메서드 바디 삭제
+- ClientApp server(String serverAddress) 메서드 생성
+```
+1. serverAddress 변수 받기 this로
+2. return this
+```
+- void port(int port) 메서드 생성
+```
+1. port 변수 받기
+2. return this
+```
+- main()에서 바로 실행
+```
+1. new ClientApp.server().port().run()로 바로 실행
+```
+
+void run() 수정
+```
+1. try with resouces로 socket, Data I/O Stream 생성
+2. while true로 String response readUTF
+3. prompt 자원 추가, autocloseable 구현해서
+4. String input을 Server로 보냄
+5. 서버 연결 종료 조건 응답 추가
+```
+- dao, menu, vo, handler 패키지 모두 삭제
+
+**ServerApp 수정**  
+void run() 수정
+- SeverSocket 생성
+```
+1. Socket 생성
+2. void processRequest(Socket)에서 통신 처리
+```
+
+void processRequest() 생성
+```
+1. Socket, Data I/O Stream try with resources
+2. 먼저 응답
+3. client 입력 읽고
+4. 종료 조건문 추가
+5. 다시 출력
+```
+
+**Prompt 변경**  
+기존 Scanner로 입력받는 것 삭제, Data I/O Stream로 클라이언트와 입출력
+- Data I/O Stream 생성자로 받기
+- StringWriter(), PrintWriter(StringWriter) 객체 생성 => PrintWriter에 StringWriter를 붙이면 다양한 print를 사용해 버퍼에 저장할 수 있다.
+- Scanner 관련 코드 삭제
+
+print(), println(), printf() 생성
+- 입력은 String을 받는다.
+- PrintWriter의 메서드를 사용할 것이기 때문에 동일한 이름의 메서드로 생성
+- 앞에서 생성한 PrintWriter 객체의 메서드 호출
+
+String input()
+```
+1. printf(String, args) 먼저 출력
+2. end() 메서드 호출하여 클라이언트로 보냄
+3. 클라이언트가 입력하면 바로 리턴 (in.readUTF)
+4. end()가 예외를 던져야 하니 try catch로 RuntimeException throw
+```
+
+close()
+```
+1. PrintWriter, StringWriter 자원 해제
+2. Data I/O Stream은 ServerApp에서 try with resouces로 자동 해제됨
+```
+
+형 변환 메서드들
+- 변경없음
+
+processRequest() 수정
+- Prompt를 try with resources에 추가
+- excute 호출
+
+MenuGroup excute() 수정
+- Prompt를 action()에서 사용할 것이기 때문에 excute의 파라미터로 전달해야 한다. 
+```
+1. 따라서 MenuHandler, Menu 인터페이스 규칙에 프롬프트 받도록 추가
+2. AbstractMenuHandler의 action에도 프롬프트 받도록 추가
+```
+
+**Stack 공유 문제**
+현재 어디 메뉴에 위치해 있는지 출력하는 부분에서 Stack을 공유하고 있다.  
+
+이를 수정하기 위해 Prompt로 Stack을 옮긴다. 
