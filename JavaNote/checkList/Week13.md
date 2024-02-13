@@ -52,3 +52,8 @@ JDBC API는 DB 프로그래밍을 위한 메서드 호출 규칙이고 JDBC Driv
 
 ### 5. 트랜잭션을 제어할 수 있는가?
 
+# 61일차(2024-02-08, 목)
+### 1. Application Architecture에 대해 설명할 수 있는가?
+
+### 2. StringWriter의 동작 원리를 설명할 수 있는가?
+

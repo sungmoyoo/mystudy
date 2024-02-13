@@ -19,7 +19,7 @@ public class Exam0321 {
         System.out.printf("%d, %s, %s, %s, %s, %d\n",
             rs.getInt(1), // board_id
             rs.getString(2), // title
-            rs.getString(3), // contents
+            rs.getString(3), // content
             rs.getDate(4), // created_date
             rs.getTime(4), // created_date
             rs.getInt(5)); // view_count

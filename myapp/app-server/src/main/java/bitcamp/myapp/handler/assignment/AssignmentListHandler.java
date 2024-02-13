@@ -3,28 +3,42 @@ package bitcamp.myapp.handler.assignment;
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.vo.Assignment;
+import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
+import java.sql.Connection;
 import java.util.List;
 
 public class AssignmentListHandler extends AbstractMenuHandler {
 
   private AssignmentDao assignmentDao;
+  DBConnectionPool connectionPool;
 
-  public AssignmentListHandler(AssignmentDao assignmentDao) {
+  public AssignmentListHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
+    this.connectionPool = connectionPool;
     this.assignmentDao = assignmentDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    prompt.printf("%-4s\t%-20s\t%s\n", "번호", "과제", "제출마감일");
+    Connection con = null;
+    try {
+      con = connectionPool.getConnection();
 
-    List<Assignment> list = assignmentDao.findAll();
+      prompt.printf("%-4s\t%-20s\t%s\n", "번호", "과제", "제출마감일");
 
-    for (Assignment assignment : list) {
-      prompt.printf("%-4d\t%-20s\t%s\n",
-          assignment.getNo(),
-          assignment.getTitle(),
-          assignment.getDeadline());
+      List<Assignment> list = assignmentDao.findAll();
+
+      for (Assignment assignment : list) {
+        prompt.printf("%-4d\t%-20s\t%s\n",
+            assignment.getNo(),
+            assignment.getTitle(),
+            assignment.getDeadline());
+      }
+    } catch (Exception e) {
+      System.out.println("과제 목록 오류!");
+    } finally {
+      connectionPool.returnConnection(con);
     }
+
   }
 }
