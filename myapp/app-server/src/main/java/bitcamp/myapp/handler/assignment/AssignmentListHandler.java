@@ -11,19 +11,14 @@ import java.util.List;
 public class AssignmentListHandler extends AbstractMenuHandler {
 
   private AssignmentDao assignmentDao;
-  DBConnectionPool connectionPool;
 
-  public AssignmentListHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
-    this.connectionPool = connectionPool;
+  public AssignmentListHandler(AssignmentDao assignmentDao) {
     this.assignmentDao = assignmentDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    Connection con = null;
     try {
-      con = connectionPool.getConnection();
-
       prompt.printf("%-4s\t%-20s\t%s\n", "번호", "과제", "제출마감일");
 
       List<Assignment> list = assignmentDao.findAll();
@@ -36,8 +31,6 @@ public class AssignmentListHandler extends AbstractMenuHandler {
       }
     } catch (Exception e) {
       System.out.println("과제 목록 오류!");
-    } finally {
-      connectionPool.returnConnection(con);
     }
 
   }

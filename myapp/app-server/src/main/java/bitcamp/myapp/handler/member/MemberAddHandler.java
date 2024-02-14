@@ -11,10 +11,8 @@ import java.util.Date;
 public class MemberAddHandler extends AbstractMenuHandler {
 
   private MemberDao memberDao;
-  DBConnectionPool connectionPool;
 
-  public MemberAddHandler(DBConnectionPool connectionPool, MemberDao memberDao) {
-    this.connectionPool = connectionPool;
+  public MemberAddHandler(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
@@ -22,8 +20,6 @@ public class MemberAddHandler extends AbstractMenuHandler {
   protected void action(Prompt prompt) {
     Connection con = null;
     try {
-      con = connectionPool.getConnection();
-
       Member member = new Member();
       member.setEmail(prompt.input("이메일? "));
       member.setName(prompt.input("이름? "));
@@ -33,8 +29,6 @@ public class MemberAddHandler extends AbstractMenuHandler {
       memberDao.add(member);
     } catch (Exception e) {
       System.out.println("회원 등록 오류!");
-    } finally {
-      connectionPool.returnConnection(con);
     }
   }
 }

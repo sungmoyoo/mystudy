@@ -10,19 +10,14 @@ import java.sql.Connection;
 public class MemberViewHandler extends AbstractMenuHandler {
 
   private MemberDao memberDao;
-  DBConnectionPool connectionPool;
 
-  public MemberViewHandler(DBConnectionPool connectionPool, MemberDao memberDao) {
-    this.connectionPool = connectionPool;
+  public MemberViewHandler(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    Connection con = null;
     try {
-      con = connectionPool.getConnection();
-
       int no = prompt.inputInt("번호? ");
 
       Member member = memberDao.findBy(no);
@@ -37,8 +32,6 @@ public class MemberViewHandler extends AbstractMenuHandler {
       prompt.printf("가입일: %1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS\n", member.getCreatedDate());
     } catch (Exception e) {
       System.out.println("회원 조회 오류!");
-    } finally {
-      connectionPool.returnConnection(con);
     }
   }
 }

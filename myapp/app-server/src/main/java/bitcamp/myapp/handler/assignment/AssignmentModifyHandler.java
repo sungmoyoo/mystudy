@@ -10,18 +10,14 @@ import java.sql.Connection;
 public class AssignmentModifyHandler extends AbstractMenuHandler {
 
   private AssignmentDao assignmentDao;
-  DBConnectionPool connectionPool;
 
-  public AssignmentModifyHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
-    this.connectionPool = connectionPool;
+  public AssignmentModifyHandler(AssignmentDao assignmentDao) {
     this.assignmentDao = assignmentDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    Connection con = null;
     try {
-      con = connectionPool.getConnection();
 
       int no = prompt.inputInt("번호? ");
 
@@ -50,8 +46,6 @@ public class AssignmentModifyHandler extends AbstractMenuHandler {
     } catch (Exception e) {
       prompt.println("실행 오류!");
       e.printStackTrace();
-    } finally {
-      connectionPool.returnConnection(con);
     }
 
   }

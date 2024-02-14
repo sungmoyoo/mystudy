@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
-public class DBConnectionPool {
+public class DBConnectionPool implements ConnectionPool {
   private String jdbcURL;
   private String username;
   private String password;
@@ -36,7 +36,7 @@ public class DBConnectionPool {
       } else {
         // 스레드풀에도 놀고 있는 Connection이 없다면,
         // 새로 Connection을 만든다.
-        con = DriverManager.getConnection(jdbcURL, username, password);
+        con = new ConnectionProxy(DriverManager.getConnection(jdbcURL, username, password), this);
         System.out.printf("%s: DB 커넥션 생성\n", Thread.currentThread().getName());
       }
 
@@ -57,5 +57,11 @@ public class DBConnectionPool {
     connections.add(con);
 
     System.out.printf("%s: DB 커넥션을 커넥션풀에 반납\n", Thread.currentThread().getName());
+  }
+
+  public void closeAll() {
+  for (Connection con : connections) {
+    ((ConnectionProxy) con).realClose();
+    }
   }
 }

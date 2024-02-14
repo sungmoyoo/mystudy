@@ -10,19 +10,14 @@ import java.sql.Connection;
 public class MemberModifyHandler extends AbstractMenuHandler {
 
   private MemberDao memberDao;
-  DBConnectionPool connectionPool;
 
-  public MemberModifyHandler(DBConnectionPool connectionPool, MemberDao memberDao) {
-    this.connectionPool = connectionPool;
+  public MemberModifyHandler(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    Connection con = null;
     try {
-      con = connectionPool.getConnection();
-
       int no = prompt.inputInt("번호? ");
 
       Member old = memberDao.findBy(no);
@@ -42,8 +37,6 @@ public class MemberModifyHandler extends AbstractMenuHandler {
       prompt.println("회원을 변경했습니다.");
     } catch (Exception e) {
       System.out.println("회원 변경 오류!");
-    } finally {
-      connectionPool.returnConnection(con);
     }
   }
 }

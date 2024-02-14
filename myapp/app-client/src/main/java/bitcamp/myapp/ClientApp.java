@@ -12,8 +12,8 @@ public class ClientApp {
 
   public static void main(String[] args) {
     new ClientApp()
-        .server("192.168.0.56")
-//        .server("localhost")
+//        .server("192.168.0.56")
+        .server("localhost")
         .port(8888)
         .run();
   }
