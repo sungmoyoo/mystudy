@@ -7,6 +7,7 @@ import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
+import bitcamp.util.TransactionManager;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,12 @@ public class BoardModifyHandler extends AbstractMenuHandler {
 
   private BoardDao boardDao;
   private AttachedFileDao attachedFileDao;
+  private TransactionManager txManager;
 
-  public BoardModifyHandler(BoardDao boardDao, AttachedFileDao attachedFileDao) {
+  public BoardModifyHandler(BoardDao boardDao, AttachedFileDao attachedFileDao, TransactionManager txManager) {
     this.boardDao = boardDao;
     this.attachedFileDao = attachedFileDao;
+    this.txManager = txManager;
   }
 
   @Override
@@ -27,7 +30,6 @@ public class BoardModifyHandler extends AbstractMenuHandler {
       int no = prompt.inputInt("번호? ");
 
       Board oldBoard = boardDao.findBy(no);
-
 
       if (oldBoard == null) {
         prompt.println("게시글 번호가 유효하지 않습니다.");
@@ -41,8 +43,9 @@ public class BoardModifyHandler extends AbstractMenuHandler {
       board.setWriter(prompt.input("작성자(%s)? ", oldBoard.getWriter()));
       board.setCreatedDate(oldBoard.getCreatedDate());
 
+      txManager.startTransaction();
 
-      // 파일 추가/삭제? 반복. enter 치면 종료
+      // 파일 추가/삭제? 반복.
       while (true) {
         int ModifyNo = prompt.inputInt("""
             파일 수정
@@ -64,21 +67,29 @@ public class BoardModifyHandler extends AbstractMenuHandler {
             prompt.printf("%d. %s\n", file.getNo(), file.getFilePath());
           }
           int deleteFileNo = prompt.inputInt("삭제할 파일 번호?");
+          if (attachedFileDao.delete(deleteFileNo) > 0) {
+            prompt.printf("삭제되었습니다. 파일번호:[%d] \n", deleteFileNo);
+          } else {
+            prompt.println("유효하지 않는 파일번호입니다.");
+          }
 
-          attachedFileDao.delete(deleteFileNo);
-
-        } else if (ModifyNo == 3){
+        } else if (ModifyNo == 3) {
           break;
         } else {
           prompt.println("잘못된 번호입니다.");
         }
-
       }
 
       boardDao.update(board);
       prompt.println("게시글을 변경했습니다.");
 
+      txManager.commit();
+
     } catch (Exception e) {
+      try {
+        txManager.rollback();
+      } catch (Exception e2) {
+      }
       System.out.println("게시글 변경 오류!");
       e.printStackTrace();
     }

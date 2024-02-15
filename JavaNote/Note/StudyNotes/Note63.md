@@ -73,6 +73,5 @@ public class TransactionManager {
   }
 }
 ```
-
 위와 같이 분리된 트랜잭션 매니저를 Business Logic에서 TransactionManager를 생성자로 받으면 메서드 호출만으로 제어할 수 있는 장점이 있다.
 

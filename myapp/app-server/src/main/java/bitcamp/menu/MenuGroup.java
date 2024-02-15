@@ -1,6 +1,11 @@
 package bitcamp.menu;
 
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.handler.auth.LoginHandler;
+import bitcamp.myapp.vo.Member;
+import bitcamp.util.AnsiEscape;
 import bitcamp.util.Prompt;
+import bitcamp.util.Session;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,17 +25,17 @@ public class MenuGroup extends AbstractMenu {
 
   @Override
   public void execute(Prompt prompt) {
-
     prompt.pushPath(this.title);
 
     this.printMenu(prompt);
 
     while (true) {
-      String input = prompt.input("%s>", prompt.getFullPath());
+      String input = prompt.input("%s%s>", getLoginUsername(prompt), prompt.getFullPath());
 
       if (input.equals("menu")) {
         this.printMenu(prompt);
         continue;
+
       } else if (input.equals("0")) {
         break;
       }
@@ -50,6 +55,17 @@ public class MenuGroup extends AbstractMenu {
     }
 
     prompt.popPath();
+  }
+
+  private String getLoginUsername(Prompt prompt) {
+    Member loginUser = (Member) prompt.getSession().getAttribute("loginUser");
+
+    if (loginUser != null) {
+      return AnsiEscape.ANSI_BOLD_RED + loginUser.getName() + AnsiEscape.ANSI_CLEAR + ":";
+    } else {
+      return "";
+    }
+
   }
 
   private void printMenu(Prompt prompt) {
