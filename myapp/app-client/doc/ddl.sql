@@ -11,14 +11,17 @@ create table boards(
   board_no int not null,
   title varchar(255) not null,
   content text not null,
-  writer varchar(30) not null,
+  writer int not null,
   category int not null,
   created_date datetime null default now()
 );
 
 alter table boards
-  add constraint primary key (board_no),
+  add constraint primary key (board_no),\
   modify column board_no int auto_increment;
+
+alter table boards
+  add constraint boards_fk foreign key (writer) references members(member_no);
 
 
 

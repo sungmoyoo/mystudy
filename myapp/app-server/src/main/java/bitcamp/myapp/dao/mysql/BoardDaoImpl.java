@@ -4,6 +4,7 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ public class BoardDaoImpl implements BoardDao {
 
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
-      pstmt.setString(3, board.getWriter());
+      pstmt.setInt(3, board.getWriter().getNo());
       pstmt.setInt(4, category);
 
       pstmt.executeUpdate();
@@ -70,11 +71,13 @@ public class BoardDaoImpl implements BoardDao {
             select
               b.board_no,
               b.title,
-              b.writer,
               b.created_date,
-              count(file_no) file_count
+              count(file_no) file_count,
+              m.member_no,
+              m.name
             from
               boards b left outer join board_files bf on b.board_no = bf.board_no
+              inner join members m on b.writer=m.member_no
             where
               category=?
             group by
@@ -93,9 +96,14 @@ public class BoardDaoImpl implements BoardDao {
           Board board = new Board();
           board.setNo(rs.getInt("board_no"));
           board.setTitle(rs.getString("title"));
-          board.setWriter(rs.getString("writer"));
           board.setCreatedDate(rs.getDate("created_date"));
           board.setFileCount(rs.getInt("file_count"));
+
+          Member writer = new Member();
+          writer.setNo(rs.getInt("member_no"));
+          writer.setName(rs.getString("name"));
+
+          board.setWriter(writer);
 
           list.add(board);
         }
@@ -109,7 +117,21 @@ public class BoardDaoImpl implements BoardDao {
   @Override
   public Board findBy(int no) {
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement("select * from boards where board_no=?")) {
+        PreparedStatement pstmt = con.prepareStatement(
+            """
+            select
+              b.board_no,
+              b.title,
+              b.content,
+              b.created_date,
+              m.member_no,
+              m.name
+            from
+              boards b inner join members m on b.writer=m.member_no
+            where
+              board_no=?
+            """
+        )) {
 
       pstmt.setInt(1, no);
 
@@ -119,8 +141,12 @@ public class BoardDaoImpl implements BoardDao {
           board.setNo(rs.getInt("board_no"));
           board.setTitle(rs.getString("title"));
           board.setContent(rs.getString("content"));
-          board.setWriter(rs.getString("writer"));
           board.setCreatedDate(rs.getDate("created_date"));
+
+          Member writer = new Member();
+          writer.setNo(rs.getInt("member_no"));
+          writer.setName(rs.getString("name"));
+          board.setWriter(writer);
 
           return board;
         }
@@ -136,12 +162,11 @@ public class BoardDaoImpl implements BoardDao {
   public int update(Board board) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "update boards set title=?, content=?, writer=? where board_no=?")) {
+        "update boards set title=?, content=? where board_no=?")) {
 
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
-      pstmt.setString(3, board.getWriter());
-      pstmt.setInt(4, board.getNo());
+      pstmt.setInt(3, board.getNo());
 
       return pstmt.executeUpdate();
 
