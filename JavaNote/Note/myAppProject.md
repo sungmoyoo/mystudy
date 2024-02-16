@@ -1256,3 +1256,5 @@ MenuGroup excute() 수정
 현재 어디 메뉴에 위치해 있는지 출력하는 부분에서 Stack을 공유하고 있다.  
 
 이를 수정하기 위해 Prompt로 Stack을 옮긴다. 
+
+
