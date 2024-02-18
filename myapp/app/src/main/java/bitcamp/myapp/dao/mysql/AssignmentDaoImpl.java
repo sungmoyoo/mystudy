@@ -3,6 +3,7 @@ package bitcamp.myapp.dao.mysql;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.Assignment;
+import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,11 +27,12 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public void add(Assignment assignment) {
       try (Connection con = connectionPool.getConnection();
           PreparedStatement pstmt = con.prepareStatement(
-        "insert into assignments(title,content,deadline) values(?,?,?)")) {
+        "insert into assignments(title,content,writer,deadline) values(?,?,?,?)")) {
 
         pstmt.setString(1, assignment.getTitle());
         pstmt.setString(2, assignment.getContent());
-        pstmt.setDate(3, assignment.getDeadline());
+        pstmt.setInt(3, assignment.getWriter().getNo());
+        pstmt.setDate(4, assignment.getDeadline());
 
         pstmt.executeUpdate();
 
@@ -57,7 +59,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public List<Assignment> findAll() {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "select assignment_no, title, deadline from assignments order by assignment_no desc");
+        "select assignment_no, title, deadline from assignments");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Assignment> list = new ArrayList<>();
@@ -83,7 +85,19 @@ public class AssignmentDaoImpl implements AssignmentDao {
 
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "select * from assignments where assignment_no=?")) {
+            """
+            select
+              a.assignment_no,
+              a.title,
+              a.content,
+              a.deadline,
+              m.member_no,
+              m.name
+            from
+              assignments a inner join members m on a.writer=m.member_no
+            where
+              assignment_no=?
+              """)) {
 
       pstmt.setInt(1, no);
 
@@ -95,13 +109,22 @@ public class AssignmentDaoImpl implements AssignmentDao {
           assignment.setTitle(rs.getString("title"));
           assignment.setContent(rs.getString("content"));
           assignment.setDeadline(rs.getDate("deadline"));
+
+          Member writer = new Member();
+          writer.setNo(rs.getInt("member_no"));
+          writer.setName(rs.getString("name"));
+
+          assignment.setWriter(writer);
+
           return assignment;
         }
         return null;
 
     }
     } catch (Exception e) {
+      e.printStackTrace();
       throw new DaoException("데이터 가져오기 오류", e);
+
     }
   }
 

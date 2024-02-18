@@ -11,6 +11,8 @@ public class Assignment implements Serializable {
   private String title;
   private String content;
   private Date deadline;
+  private Member Writer;
+
 
   @Override
   public String toString() {
@@ -19,6 +21,7 @@ public class Assignment implements Serializable {
         ", title='" + title + '\'' +
         ", content='" + content + '\'' +
         ", deadline=" + deadline +
+        ", Writer=" + Writer +
         '}';
   }
 
@@ -52,5 +55,13 @@ public class Assignment implements Serializable {
 
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
+  }
+
+  public Member getWriter() {
+    return Writer;
+  }
+
+  public void setWriter(Member writer) {
+    Writer = writer;
   }
 }
