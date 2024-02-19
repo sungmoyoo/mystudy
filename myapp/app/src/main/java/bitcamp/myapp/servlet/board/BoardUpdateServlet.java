@@ -2,12 +2,9 @@ package bitcamp.myapp.servlet.board;
 
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.mysql.AttachedFileDaoImpl;
-import bitcamp.myapp.dao.mysql.BoardDaoImpl;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,17 +22,20 @@ public class BoardUpdateServlet extends HttpServlet {
   private TransactionManager txManager;
   private AttachedFileDao attachedFileDao;
 
-  public BoardUpdateServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.boardDao = new BoardDaoImpl(connectionPool, 1);
-    txManager = new TransactionManager(connectionPool);
-    attachedFileDao = new AttachedFileDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    txManager = (TransactionManager) this.getServletContext().getAttribute("txManager");
+    this.boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    this.attachedFileDao = (AttachedFileDao) this.getServletContext()
+        .getAttribute("attachedFileDao");
   }
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    int category = Integer.valueOf(request.getParameter("category"));
+    String title = category == 1 ? "게시글" : "가입인사";
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -48,7 +48,7 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>게시글</h2>");
+    out.printf("<h1>%s</h1>\n", title);
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -62,7 +62,12 @@ public class BoardUpdateServlet extends HttpServlet {
 
       Board board = boardDao.findBy(no);
       if (board == null) {
-        out.println("<p>게시글 번호가 유효하지 않습니다.</p>");
+        out.println("<p>번호가 유효하지 않습니다.</p>");
+        out.println("</body>");
+        out.println("</html>");
+        return;
+      } else if (board.getWriter().getNo() != loginUser.getNo()) {
+        out.println("<p>권한이 없습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
@@ -73,13 +78,15 @@ public class BoardUpdateServlet extends HttpServlet {
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
 
-      String[] files = request.getParameterValues("files");
-      if (files != null) {
-        for (String file : files) {
-          if (file.length() == 0) {
-            continue;
+      if (category == 1) {
+        String[] files = request.getParameterValues("files");
+        if (files != null) {
+          for (String file : files) {
+            if (file.length() == 0) {
+              continue;
+            }
+            attachedFiles.add(new AttachedFile().filePath(file));
           }
-          attachedFiles.add(new AttachedFile().filePath(file));
         }
       }
 
@@ -96,15 +103,15 @@ public class BoardUpdateServlet extends HttpServlet {
 
       txManager.commit();
 
-      out.println("<p>게시글을 변경했습니다.</p>");
+      out.println("<p>변경했습니다.</p>");
 
-      } catch (Exception e) {
-        try {
-          txManager.rollback();
-        } catch (Exception e2) {
-        }
-        out.println("<p>게시글 변경 오류!</p>");
-        e.printStackTrace();
+    } catch (Exception e) {
+      try {
+        txManager.rollback();
+      } catch (Exception e2) {
+      }
+      out.println("<p>변경 오류!</p>");
+      e.printStackTrace();
     }
 
     out.println("</body>");

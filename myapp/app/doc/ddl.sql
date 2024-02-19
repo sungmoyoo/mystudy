@@ -33,7 +33,6 @@ create table assignments(
   assignment_no int not null,
   title varchar(255) not null,
   content text not null,
-  writer int not null,
   deadline date not null
 );
 
@@ -55,6 +54,3 @@ alter table members
 
 alter table boards
   add constraint boards_fk foreign key (writer) references members(member_no);
-
-alter table assignments
-  add constraint assignments_fk foreign key (writer) references members(member_no);

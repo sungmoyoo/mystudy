@@ -32,15 +32,15 @@ insert into board_files(file_no,file_path,board_no) values
 
 
 -- assignments 테이블 데이터
-insert into assignments(assignment_no,title,content,writer,deadline)
-  values(1,'과제1','내용1', 101,'2024-1-1');
-insert into assignments(assignment_no,title,content,writer,deadline)
-  values(2,'과제2','내용2', 101,'2024-2-2');
-insert into assignments(assignment_no,title,content,writer,deadline)
-  values(3,'과제3','내용3', 102,'2024-3-3');
-insert into assignments(assignment_no,title,content,writer,deadline)
-  values(4,'과제4','내용4', 102,'2024-4-4');
-insert into assignments(assignment_no,title,content,writer,deadline)
-  values(5,'과제5','내용5', 101,'2024-5-5');
+insert into assignments(assignment_no,title,content,deadline)
+  values(1,'과제1','내용1','2024-1-1');
+insert into assignments(assignment_no,title,content,deadline)
+  values(2,'과제2','내용2','2024-2-2');
+insert into assignments(assignment_no,title,content,deadline)
+  values(3,'과제3','내용3','2024-3-3');
+insert into assignments(assignment_no,title,content,deadline)
+  values(4,'과제4','내용4','2024-4-4');
+insert into assignments(assignment_no,title,content,deadline)
+  values(5,'과제5','내용5','2024-5-5');
 
 

@@ -1,35 +1,32 @@
 package bitcamp.myapp.servlet.member;
 
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/member/list")
-public class MemberListServlet extends GenericServlet {
+public class MemberListServlet extends HttpServlet {
 
   private MemberDao memberDao;
 
-  public MemberListServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override
-  public void service(ServletRequest servletRequest, ServletResponse servletResponse)
+  public void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    servletResponse.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = servletResponse.getWriter();
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
 
     out.println("<!DOCTYPE html>");
     out.println("<html lang='en'>");
@@ -52,13 +49,15 @@ public class MemberListServlet extends GenericServlet {
       List<Member> list = memberDao.findAll();
 
       for (Member member : list) {
-        out.printf("<tr> <td>%d</td> <td><a href='/member/view?no=%1$d'>%s</td> <td>%s</td> <td>%4$tY-%4$tm-%4$td</td> </tr>\n",
+        out.printf(
+            "<tr> <td>%d</td> <td><a href='/member/view?no=%1$d'>%s</td> <td>%s</td> <td>%4$tY-%4$tm-%4$td</td> </tr>\n",
             member.getNo(),
             member.getName(),
             member.getEmail(),
             member.getCreatedDate());
       }
-      out.println("</tbody>");
+      out.println("   </tbody>");
+      out.println("</table>");
 
     } catch (Exception e) {
       out.println("<p>회원 목록 오류</p>");

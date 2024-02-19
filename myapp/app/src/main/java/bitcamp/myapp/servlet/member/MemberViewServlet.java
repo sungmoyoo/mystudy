@@ -1,9 +1,7 @@
 package bitcamp.myapp.servlet.member;
 
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,10 +15,9 @@ public class MemberViewServlet extends HttpServlet {
 
   private MemberDao memberDao;
 
-  public MemberViewServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override
@@ -58,15 +55,15 @@ public class MemberViewServlet extends HttpServlet {
       out.printf("  이름: <input name='name' type='text' value='%s'>\n", member.getName());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  이메일: <textarea name='email'>%s</textarea>\n", member.getEmail());
+      out.printf("  이메일: <input name='email' value='%s'>\n", member.getEmail());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  가입일: <input readonly name='createdDate' type='date' value='%tY-%<tm-%<td'>\n",
+      out.printf("  가입일: <input readonly name='created-date' type='date' value='%tY-%<tm-%<td'>\n",
           member.getCreatedDate());
       out.println("</div>");
 
       out.println("<div>");
-      out.println("  새 비밀번호: <input name='afterPassword' type='password'>");
+      out.println("  새 비밀번호: <input name='password' type='password'>");
       out.println("</div>");
       out.println("<div>");
       out.println("  2차 확인: <input name='confirmation' type='password'>");

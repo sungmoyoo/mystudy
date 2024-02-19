@@ -1,9 +1,7 @@
 package bitcamp.myapp.servlet.member;
 
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,11 +17,10 @@ public class MemberAddServlet extends HttpServlet {
   private MemberDao memberDao;
   private TransactionManager txManager;
 
-  public MemberAddServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
-    txManager = new TransactionManager(connectionPool);
+  @Override
+  public void init() {
+    txManager = (TransactionManager) this.getServletContext().getAttribute("txManager");
+    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override
@@ -41,8 +38,7 @@ public class MemberAddServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>게시글</h2>");
-
+    out.println("<h2>회원</h2>");
 
     Member member = new Member();
     member.setName(request.getParameter("title"));

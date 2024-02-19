@@ -3,7 +3,6 @@ package bitcamp.myapp.dao.mysql;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,23 +17,18 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public AssignmentDaoImpl(DBConnectionPool connectionPool) {
     this.connectionPool = connectionPool;
   }
-
-//  public AssignmentDaoImpl(Connection con) {
-//    this.con = con;
-//  }
-
+  
   @Override
   public void add(Assignment assignment) {
-      try (Connection con = connectionPool.getConnection();
-          PreparedStatement pstmt = con.prepareStatement(
-        "insert into assignments(title,content,writer,deadline) values(?,?,?,?)")) {
+    try (Connection con = connectionPool.getConnection();
+        PreparedStatement pstmt = con.prepareStatement(
+            "insert into assignments(title,content,deadline) values(?,?,?)")) {
 
-        pstmt.setString(1, assignment.getTitle());
-        pstmt.setString(2, assignment.getContent());
-        pstmt.setInt(3, assignment.getWriter().getNo());
-        pstmt.setDate(4, assignment.getDeadline());
+      pstmt.setString(1, assignment.getTitle());
+      pstmt.setString(2, assignment.getContent());
+      pstmt.setDate(3, assignment.getDeadline());
 
-        pstmt.executeUpdate();
+      pstmt.executeUpdate();
 
     } catch (Exception e) {
       throw new DaoException("데이터 입력 오류", e);
@@ -45,7 +39,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public int delete(int no) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "delete from assignments where assignment_no=?")) {
+            "delete from assignments where assignment_no=?")) {
       pstmt.setInt(1, no);
 
       return pstmt.executeUpdate();
@@ -59,7 +53,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public List<Assignment> findAll() {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "select assignment_no, title, deadline from assignments");
+            "select assignment_no, title, deadline from assignments");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Assignment> list = new ArrayList<>();
@@ -72,10 +66,10 @@ public class AssignmentDaoImpl implements AssignmentDao {
 
         list.add(assignment);
       }
-        return list;
+      return list;
 
-    } catch (Exception e){
-        throw new DaoException("데이터 가져오기 오류", e);
+    } catch (Exception e) {
+      throw new DaoException("데이터 가져오기 오류", e);
 
     }
   }
@@ -85,19 +79,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
 
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            """
-            select
-              a.assignment_no,
-              a.title,
-              a.content,
-              a.deadline,
-              m.member_no,
-              m.name
-            from
-              assignments a inner join members m on a.writer=m.member_no
-            where
-              assignment_no=?
-              """)) {
+            "select * from assignments where assignment_no=?")) {
 
       pstmt.setInt(1, no);
 
@@ -110,17 +92,11 @@ public class AssignmentDaoImpl implements AssignmentDao {
           assignment.setContent(rs.getString("content"));
           assignment.setDeadline(rs.getDate("deadline"));
 
-          Member writer = new Member();
-          writer.setNo(rs.getInt("member_no"));
-          writer.setName(rs.getString("name"));
-
-          assignment.setWriter(writer);
-
           return assignment;
         }
         return null;
 
-    }
+      }
     } catch (Exception e) {
       e.printStackTrace();
       throw new DaoException("데이터 가져오기 오류", e);
@@ -132,7 +108,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public int update(Assignment assignment) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "update assignments set title=?, content=?, deadline=? where assignment_no=?")) {
+            "update assignments set title=?, content=?, deadline=? where assignment_no=?")) {
 
       pstmt.setString(1, assignment.getTitle());
       pstmt.setString(2, assignment.getContent());

@@ -2,11 +2,8 @@ package bitcamp.myapp.servlet.board;
 
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.mysql.AttachedFileDaoImpl;
-import bitcamp.myapp.dao.mysql.BoardDaoImpl;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,16 +18,19 @@ public class BoardDeleteServlet extends HttpServlet {
   private BoardDao boardDao;
   private AttachedFileDao attachedFileDao;
 
-  public BoardDeleteServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.attachedFileDao = new AttachedFileDaoImpl(connectionPool);
-    this.boardDao = new BoardDaoImpl(connectionPool, 1);
+  @Override
+  public void init() {
+    this.boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    this.attachedFileDao = (AttachedFileDao) this.getServletContext()
+        .getAttribute("attachedFileDao");
   }
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    int category = Integer.valueOf(request.getParameter("category"));
+    String title = category == 1 ? "게시글" : "가입인사";
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -43,7 +43,7 @@ public class BoardDeleteServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>게시글</h2>");
+    out.printf("<h1>%s</h1>\n", title);
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -58,7 +58,7 @@ public class BoardDeleteServlet extends HttpServlet {
 
       Board board = boardDao.findBy(no);
       if (board == null) {
-        out.println("<p>게시글 번호가 유효하지 않습니다.</p>");
+        out.println("<p>번호가 유효하지 않습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
@@ -73,11 +73,11 @@ public class BoardDeleteServlet extends HttpServlet {
       boardDao.delete(no);
 
       out.println("<script>");
-      out.println(" location.href = '/board/list'");
+      out.printf(" location.href = '/board/list?category=%d'\n", category);
       out.println("</script>");
 
     } catch (Exception e) {
-      out.println("<p>게시글 삭제 오류!</p>");
+      out.println("<p>삭제 오류!</p>");
       out.println("<pre>");
       e.printStackTrace(out);
       out.println("</pre>");

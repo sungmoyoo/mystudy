@@ -1,10 +1,7 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +15,9 @@ public class AssignmentDeleteServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-  public AssignmentDeleteServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override
@@ -41,25 +37,12 @@ public class AssignmentDeleteServlet extends HttpServlet {
     out.println("<h1>과제 관리 시스템</h1>");
     out.println("<h2>과제</h2>");
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<p>로그인 후 삭제할 수 있습니다.</p>");
-      out.println("</body>");
-      out.println("</html>");
-      return;
-    }
-
     try {
       int no = Integer.parseInt(request.getParameter("no"));
 
       Assignment assignment = assignmentDao.findBy(no);
       if (assignment == null) {
         out.println("<p>과제 번호가 유효하지 않습니다.</p>");
-        out.println("</body>");
-        out.println("</html>");
-        return;
-      } else if (assignment.getWriter().getNo() != loginUser.getNo()) {
-        out.println("<p>권한이 없습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
@@ -72,7 +55,7 @@ public class AssignmentDeleteServlet extends HttpServlet {
       out.println("</script>");
 
     } catch (Exception e) {
-      out.println("<p>게시글 삭제 오류!</p>");
+      out.println("<p>과제 삭제 오류!</p>");
       out.println("<pre>");
       e.printStackTrace(out);
       out.println("</pre>");

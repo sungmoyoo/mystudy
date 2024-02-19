@@ -1,9 +1,7 @@
 package bitcamp.myapp.servlet.member;
 
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,11 +17,10 @@ public class MemberUpdateServlet extends HttpServlet {
   private MemberDao memberDao;
   private TransactionManager txManager;
 
-  public MemberUpdateServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
-    txManager = new TransactionManager(connectionPool);
+  @Override
+  public void init() {
+    txManager = (TransactionManager) this.getServletContext().getAttribute("txManager");
+    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override
@@ -41,15 +38,7 @@ public class MemberUpdateServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>과제</h2>");
-
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<p>로그인 후 변경할 수 있습니다.</p>");
-      out.println("</body>");
-      out.println("</html>");
-      return;
-    }
+    out.println("<h2>회원</h2>");
 
     try {
       int no = Integer.parseInt(request.getParameter("no"));
@@ -66,7 +55,7 @@ public class MemberUpdateServlet extends HttpServlet {
       member.setNo(no);
       member.setEmail(request.getParameter("email"));
       member.setName(request.getParameter("name"));
-      String newPassword = request.getParameter("afterPassword");
+      String newPassword = request.getParameter("password");
 
       if (newPassword.equals(request.getParameter("confirmation"))) {
         member.setPassword(newPassword);
@@ -90,7 +79,7 @@ public class MemberUpdateServlet extends HttpServlet {
         txManager.rollback();
       } catch (Exception e2) {
       }
-      out.printf("<p>회원 변경 오류! '%s'</p>\n", loginUser.getPassword());
+      out.printf("<p>회원 변경 오류!</p>\n");
       e.printStackTrace();
     }
 

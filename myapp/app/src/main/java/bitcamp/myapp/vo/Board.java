@@ -1,7 +1,6 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,8 @@ public class Board implements Serializable {
   private Date createdDate;
   private List<AttachedFile> files;
   private int fileCount;
+  private int category;
+
 
   @Override
   public String toString() {
@@ -27,7 +28,16 @@ public class Board implements Serializable {
         ", createdDate=" + createdDate +
         ", files=" + files +
         ", fileCount=" + fileCount +
+        ", category=" + category +
         '}';
+  }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
   }
 
   public int getNo() {

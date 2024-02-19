@@ -1,10 +1,7 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,11 +18,10 @@ public class AssignmentAddServlet extends HttpServlet {
   private AssignmentDao assignmentDao;
   private TransactionManager txManager;
 
-  public AssignmentAddServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
-    txManager = new TransactionManager(connectionPool);
+  @Override
+  public void init() {
+    assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
+    txManager = (TransactionManager) this.getServletContext().getAttribute("txManager");
   }
 
   @Override
@@ -43,20 +39,11 @@ public class AssignmentAddServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>게시글</h2>");
-
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<p>로그인 후 작성할 수 있습니다.</p>");
-      out.println("</body>");
-      out.println("</html>");
-      return;
-    }
+    out.println("<h2>과제</h2>");
 
     Assignment assignment = new Assignment();
     assignment.setTitle(request.getParameter("title"));
     assignment.setContent(request.getParameter("content"));
-    assignment.setWriter(loginUser);
     assignment.setDeadline(Date.valueOf(request.getParameter("deadline")));
 
     try {
@@ -66,7 +53,7 @@ public class AssignmentAddServlet extends HttpServlet {
 
       txManager.commit();
 
-      out.println("<p>게시글을 등록했습니다.</p>");
+      out.println("<p>과제를 등록했습니다.</p>");
 
 
     } catch (Exception e) {
@@ -74,7 +61,7 @@ public class AssignmentAddServlet extends HttpServlet {
         txManager.rollback();
       } catch (Exception e2) {
       }
-      out.println("<p>게시글 등록 오류!</p>");
+      out.println("<p>과제 등록 오류!</p>");
       e.printStackTrace();
     }
 

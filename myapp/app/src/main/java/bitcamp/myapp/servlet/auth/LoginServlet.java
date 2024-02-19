@@ -1,42 +1,28 @@
 package bitcamp.myapp.servlet.auth;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
-import bitcamp.util.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 @WebServlet("/auth/login")
-public class LoginServlet extends GenericServlet {
+public class LoginServlet extends HttpServlet {
 
   MemberDao memberDao;
 
-  public LoginServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override
-  public void service(ServletRequest servletRequest, ServletResponse servletResponse)
+  public void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    // 서블릿 컨테이너가 service()를 호출할 때 넘겨주는 값을
-    // HttpServletRequest와 HttpServletResponse이다. (ServletRequest/Response의 서브타입)
-    // getSession() 메서드는 HttpServlet.. 에만 존재
-    // 파라미터로 넘어 온 객체를 제대로 사용하고 싶다면 원래 타입으로 형변환
-    HttpServletRequest request = (HttpServletRequest) servletRequest;
-    HttpServletResponse response = (HttpServletResponse) servletResponse;
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -53,8 +39,8 @@ public class LoginServlet extends GenericServlet {
 
     try {
       // query string으로 주어진 파라미터의 값을 가져온다.
-      String email = servletRequest.getParameter("email");
-      String password = servletRequest.getParameter("password");
+      String email = request.getParameter("email");
+      String password = request.getParameter("password");
 
       Member member = memberDao.findByEmailAndPassword(email, password);
       if (member != null) {

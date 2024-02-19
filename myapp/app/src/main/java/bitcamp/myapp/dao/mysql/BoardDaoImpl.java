@@ -2,7 +2,6 @@ package bitcamp.myapp.dao.mysql;
 
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.DaoException;
-import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
@@ -14,30 +13,28 @@ import java.util.List;
 
 public class BoardDaoImpl implements BoardDao {
 
-  int category;
   DBConnectionPool connectionPool;
 
-  public BoardDaoImpl(DBConnectionPool connectionPool, int category) {
+  public BoardDaoImpl(DBConnectionPool connectionPool) {
     this.connectionPool = connectionPool;
-    this.category = category;
   }
 
   @Override
   public void add(Board board) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "insert into boards(title,content,writer,category) values(?,?,?,?)",
-        PreparedStatement.RETURN_GENERATED_KEYS)) {
+            "insert into boards(title,content,writer,category) values(?,?,?,?)",
+            PreparedStatement.RETURN_GENERATED_KEYS)) {
 
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
       pstmt.setInt(3, board.getWriter().getNo());
-      pstmt.setInt(4, category);
+      pstmt.setInt(4, board.getCategory());
 
       pstmt.executeUpdate();
 
       // 자동생성된 PK값을 가져와 Board 객체에 저장한다.
-      try(ResultSet keyRs = pstmt.getGeneratedKeys()) {
+      try (ResultSet keyRs = pstmt.getGeneratedKeys()) {
         keyRs.next();
         board.setNo(keyRs.getInt(1));
       }
@@ -51,7 +48,7 @@ public class BoardDaoImpl implements BoardDao {
   public int delete(int no) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "delete from boards where board_no=?")) {
+            "delete from boards where board_no=?")) {
 
       pstmt.setInt(1, no);
 
@@ -64,27 +61,27 @@ public class BoardDaoImpl implements BoardDao {
   }
 
   @Override
-  public List<Board> findAll() {
+  public List<Board> findAll(int category) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             """
-            select
-              b.board_no,
-              b.title,
-              b.created_date,
-              count(file_no) file_count,
-              m.member_no,
-              m.name
-            from
-              boards b left outer join board_files bf on b.board_no = bf.board_no
-              inner join members m on b.writer=m.member_no
-            where
-              category=?
-            group by
-              b.board_no
-            order by
-              board_no desc
-            """)) {
+                select
+                  b.board_no,
+                  b.title,
+                  b.created_date,
+                  count(file_no) file_count,
+                  m.member_no,
+                  m.name
+                from
+                  boards b left outer join board_files bf on b.board_no = bf.board_no
+                  inner join members m on b.writer=m.member_no
+                where
+                  category=?
+                group by
+                  b.board_no
+                order by
+                  board_no desc
+                """)) {
 
       pstmt.setInt(1, category);
 
@@ -108,7 +105,7 @@ public class BoardDaoImpl implements BoardDao {
           list.add(board);
         }
         return list;
-    }
+      }
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
@@ -119,18 +116,18 @@ public class BoardDaoImpl implements BoardDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             """
-            select
-              b.board_no,
-              b.title,
-              b.content,
-              b.created_date,
-              m.member_no,
-              m.name
-            from
-              boards b inner join members m on b.writer=m.member_no
-            where
-              board_no=?
-            """
+                select
+                  b.board_no,
+                  b.title,
+                  b.content,
+                  b.created_date,
+                  m.member_no,
+                  m.name
+                from
+                  boards b inner join members m on b.writer=m.member_no
+                where
+                  board_no=?
+                """
         )) {
 
       pstmt.setInt(1, no);
@@ -152,7 +149,7 @@ public class BoardDaoImpl implements BoardDao {
         }
         return null;
 
-    }
+      }
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
@@ -162,7 +159,7 @@ public class BoardDaoImpl implements BoardDao {
   public int update(Board board) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-        "update boards set title=?, content=? where board_no=?")) {
+            "update boards set title=?, content=? where board_no=?")) {
 
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());

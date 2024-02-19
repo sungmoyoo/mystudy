@@ -1,35 +1,32 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/assignment/list")
-public class AssignmentListServlet extends GenericServlet {
+public class AssignmentListServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-  public AssignmentListServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override
-  public void service(ServletRequest servletRequest, ServletResponse servletResponse)
+  public void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    servletResponse.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = servletResponse.getWriter();
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
 
     out.println("<!DOCTYPE html>");
     out.println("<html lang='en'>");
@@ -40,7 +37,7 @@ public class AssignmentListServlet extends GenericServlet {
     out.println("<body>");
     out.println("<h1>과제</h1>");
 
-    out.println("<a href='/assignment/form.html'>새 글</a>");
+    out.println("<a href='/assignment/form.html'>새 과제</a>");
 
     try {
       out.printf("<table border='1'>");
@@ -52,7 +49,8 @@ public class AssignmentListServlet extends GenericServlet {
       List<Assignment> list = assignmentDao.findAll();
 
       for (Assignment assignment : list) {
-        out.printf("<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</td> <td>%tY-%<tm-%<td</td> </tr>\n",
+        out.printf(
+            "<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</td> <td>%tY-%<tm-%<td</td> </tr>\n",
             assignment.getNo(),
             assignment.getTitle(),
             assignment.getDeadline());
@@ -62,6 +60,7 @@ public class AssignmentListServlet extends GenericServlet {
 
     } catch (Exception e) {
       out.println("<p>과제 목록 오류</p>");
+      e.printStackTrace();
       out.println("<pre>");
       e.printStackTrace(out);
       out.println("</pre>");
