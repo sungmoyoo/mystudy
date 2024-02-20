@@ -14,4 +14,4 @@ ex) DB커넥션, DAO, 서비스 객체, 트랜잭션
 
 ServletContextListener는 웹 애플리케이션을 시작하거나 종료할 때 작업을 수행시키는 방법으로 모든 서블릿이 공유하는 자원을 준비하기에 적절한 위치(저장소)이다.
 
-ServletContext
+ServletContext는 웹 애플리케이션 전체에서 공유되는 자원과 데이터를 저장하는 객체이다. 
