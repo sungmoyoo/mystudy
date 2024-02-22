@@ -8,7 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/ex02/s1")
+//@WebServlet("/ex02/s1")
 public class Servlet01 extends GenericServlet {
 
   private static final long serialVersionUID = 1L;
