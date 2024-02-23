@@ -24,7 +24,7 @@ public class MemberUpdateServlet extends HttpServlet {
   }
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -72,7 +72,8 @@ public class MemberUpdateServlet extends HttpServlet {
 
       txManager.commit();
 
-      out.println("<p>회원 정보를 변경했습니다.</p>");
+      response.sendRedirect("/member/list");
+      return;
 
     } catch (Exception e) {
       try {

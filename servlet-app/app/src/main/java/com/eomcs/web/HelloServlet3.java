@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloServlet3 extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse res)
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     System.out.println("Hello3!");
   }
 
 }
+

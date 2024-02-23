@@ -194,6 +194,7 @@ public class Servlet01 extends GenericServlet {
 // Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6
 // 빈 줄
 
+
 // HTTP 응답 프로토콜
 // => 형식
 // status-line(HTTP프로토콜 상태코드 간단한문구) CRLF

@@ -25,7 +25,7 @@ public class AssignmentAddServlet extends HttpServlet {
   }
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -53,7 +53,7 @@ public class AssignmentAddServlet extends HttpServlet {
 
       txManager.commit();
 
-      out.println("<p>과제를 등록했습니다.</p>");
+      response.sendRedirect("/assignment/list");
 
 
     } catch (Exception e) {

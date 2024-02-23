@@ -24,7 +24,7 @@ public class MemberAddServlet extends HttpServlet {
   }
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -61,7 +61,8 @@ public class MemberAddServlet extends HttpServlet {
 
       txManager.commit();
 
-      out.println("<p>회원 가입이 완료되었습니다..</p>");
+      response.sendRedirect("/member/list");
+      return;
 
 
     } catch (Exception e) {
