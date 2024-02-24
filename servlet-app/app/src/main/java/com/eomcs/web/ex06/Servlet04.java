@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-@WebServlet(value = "/ex06/s4", loadOnStartup = 1)
-@SuppressWarnings("serial")
+//@WebServlet(value = "/ex06/s4", loadOnStartup = 1)
+//@SuppressWarnings("serial")
 public class Servlet04 extends HttpServlet {
 
 
@@ -17,6 +17,7 @@ public class Servlet04 extends HttpServlet {
     System.out.println("/ex06/s4 ==> init()");
 
     ServletConfig config = this.getServletConfig();
+
     String jdbcDriver = config.getInitParameter("jdbc.driver");
     String jdbcUrl = config.getInitParameter("jdbc.url");
     String username = config.getInitParameter("jdbc.username");

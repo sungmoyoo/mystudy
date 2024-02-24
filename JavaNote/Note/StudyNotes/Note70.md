@@ -1,5 +1,32 @@
-# Refresh 
+# 클라이언트가 보낸 데이터 읽기
+## 여러개의 데이터
+**1. 다른 이름으로 값을 보낼 경우**
+각각의 값에 대해 getParameter를 호출하여 확인한다.
+```java
+String genre1 = req.getParameter("genre1");
+String genre2 = req.getParameter("genre2");
+String genre3 = req.getParameter("genre3");
+String genre4 = req.getParameter("genre4");
+String genre5 = req.getParameter("genre5");
+String genre6 = req.getParameter("genre6");
+```
+**2. 같은 이름으로 값을 보낼 경우**
+값을 배열 형태로 한번에 입력받는다. 
+```java
+String[] genres = req.getParameterValues("genre");\
+```
+## 빈값과 null
+파라미터 이름만 넘어갈 때 getParameter()의 리턴 값은 빈 문자열 객체이다. 입력 상자에 값을 입력하지 않아도 빈 문자열이 서버에 전송된다.  
+만약 파라미터 이름 자체가 없으면 getParameter()는 null을 리턴한다.
 
+# doGet과 doPost
+HttpServlet 클래스는 클라이언트로부터 service(ServletRequest, ServletResponse) 메서드 요청이 들어오면 HTTP 프로토콜을 다룰 수 있도록 service() 메서드를 오버로딩하여 형변환해주는 역할을 한다. 다만 이 방식은 HTTP 요청 종류가 무엇인지에 따라 어떤 로직을 처리할지 코드를 작성하는데 불편함이 있다. 
+
+그래서 service() 메서드에는 요청 종류에 따라 개별적인 메서드를 다룰 수 있도록 에 doGet(), doPost(), doPut() 등의 메서드로 분기하는 로직이 포함되어 있다. 이 메서드는 this를 호출하기 때문에 HttpServlet을 상속받는 서브클래스에서 오버라이딩하여 구현해서 사용할 수 있다.
+
+이 방식을 사용하면 개발자는 HTTP 요청이 무엇인지에 따라 각각에 메서드에 필요한 로직을 명확하게 작성할 수 있다.
+
+# Refresh 
 > 클라이언트에게 다른 URL을 요청하라는 명령
 
 서버로부터 응답을 받고 "내용을 출력한 후" 지정된 시간이 경과되면 특정 URL을 자동으로 요청하도록 만들 수 있다.
@@ -52,3 +79,35 @@ response.sendRedirect("s100");
 ### *버퍼와 응답
 Refresh와 Redirect의 설정의 위치는 출력문이 어디에 있던 상관없다. 다만 출력 시 버퍼가 가득 차면 즉시 응답하기 때문에 리프래시가 동작하지 않는 것에 유의해야 한다(1요청=1응답). 물론 Redirect는 응답문을 작성하지 않는 것이 원칙이다.(어차피 모두 버려지기 때문)
 
+# 서블릿 객체 자동생성
+Servlet은 Listener, Filter와 다르게 클라이언트가 실행을 요청해야만 객체를 생성한다. 클라이언트가 실행을 요청하지 않아도 서블릿을 미리 생성하고 싶다면 loadOnStartup 프로퍼티 값을 지정하여 미리 객체를 생성할 수 있다. 즉 Servlet Container가 실행될때 바로 Servlet의 init()이 실행된다.
+
+보통 서블릿이 작업할 때 사용할 자원을 준비하는데 시간이 오래 걸리는 경우에 웹 애플리케이션을 시작할 때 미리 서블릿 객체를 준비하는 것이 좋다.
+
+## 방법
+1. 애노테이션
+loadOnStartup=실행순서이다. 미리 생성할 서블릿이 여러 개라면, 지정한 순서대로 생성된다. 
+```java
+@WebServlet(value="/ex06/s1", loadOnStartup = 1)
+```
+
+2. DD 파일(web.xml)에 지정
+```xml
+<servlet>
+  ...
+  <load-on-startup>1</load-on-startup>
+</servlet>
+```
+
+# 서블릿 초기화 파라미터
+## init() 오버라이딩
+서블릿 객체가 생성될 때 뭔가 준비해야 하는 작업을 해야 한다면, init(ServletConfig config) 메서드를 오버라이딩해서 사용하는 방법은 권장하지 않는다. 메서드가 호출될 때 넘어오는 값 `config`를 나중에 사용할 수 있도록 인스턴스 필드에 저장하는데 매번 이런식으로 코딩하는 방법은 불편하다. 이미 GenericServlet에서 파라미터 값을 받지 않는 init()를 구현해놓았다.
+```java
+ServletConfig config;
+
+@Override
+public void init(ServletConfig config) throws ServletException {...}
+```
+# Forwarding
+
+# Including

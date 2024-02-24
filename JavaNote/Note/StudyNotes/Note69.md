@@ -210,7 +210,7 @@ name=AB%EA%B0%80%EA%B0%81&age=20 <- message-body = entity
   - 즉 보내는 데이터를 웹 브라우저의 캐시 메모리에 남기고 싶지 않을 때는 POST 방식을 사용한다.
   - 거꾸로 특정 페이지를 조회하는 URL일 경우 POST 방식을 사용하면 URL에 조회하려는 정보의 번호나 키를 포함할 수 없기 때문에 이런 상황에서는 POST 방식이 적절하지 않다. 오히려 GET 방식이 적합하다.
 
-# 파일 업로드 처리
+## 파일 업로드 처리
 GET 요청이나 일반 POST 요청을 한 경우에는 파일이 이름만 넘어오고 파일 데이터는 넘어오지 않는다. 따라서 기존의 getParameter() 메서드로는 멀티파트 형식으로 전송된 데이터를 읽을 수 없다.
 
 **멀티파트 POST 요청 예**
@@ -265,5 +265,140 @@ POST 요청으로 데이터를 읽는 방법은 3가지가 있다.
 
 **apache 라이브러리 사용**
 멀티파트 형식으로 전송된 데이터 처리를 대신해주는 대표적인 라이브러리는 Apache 소프트웨어 재단(ASF)에서 제공하는 fileupload 라이브러리이다.
+
+1. 라이브러리 설치
+"commons-fileupload" 정보를 build.gradle에 추가하여 라이브러리 추가
+
+2. init()에 디렉토리 경로 추가
+```java
+this.uploadDir = this.getServletContext().getRealPath("/upload");
+```
+웹 애플리케이션의 Context 루트 위치를 기준으로 지정된 경로의 실제 파일 시스템 경로를 지정한다. 
+
+이렇게 하면 배포 디렉토리가 변경되더라도 코드를 수정할 필요 없이 정확한 경로를 얻을 수 있다. 
+
+3. DiskFileItemFactory 준비
+```java
+DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+```
+각 파트 데이터를 분석하여 `parameter-name`과 `value`를 추출한 후 FileItem 객체에 담아 리턴하는 역할을 한다. 
+
+4. ServletFileUpload 준비
+```java
+ServletFileUpload multipartDataHandler = new ServletFileUpload(fileItemFactory);
+```
+클라이언트가 보낸 멀티 파트 형식의 HTTp 요청 프로토콜을 분석하는 일을 한다. 생성자에 주입된 DiskFileItemFactory 객체를 사용하여 각 파트의 데이터를 사용하기 좋게 FileItem 객체로 만드는 주체이다. 
+
+5. 데이터 보관
+```java
+try {
+  // parseRequest() => 클라이언트가 보낸 멀티 파트 데이터를 읽어서 FileItem 객체 배열로 뽑아내는 일을 한다.
+  List<FileItem> parts = multipartDataHandler.parseRequest((HttpServletRequest) req);
+
+  for (FileItem part : parts) {
+    if (part.isFormField()) {
+      // 파트의 데이터가 일반 데이터라면
+      paramMap.put(part.getFieldName(), // 클라이언트가 보낸 파라미터 이름
+          part.getString("UTF-8") // 파라미터의 값. 값 꺼낼 때 인코딩을 지정해야 한다.
+      );
+
+    } else {
+      // 파트의 데이터가 파일이라면
+      // => upload/ 디렉토리에 파일을 저장한다.
+
+      // 업로드 파일을 저장할 때 사용할 파일명을 준비한다.
+      // => 원래의 파일명을 사용하지 않는다.
+      // => 다른 클라이언트가 같은 이름의 파일을 업로드 하면 기존 파일을 덮어쓸 수 있기 때문이다.
+       String filename = UUID.randomUUID().toString();
+
+      // 전체 파일 경로를 준비한다.
+      // => /java-web/upload/파일명
+      File file = new File(this.uploadDir + "/" + filename);
+      System.out.println(file.getCanonicalPath());
+
+      // 임시 폴더에 저장된 파일을 지정된 파일 경로로 옮긴다.
+      part.write(file);
+      paramMap.put(part.getFieldName(), filename// 클라이언트가 보낸 파라미터 이름, 파일 이름
+      );
+    }
+  }
+}
+```
+
+6. 데이터 출력
+Map 객체에 저장된 키 값으로 결과를 출력한다. 
+```java
+res.setContentType("text/html;charset=UTF-8");
+PrintWriter out = res.getWriter();
+out.println("<html>");
+out.println("<head><title>servlet04</title></head>");
+out.println("<body><h1>파일 업로드 결과</h1>");
+out.printf("이름=%s<br>\n", paramMap.get("name"));
+out.printf("나이=%s<br>\n", paramMap.get("age"));
+out.printf("사진=%s<br>\n", paramMap.get("photo"));
+out.printf("<img src='../upload/%s'><br>\n", paramMap.get("photo"));
+out.println("</body></html>");
+```
+
+
+**Servlet 3.0의 기본 라이브러리 사용**
+1. DD 파일(web.xml, Deployment Descriptor)에 설정하기
+```xml
+<servlet>
+  <servlet-name>ex04.Servlet05</servlet-name>
+  <servlet-class>com.eomcs.web.ex04.Servlet05</servlet-class>
+  <multipart-config>
+    <max-file-size>10000000</max-file-size>
+  </multipart-config>
+</servlet>
+```
+
+2. 애노테이션으로 설정하기
+```java
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+@WebServlet("/ex04/s5")
+public class Servlet05 extends GenericServlet {
+
+  private static final long serialVersionUID = 1L;
+  private String uploadDir;
+
+  @Override
+  public void init() throws ServletException {
+    this.uploadDir = this.getServletContext().getRealPath("/upload");
+  }
+
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+
+    req.setCharacterEncoding("UTF-8");
+
+    // 파라미터로 받은 ServletRequest를 원래의 타입으로 변환
+    HttpServletRequest httpReq = (HttpServletRequest) req;
+
+    res.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = res.getWriter();
+    out.println("<html>");
+    out.println("<head><title>servlet04</title></head>");
+    out.println("<body><h1>파일 업로드 결과</h1>");
+
+    // 일반 폼 데이터를 꺼낼 때는 원래 하던 방식대로 값을 꺼낸다.
+    out.printf("이름=%s<br>\n", httpReq.getParameter("name"));
+    out.printf("나이=%s<br>\n", httpReq.getParameter("age"));
+
+    // 파일 데이터는 getPart()를 이용한다.
+    Part photoPart = httpReq.getPart("photo");
+    if (photoPart.getSize() > 0) {
+      // 파일을 선택해서 업로드 했다면,
+      String filename = UUID.randomUUID().toString();
+      photoPart.write(this.uploadDir + "/" + filename);
+      out.printf("사진=%s<br>\n", filename);
+      out.printf("<img src='../upload/%s' height='50'><br>\n", filename);
+      out.printf("<img src='../upload/%s'><br>\n", filename);
+    }
+    out.println("</body></html>");
+  }
+}
+```
 
 
