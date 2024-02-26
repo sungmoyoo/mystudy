@@ -1,21 +1,21 @@
 package com.yuil.dao;
 
 
-import com.yuil.vo.Info;
+import com.yuil.vo.Member;
 import java.util.List;
 
 public interface InfoDao {
 
 
-  void add(Info info);
+  void add(Member info);
 
   int delete(int no);
 
-  List<Info> findAll();
+  List<Member> findAll();
 
-  Info findBy(int no);
+  Member findBy(int no);
 
-  int update(Info info);
+  int update(Member info);
 
-  List<Info> findJoin();
+  List<Member> findJoin();
 }

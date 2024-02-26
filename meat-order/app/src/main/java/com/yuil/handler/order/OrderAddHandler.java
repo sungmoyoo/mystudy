@@ -6,9 +6,9 @@ import com.util.Prompt;
 import com.yuil.dao.InfoDao;
 import com.yuil.dao.OrderDao;
 import com.yuil.dao.StockDao;
-import com.yuil.vo.Info;
-import com.yuil.vo.Order;
-import com.yuil.vo.Stock;
+import com.yuil.vo.Member;
+import com.yuil.vo.User;
+import com.yuil.vo.Product;
 import java.util.Date;
 import java.util.List;
 
@@ -27,11 +27,11 @@ public class OrderAddHandler extends AbstractMenuHandler {
 
   @Override
   protected void action() {
-    Order order = new Order();
-    List<Stock> stockList = stockDao.findAll();
-    List<Info> infoList = infoDao.findJoin();
+    User order = new User();
+    List<Product> stockList = stockDao.findAll();
+    List<Member> infoList = infoDao.findJoin();
     int i = 1;
-    for (Info info : infoList) {
+    for (Member info : infoList) {
       System.out.printf("%d. %s (남은 재고: %d)\n", i++, info.getProductName(), info.getStock());
     }
 
@@ -41,7 +41,7 @@ public class OrderAddHandler extends AbstractMenuHandler {
 
     boolean foundMatch = false;
 
-    for (Info info : infoList) {
+    for (Member info : infoList) {
       if (order.getProductName().equals(info.getProductName())) {
         foundMatch = true;
       }

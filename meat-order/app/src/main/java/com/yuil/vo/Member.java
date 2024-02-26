@@ -1,27 +1,23 @@
-package bitcamp.myapp.vo;
+package com.yuil.vo;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
-public class Member implements Serializable {
-
-  private static final long serialVersionUID = 100L;
-
+public class Member {
   private int no;
-  private String email;
   private String name;
+  private String email;
   private String password;
-  private String photo;
+  private String phone;
   private Date createdDate;
 
   @Override
   public String toString() {
     return "Member{" +
         "no=" + no +
-        ", email='" + email + '\'' +
         ", name='" + name + '\'' +
+        ", email='" + email + '\'' +
         ", password='" + password + '\'' +
-        ", photo='" + photo + '\'' +
+        ", phone='" + phone + '\'' +
         ", createdDate=" + createdDate +
         '}';
   }
@@ -34,20 +30,20 @@ public class Member implements Serializable {
     this.no = no;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {
@@ -58,12 +54,12 @@ public class Member implements Serializable {
     this.password = password;
   }
 
-  public String getPhoto() {
-    return photo;
+  public String getPhone() {
+    return phone;
   }
 
-  public void setPhoto(String photo) {
-    this.photo = photo;
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public Date getCreatedDate() {

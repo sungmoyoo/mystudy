@@ -22,7 +22,7 @@ public class AssignmentListServlet extends HttpServlet {
   }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -31,43 +31,46 @@ public class AssignmentListServlet extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html lang='en'>");
     out.println("<head>");
-    out.println(" <meta charset='UTF-8'>");
-    out.println(" <title>비트캠프 데브옵스 5기</title>");
+    out.println("  <meta charset='UTF-8'>");
+    out.println("  <title>비트캠프 데브옵스 5기</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>과제</h1>");
 
-    out.println("<a href='/assignment/form.html'>새 과제</a>");
+    out.println("<a href='/assignment/add'>새 과제</a>");
 
     try {
-      out.printf("<table border='1'>");
-      out.printf("    <thead>");
-      out.printf("    <tr> <th>번호</th> <th>제목</th> <th>제출마감일</th> </tr>");
-      out.printf("    </thead>");
-      out.printf("    <tbody>");
+      out.println("<table border='1'>");
+      out.println("    <thead>");
+      out.println("    <tr> <th>번호</th> <th>과제</th> <th>제출마감일</th> </tr>");
+      out.println("    </thead>");
+      out.println("    <tbody>");
 
       List<Assignment> list = assignmentDao.findAll();
 
       for (Assignment assignment : list) {
         out.printf(
-            "<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</td> <td>%tY-%<tm-%<td</td> </tr>\n",
+            "<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</a></td> <td>%s</td> </tr>\n",
             assignment.getNo(),
             assignment.getTitle(),
             assignment.getDeadline());
-
       }
-      out.println("</tbody>");
+
+      out.println("    </tbody>");
+      out.println("</table>");
 
     } catch (Exception e) {
-      out.println("<p>과제 목록 오류</p>");
-      e.printStackTrace();
-      out.println("<pre>");
-      e.printStackTrace(out);
-      out.println("</pre>");
+      request.setAttribute("message", "목록 오류!");
+      request.setAttribute("exception", e);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
+
+    request.getRequestDispatcher("/footer").include(request, response);
 
     out.println("</body>");
     out.println("</html>");
   }
 }
-

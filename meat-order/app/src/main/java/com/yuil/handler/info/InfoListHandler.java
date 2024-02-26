@@ -3,7 +3,7 @@ package com.yuil.handler.info;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.InfoDao;
-import com.yuil.vo.Info;
+import com.yuil.vo.Member;
 import java.util.List;
 
 public class InfoListHandler extends AbstractMenuHandler {
@@ -19,9 +19,9 @@ public class InfoListHandler extends AbstractMenuHandler {
   protected void action() {
     System.out.printf("%-10s  %-20s  %-15s\n", "상품번호", "종류", "상품");
 
-    List<Info> list = infoDao.findAll();
+    List<Member> list = infoDao.findAll();
 
-    for (Info info : list) {
+    for (Member info : list) {
       System.out.printf("%-10d  %-20s  %-15s\n",
           info.getProductNo(),
           info.getClassification(),

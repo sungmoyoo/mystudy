@@ -1,13 +1,13 @@
 package com.yuil.handler.order;
 
 import com.yuil.dao.StockDao;
-import com.yuil.vo.Order;
-import com.yuil.vo.Stock;
+import com.yuil.vo.User;
+import com.yuil.vo.Product;
 import java.util.List;
 
 public class SoldOutValidator {
-  protected static boolean isOut(List<Stock> stockList, Order order, StockDao stockDao) {
-    for (Stock stock : stockList) {
+  protected static boolean isOut(List<Product> stockList, User order, StockDao stockDao) {
+    for (Product stock : stockList) {
       if (stock.getProductName().equals(order.getProductName())) {
         order.setStockNo(stock.getStockNo());
         order.setExpirationDate(stock.getExpirationDate());

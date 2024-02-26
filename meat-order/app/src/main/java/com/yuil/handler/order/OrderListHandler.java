@@ -3,7 +3,7 @@ package com.yuil.handler.order;
 import com.util.Prompt;
 import com.menu.AbstractMenuHandler;
 import com.yuil.dao.OrderDao;
-import com.yuil.vo.Order;
+import com.yuil.vo.User;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -20,10 +20,10 @@ public class OrderListHandler extends AbstractMenuHandler {
   protected void action() {
     System.out.printf("%-10s %-10s %-15s %-6s %s\n", "주문번호", "종류", "상품명", "수량", "주문일");
 
-    List<Order> list = orderDao.findAll();
+    List<User> list = orderDao.findAll();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    for (Order order : list) {
+    for (User order : list) {
       System.out.printf("%-10d %-10s %-15s %-6d %s\n",
           order.getOrderNo(),
           order.getClassification(),

@@ -1,7 +1,7 @@
 package com.yuil.dao.mysql;
 
 import com.yuil.dao.OrderDao;
-import com.yuil.vo.Order;
+import com.yuil.vo.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,7 +19,7 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-  public void add(Order order) {
+  public void add(User order) {
     try(Statement stmt = con.createStatement()) {
       stmt.executeUpdate(
           String.format(
@@ -42,7 +42,7 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-  public List<Order> findAll() {
+  public List<User> findAll() {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("""
           select
@@ -60,10 +60,10 @@ public class OrderDaoImpl implements OrderDao {
           order by
             o.order_no
           """);
-      ArrayList<Order> list = new ArrayList<>();
+      ArrayList<User> list = new ArrayList<>();
 
       while (rs.next()) {
-        Order order = new Order();
+        User order = new User();
         order.setOrderNo(rs.getInt("order_no"));
         order.setCount(rs.getInt("count"));
         order.setOrderDate(rs.getDate("ordered_date"));
@@ -82,7 +82,7 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-  public Order findBy(int no) {
+  public User findBy(int no) {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery(String.format("""
           select
@@ -105,7 +105,7 @@ public class OrderDaoImpl implements OrderDao {
             o.order_no
           """, no));
 
-      Order order = new Order();
+      User order = new User();
 
       if (rs.next()) {
         order.setOrderNo(rs.getInt("order_no"));
@@ -127,7 +127,7 @@ public class OrderDaoImpl implements OrderDao {
   }
 
   @Override
-  public int update(Order order) {
+  public int update(User order) {
     try(Statement stmt = con.createStatement()) {
       return stmt.executeUpdate(String.format(
           "update orders set classification='%s', product='%s', count='%s' where order_no=%d",

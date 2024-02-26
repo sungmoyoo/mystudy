@@ -14,11 +14,11 @@ create table category (
   category_name varchar(50) not null
 );
 
-create table classification (
-  cls_no int primary key auto_increment,
-  cls_name varchar(50) not null,
-  category_no int not null
-);
+--create table classification (
+--  cls_no int primary key auto_increment,
+--  cls_name varchar(50) not null,
+--  category_no int not null
+--);
 
 create table products (
   product_no int primary key auto_increment,
@@ -28,7 +28,7 @@ create table products (
   product_des varchar(255) default null,
   product_price int not null,
   product_gram int not null,
-  product_stock int not null,
+
   reg_date datetime null default now()
 );
 
@@ -40,11 +40,10 @@ create table product_images (
 
 create table members (
   member_no int primary key auto_increment,
-  id varchar(16) not null,
   pw varchar(16) not null,
   email varchar(30) not null,
   phone varchar(15) not null,
-  sign_date datetime null default now()
+  created_date datetime null default now()
 );
 
 create table users (

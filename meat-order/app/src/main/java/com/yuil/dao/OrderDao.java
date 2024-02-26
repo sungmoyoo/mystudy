@@ -1,20 +1,20 @@
 package com.yuil.dao;
 
 
-import com.yuil.vo.Order;
+import com.yuil.vo.User;
 import java.util.List;
 
 public interface OrderDao {
 
 
-  void add(Order order);
+  void add(User order);
 
   int delete(int no);
 
-  List<Order> findAll();
+  List<User> findAll();
 
-  Order findBy(int no);
+  User findBy(int no);
 
-  int update(Order order);
+  int update(User order);
 
 }

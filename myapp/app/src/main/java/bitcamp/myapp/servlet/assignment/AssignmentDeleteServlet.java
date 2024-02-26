@@ -1,9 +1,7 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.vo.Assignment;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,43 +22,18 @@ public class AssignmentDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html lang='en'>");
-    out.println("<head>");
-    out.println(" <meta charset='UTF-8'>");
-    out.println(" <title>비트캠프 데브옵스 5기</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>과제 관리 시스템</h1>");
-    out.println("<h2>과제</h2>");
-
     try {
       int no = Integer.parseInt(request.getParameter("no"));
-
-      Assignment assignment = assignmentDao.findBy(no);
-      if (assignment == null) {
-        out.println("<p>과제 번호가 유효하지 않습니다.</p>");
-        out.println("</body>");
-        out.println("</html>");
-        return;
+      if (assignmentDao.delete(no) == 0) {
+        throw new Exception("과제 번호가 유효하지 않습니다.");
       }
 
-      assignmentDao.delete(no);
-
-      out.println("<script>");
-      out.println(" location.href = '/assignment/list'");
-      out.println("</script>");
+      response.sendRedirect("list");
 
     } catch (Exception e) {
-      out.println("<p>과제 삭제 오류!</p>");
-      out.println("<pre>");
-      e.printStackTrace(out);
-      out.println("</pre>");
+      request.setAttribute("message", "삭제 오류!");
+      request.setAttribute("exception", e);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
-    out.println("</body>");
-    out.println("</html>");
   }
 }

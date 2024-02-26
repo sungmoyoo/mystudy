@@ -1,20 +1,20 @@
 package com.yuil.dao;
 
 
-import com.yuil.vo.Stock;
+import com.yuil.vo.Product;
 import java.util.List;
 
 public interface StockDao {
 
 
-  void add(Stock stock);
+  void add(Product stock);
 
   int delete(int no);
 
-  List<Stock> findAll();
+  List<Product> findAll();
 
-  Stock findBy(int no);
+  Product findBy(int no);
 
-  int update(Stock stock);
+  int update(Product stock);
 
 }

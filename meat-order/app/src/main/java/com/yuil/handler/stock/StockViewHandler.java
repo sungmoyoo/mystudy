@@ -4,7 +4,7 @@ package com.yuil.handler.stock;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.StockDao;
-import com.yuil.vo.Stock;
+import com.yuil.vo.Product;
 
 public class StockViewHandler extends AbstractMenuHandler {
 
@@ -19,7 +19,7 @@ public class StockViewHandler extends AbstractMenuHandler {
   protected void action() {
     int no = this.prompt.inputInt("번호? ");
 
-    Stock stock = stockDao.findBy(no);
+    Product stock = stockDao.findBy(no);
     if (stock == null) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
       return;

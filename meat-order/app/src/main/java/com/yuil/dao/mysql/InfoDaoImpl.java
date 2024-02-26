@@ -1,7 +1,7 @@
 package com.yuil.dao.mysql;
 
 import com.yuil.dao.InfoDao;
-import com.yuil.vo.Info;
+import com.yuil.vo.Member;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,7 +19,7 @@ public class InfoDaoImpl implements InfoDao {
   }
 
   @Override
-  public void add(Info info) {
+  public void add(Member info) {
     try(Statement stmt = con.createStatement()) {
       stmt.executeUpdate(
           String.format(
@@ -41,14 +41,14 @@ public class InfoDaoImpl implements InfoDao {
     }
   }
   @Override
-  public List<Info> findAll() {
+  public List<Member> findAll() {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("select * from info");
-      ArrayList<Info> list = new ArrayList<>();
+      ArrayList<Member> list = new ArrayList<>();
 
       while (rs.next()) {
 
-        Info info = new Info();
+        Member info = new Member();
         info.setProductNo(rs.getInt("product_no"));
         info.setProductName(rs.getString("product_name"));
         info.setClassification(rs.getString("classification"));
@@ -62,7 +62,7 @@ public class InfoDaoImpl implements InfoDao {
   }
 
   @Override
-  public List<Info> findJoin() {
+  public List<Member> findJoin() {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("""
           select
@@ -78,11 +78,11 @@ public class InfoDaoImpl implements InfoDao {
             product_no
           
           """);
-      ArrayList<Info> list = new ArrayList<>();
+      ArrayList<Member> list = new ArrayList<>();
 
       while (rs.next()) {
 
-        Info info = new Info();
+        Member info = new Member();
         info.setProductNo(rs.getInt("product_no"));
         info.setProductName(rs.getString("product_name"));
         info.setClassification(rs.getString("classification"));
@@ -97,11 +97,11 @@ public class InfoDaoImpl implements InfoDao {
   }
 
   @Override
-  public Info findBy(int no) {
+  public Member findBy(int no) {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("select * from info where product_no = " + no);
 
-      Info info = new Info();
+      Member info = new Member();
 
       if (rs.next()) {
         info.setProductNo(rs.getInt("product_no"));
@@ -117,7 +117,7 @@ public class InfoDaoImpl implements InfoDao {
   }
 
   @Override
-  public int update(Info info) {
+  public int update(Member info) {
     try(Statement stmt = con.createStatement()) {
       return stmt.executeUpdate(String.format(
           "update info set classification='%s', product_name='%s' where info_no=%d",

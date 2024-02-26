@@ -1,7 +1,7 @@
 package com.yuil.dao.mysql;
 
 import com.yuil.dao.StockDao;
-import com.yuil.vo.Stock;
+import com.yuil.vo.Product;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,7 +18,7 @@ public class StockDaoImpl implements StockDao {
   }
 
   @Override
-  public void add(Stock stock) {
+  public void add(Product stock) {
     try(Statement stmt = con.createStatement()) {
       stmt.executeUpdate(
           String.format(
@@ -41,7 +41,7 @@ public class StockDaoImpl implements StockDao {
   }
 
   @Override
-  public List<Stock> findAll() {
+  public List<Product> findAll() {
     try(Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery("""
               select
@@ -55,11 +55,11 @@ public class StockDaoImpl implements StockDao {
                 left outer join info i on s.product_no=i.product_no
               order by
               s.stock_no;""");
-      ArrayList<Stock> list = new ArrayList<>();
+      ArrayList<Product> list = new ArrayList<>();
 
       while (rs.next()) {
 
-        Stock stock = new Stock();
+        Product stock = new Product();
         stock.setProductNo(rs.getInt("product_no"));
         stock.setStockNo(rs.getInt("stock_no"));
         stock.setStock(rs.getInt("stock"));
@@ -77,7 +77,7 @@ public class StockDaoImpl implements StockDao {
   }
 
   @Override
-  public Stock findBy(int no) {
+  public Product findBy(int no) {
     try (Statement stmt = con.createStatement()) {
       ResultSet rs = stmt.executeQuery(String.format("""
               select
@@ -95,7 +95,7 @@ public class StockDaoImpl implements StockDao {
                 s.stock_no
               """, no));
 
-      Stock stock = new Stock();
+      Product stock = new Product();
 
       if (rs.next()) {
         stock.setProductNo(rs.getInt("product_no"));
@@ -115,7 +115,7 @@ public class StockDaoImpl implements StockDao {
 
 
   @Override
-  public int update(Stock stock) {
+  public int update(Product stock) {
     try(Statement stmt = con.createStatement()) {
       return stmt.executeUpdate(String.format(
           "update stocks set stock_no=%d, product_no=%d, expiration_date='%s', stock=%d where stock_no=%d",

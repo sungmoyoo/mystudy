@@ -5,8 +5,8 @@ import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.InfoDao;
 import com.yuil.dao.StockDao;
-import com.yuil.vo.Info;
-import com.yuil.vo.Stock;
+import com.yuil.vo.Member;
+import com.yuil.vo.Product;
 import java.util.List;
 
 public class StockAddHandler extends AbstractMenuHandler {
@@ -24,12 +24,12 @@ public class StockAddHandler extends AbstractMenuHandler {
   @Override
   protected void action() {
 
-    List<Info> list = infoDao.findAll();
-    List<Stock> checkList = stockDao.findAll();
-    Stock stock = new Stock();
+    List<Member> list = infoDao.findAll();
+    List<Product> checkList = stockDao.findAll();
+    Product stock = new Product();
 
     try {
-      for (Info info : list) {
+      for (Member info : list) {
         System.out.printf("[%d] %s\n", info.getProductNo(), info.getProductName());
       }
 

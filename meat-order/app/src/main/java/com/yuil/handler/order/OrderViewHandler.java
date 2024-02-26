@@ -4,7 +4,7 @@ package com.yuil.handler.order;
 import com.menu.AbstractMenuHandler;
 import com.util.Prompt;
 import com.yuil.dao.OrderDao;
-import com.yuil.vo.Order;
+import com.yuil.vo.User;
 
 public class OrderViewHandler extends AbstractMenuHandler {
 
@@ -19,7 +19,7 @@ public class OrderViewHandler extends AbstractMenuHandler {
   protected void action() {
     int no = this.prompt.inputInt("주문 번호? ");
 
-    Order order = orderDao.findBy(no);
+    User order = orderDao.findBy(no);
     if (order == null) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
       return;
