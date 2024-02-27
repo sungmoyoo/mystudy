@@ -55,7 +55,7 @@ out.println("</div>");
 ...
 ```
 
-응답 헤더 예
+요청 헤더 예
 ```
 GET /auth/login HTTP/1.1
 ...
