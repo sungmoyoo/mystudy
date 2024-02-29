@@ -25,11 +25,10 @@ public class TransactionManager {
     complete();
   }
 
-  private void complete() throws Exception{
+  private void complete() throws Exception {
     Connection con = connectionPool.getConnection();
     con.setAutoCommit(true);
     con.close();
     System.out.printf("[%s] 트랜잭션 종료\n", Thread.currentThread().getName());
   }
-
 }

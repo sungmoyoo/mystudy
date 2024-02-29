@@ -1,6 +1,7 @@
 package bitcamp.myapp.vo;
 
 public class AttachedFile {
+
   private int no;
   private String filePath;
   private int boardNo;
@@ -31,6 +32,11 @@ public class AttachedFile {
 
   public AttachedFile filePath(String filePath) {
     this.filePath = filePath;
+    return this;
+  }
+
+  public AttachedFile boardNo(int boardNo) {
+    this.boardNo = boardNo;
     return this;
   }
 }

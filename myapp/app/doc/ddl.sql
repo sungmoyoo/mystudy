@@ -47,7 +47,6 @@ create table members(
   password varchar(100) not null,
   photo varchar(255) null,
   created_date datetime null default now()
-
 );
 
 alter table members

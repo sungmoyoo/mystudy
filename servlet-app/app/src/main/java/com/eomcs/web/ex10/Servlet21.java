@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/ex10/s21")
+@WebServlet("/ex10/s21")
 @SuppressWarnings("serial")
 public class Servlet21 extends HttpServlet {
 
@@ -51,7 +51,7 @@ public class Servlet21 extends HttpServlet {
     // => 쿠키를 발급한 서블릿의 경로에 상관없이 지정된 경로의 서블릿을 요청할 때
     // 웹 브라우저가 서버에 쿠키를 보낸다.
     Cookie c2 = new Cookie("v2", "bbb");
-    c2.setPath("/ex10/a");
+    c2.setPath("/web/ex10/a");
 
     Cookie c3 = new Cookie("v3", "ccc");
     c3.setPath("/");

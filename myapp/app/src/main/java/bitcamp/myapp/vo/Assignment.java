@@ -53,5 +53,4 @@ public class Assignment implements Serializable {
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
   }
-
 }

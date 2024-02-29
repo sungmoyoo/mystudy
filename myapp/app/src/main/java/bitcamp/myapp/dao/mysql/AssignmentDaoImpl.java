@@ -17,7 +17,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public AssignmentDaoImpl(DBConnectionPool connectionPool) {
     this.connectionPool = connectionPool;
   }
-  
+
   @Override
   public void add(Assignment assignment) {
     try (Connection con = connectionPool.getConnection();
@@ -53,7 +53,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public List<Assignment> findAll() {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            "select assignment_no, title, deadline from assignments");
+            "select assignment_no, title, deadline from assignments order by assignment_no desc");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Assignment> list = new ArrayList<>();
@@ -70,13 +70,11 @@ public class AssignmentDaoImpl implements AssignmentDao {
 
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
-
     }
   }
 
   @Override
   public Assignment findBy(int no) {
-
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select * from assignments where assignment_no=?")) {
@@ -91,16 +89,13 @@ public class AssignmentDaoImpl implements AssignmentDao {
           assignment.setTitle(rs.getString("title"));
           assignment.setContent(rs.getString("content"));
           assignment.setDeadline(rs.getDate("deadline"));
-
           return assignment;
         }
         return null;
-
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new DaoException("데이터 가져오기 오류", e);
 
+    } catch (Exception e) {
+      throw new DaoException("데이터 가져오기 오류", e);
     }
   }
 

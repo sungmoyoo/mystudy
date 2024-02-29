@@ -21,26 +21,27 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ConnectionProxy implements Connection {
-  private Connection original;
+
   private ConnectionPool connectionPool;
+  private Connection original;
 
   public ConnectionProxy(Connection original, ConnectionPool connectionPool) {
     this.original = original;
     this.connectionPool = connectionPool;
   }
 
-  @Override
-  public void close() throws SQLException {
-    if (original.getAutoCommit()) {
-      // DB 커넥션풀에 반납한다.
-      connectionPool.returnConnection(this);
-    }
-  }
-
-  public void realClose(){
+  public void realClose() {
     try {
       original.close();
     } catch (Exception e) {
+    }
+  }
+
+  @Override
+  public void close() throws SQLException {
+    if (original.getAutoCommit()) {
+      // DB 커넥션풀에 되돌아간다.
+      connectionPool.returnConnection(this);
     }
   }
 
@@ -65,13 +66,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setAutoCommit(boolean autoCommit) throws SQLException {
-    original.setAutoCommit(autoCommit);
+  public boolean getAutoCommit() throws SQLException {
+    return original.getAutoCommit();
   }
 
   @Override
-  public boolean getAutoCommit() throws SQLException {
-    return original.getAutoCommit();
+  public void setAutoCommit(boolean autoCommit) throws SQLException {
+    original.setAutoCommit(autoCommit);
   }
 
   @Override
@@ -85,7 +86,6 @@ public class ConnectionProxy implements Connection {
   }
 
 
-
   @Override
   public boolean isClosed() throws SQLException {
     return original.isClosed();
@@ -97,18 +97,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setReadOnly(boolean readOnly) throws SQLException {
-    original.setReadOnly(readOnly);
-  }
-
-  @Override
   public boolean isReadOnly() throws SQLException {
     return original.isReadOnly();
   }
 
   @Override
-  public void setCatalog(String catalog) throws SQLException {
-    original.setCatalog(catalog);
+  public void setReadOnly(boolean readOnly) throws SQLException {
+    original.setReadOnly(readOnly);
   }
 
   @Override
@@ -117,13 +112,18 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setTransactionIsolation(int level) throws SQLException {
-    original.setTransactionIsolation(level);
+  public void setCatalog(String catalog) throws SQLException {
+    original.setCatalog(catalog);
   }
 
   @Override
   public int getTransactionIsolation() throws SQLException {
     return original.getTransactionIsolation();
+  }
+
+  @Override
+  public void setTransactionIsolation(int level) throws SQLException {
+    original.setTransactionIsolation(level);
   }
 
   @Override
@@ -165,13 +165,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setHoldability(int holdability) throws SQLException {
-    original.setHoldability(holdability);
+  public int getHoldability() throws SQLException {
+    return original.getHoldability();
   }
 
   @Override
-  public int getHoldability() throws SQLException {
-    return original.getHoldability();
+  public void setHoldability(int holdability) throws SQLException {
+    original.setHoldability(holdability);
   }
 
   @Override
@@ -259,11 +259,6 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setClientInfo(Properties properties) throws SQLClientInfoException {
-    original.setClientInfo(properties);
-  }
-
-  @Override
   public String getClientInfo(String name) throws SQLException {
     return original.getClientInfo(name);
   }
@@ -271,6 +266,11 @@ public class ConnectionProxy implements Connection {
   @Override
   public Properties getClientInfo() throws SQLException {
     return original.getClientInfo();
+  }
+
+  @Override
+  public void setClientInfo(Properties properties) throws SQLClientInfoException {
+    original.setClientInfo(properties);
   }
 
   @Override
@@ -284,13 +284,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setSchema(String schema) throws SQLException {
-    original.setSchema(schema);
+  public String getSchema() throws SQLException {
+    return original.getSchema();
   }
 
   @Override
-  public String getSchema() throws SQLException {
-    return original.getSchema();
+  public void setSchema(String schema) throws SQLException {
+    original.setSchema(schema);
   }
 
   @Override

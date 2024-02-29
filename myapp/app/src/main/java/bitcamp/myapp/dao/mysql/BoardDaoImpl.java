@@ -33,11 +33,12 @@ public class BoardDaoImpl implements BoardDao {
 
       pstmt.executeUpdate();
 
-      // 자동생성된 PK값을 가져와 Board 객체에 저장한다.
+      // 자동 생성된 PK 값을 가져와서 Board 객체에 저장한다.
       try (ResultSet keyRs = pstmt.getGeneratedKeys()) {
         keyRs.next();
         board.setNo(keyRs.getInt(1));
       }
+
 
     } catch (Exception e) {
       throw new DaoException("데이터 입력 오류", e);
@@ -49,11 +50,8 @@ public class BoardDaoImpl implements BoardDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "delete from boards where board_no=?")) {
-
       pstmt.setInt(1, no);
-
       return pstmt.executeUpdate();
-
 
     } catch (Exception e) {
       throw new DaoException("데이터 삭제 오류", e);
@@ -64,24 +62,22 @@ public class BoardDaoImpl implements BoardDao {
   public List<Board> findAll(int category) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            """
-                select
-                  b.board_no,
-                  b.title,
-                  b.created_date,
-                  count(file_no) file_count,
-                  m.member_no,
-                  m.name
-                from
-                  boards b left outer join board_files bf on b.board_no = bf.board_no
-                  inner join members m on b.writer=m.member_no
-                where
-                  category=?
-                group by
-                  b.board_no
-                order by
-                  board_no desc
-                """)) {
+            "select\n"
+                + "  b.board_no,\n"
+                + "  b.title,\n"
+                + "  b.created_date,\n"
+                + "  count(file_no) file_count,\n"
+                + "  m.member_no,\n"
+                + "  m.name\n"
+                + "from\n"
+                + "  boards b left outer join board_files bf on b.board_no=bf.board_no\n"
+                + "  inner join members m on b.writer=m.member_no\n"
+                + "where\n"
+                + "  b.category=?\n"
+                + "group by\n"
+                + "  board_no\n"
+                + "order by\n"
+                + "  board_no desc")) {
 
       pstmt.setInt(1, category);
 
@@ -106,6 +102,7 @@ public class BoardDaoImpl implements BoardDao {
         }
         return list;
       }
+
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
@@ -115,20 +112,16 @@ public class BoardDaoImpl implements BoardDao {
   public Board findBy(int no) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            """
-                select
-                  b.board_no,
-                  b.title,
-                  b.content,
-                  b.created_date,
-                  m.member_no,
-                  m.name
-                from
-                  boards b inner join members m on b.writer=m.member_no
-                where
-                  board_no=?
-                """
-        )) {
+            "select"
+                + "  b.board_no,\n"
+                + "  b.title,\n"
+                + "  b.content,"
+                + "  b.created_date,\n"
+                + "  m.member_no,\n"
+                + "  m.name\n"
+                + " from "
+                + "  boards b inner join members m on b.writer=m.member_no\n"
+                + " where board_no=?")) {
 
       pstmt.setInt(1, no);
 
@@ -143,12 +136,12 @@ public class BoardDaoImpl implements BoardDao {
           Member writer = new Member();
           writer.setNo(rs.getInt("member_no"));
           writer.setName(rs.getString("name"));
+
           board.setWriter(writer);
 
           return board;
         }
         return null;
-
       }
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);

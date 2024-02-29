@@ -18,15 +18,11 @@ public class MemberDaoImpl implements MemberDao {
     this.connectionPool = connectionPool;
   }
 
-//  public MemberDaoImpl(Connection con) {
-//    this.con = con;
-//  }
-
   @Override
   public void add(Member member) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            "insert into members(email,name,password, photo) values(?,?,sha2(?,256),?)")) {
+            "insert into members(email,name,password,photo) values(?,?,sha2(?,256),?)")) {
       pstmt.setString(1, member.getEmail());
       pstmt.setString(2, member.getName());
       pstmt.setString(3, member.getPassword());
@@ -95,8 +91,8 @@ public class MemberDaoImpl implements MemberDao {
           return member;
         }
         return null;
-
       }
+
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
@@ -105,40 +101,29 @@ public class MemberDaoImpl implements MemberDao {
   @Override
   public int update(Member member) {
     String sql = null;
-
-    if (member.getPassword().isEmpty()) {
+    if (member.getPassword().length() == 0) {
       sql = "update members set email=?, name=?, photo=? where member_no=?";
-      try (Connection con = connectionPool.getConnection();
-          PreparedStatement pstmt = con.prepareStatement(sql)) {
-        pstmt.setString(1, member.getEmail());
-        pstmt.setString(2, member.getName());
-        pstmt.setInt(3, member.getNo());
-        return pstmt.executeUpdate();
-
-      } catch (Exception e) {
-        throw new DaoException("데이터 변경 오류", e);
-      }
     } else {
-      sql = "update members set email=?, name=?,photo=?, password=sha2(?,256)  where member_no=?";
-      try (Connection con = connectionPool.getConnection();
-          PreparedStatement pstmt = con.prepareStatement(sql)) {
-        pstmt.setString(1, member.getEmail());
-        pstmt.setString(2, member.getName());
-        pstmt.setString(3, member.getPassword());
-        if (member.getPassword().isEmpty()) {
-          pstmt.setInt(4, member.getNo());
-        } else {
-          pstmt.setString(4, member.getPassword());
-          pstmt.setInt(5, member.getNo());
-        }
+      sql = "update members set email=?, name=?, photo=?, password=sha2(?,256) where member_no=?";
+    }
 
-        pstmt.setString(4, member.getPhoto());
+    try (Connection con = connectionPool.getConnection();
+        PreparedStatement pstmt = con.prepareStatement(sql)) {
+      pstmt.setString(1, member.getEmail());
+      pstmt.setString(2, member.getName());
+      pstmt.setString(3, member.getPhoto());
+
+      if (member.getPassword().length() == 0) {
+        pstmt.setInt(4, member.getNo());
+      } else {
+        pstmt.setString(4, member.getPassword());
         pstmt.setInt(5, member.getNo());
-        return pstmt.executeUpdate();
-
-      } catch (Exception e) {
-        throw new DaoException("데이터 변경 오류", e);
       }
+      
+      return pstmt.executeUpdate();
+
+    } catch (Exception e) {
+      throw new DaoException("데이터 변경 오류", e);
     }
   }
 
@@ -147,7 +132,6 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select member_no, email, name, created_date from members where email=? and password=sha2(?,256)")) {
-
       pstmt.setString(1, email);
       pstmt.setString(2, password);
 
@@ -161,11 +145,10 @@ public class MemberDaoImpl implements MemberDao {
           return member;
         }
         return null;
-
       }
+
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
   }
-
 }

@@ -3,7 +3,7 @@ insert into members(member_no,email,name,password,created_date)
   values(101,'user1@test.com','user1',sha2('1111',256),'2024-1-1');
 insert into members(member_no,email,name,password,created_date)
   values(102,'user2@test.com','user2',sha2('1111',256),'2024-2-2');
-insert into members(member_no,emai l,name,password,created_date)
+insert into members(member_no,email,name,password,created_date)
   values(103,'user3@test.com','user3',sha2('1111',256),'2024-3-3');
 insert into members(member_no,email,name,password,created_date)
   values(104,'user4@test.com','user4',sha2('1111',256),'2024-4-4');

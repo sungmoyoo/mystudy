@@ -11,15 +11,13 @@ import org.apache.catalina.webresources.StandardRoot;
 public class App {
 
   public static void main(String[] args) throws Exception {
-    System.out.println("서버 실행!");
+    System.out.println("과제관리 시스템 서버 실행!");
 
     // 톰캣 서버를 구동시키는 객체 준비
     Tomcat tomcat = new Tomcat();
 
     // 서버의 포트 번호 설정
     tomcat.setPort(8888);
-
-    //System.out.println(new File(".").getCanonicalFile());
 
     // 톰캣 서버를 실행하는 동안 사용할 임시 폴더 지정
     tomcat.setBaseDir("./temp");
@@ -33,7 +31,7 @@ public class App {
         "/", // 컨텍스트 경로(웹 애플리케이션 경로)
         new File("src/main/webapp").getAbsolutePath() // 웹 애플리케이션 파일이 있는 실제 경로
     );
-    ctx.setReloadable(true); // 컨텍스트 정보를 바탕으로 리로드
+    ctx.setReloadable(true);
 
     // 웹 애플리케이션 기타 정보 설정
     WebResourceRoot resources = new StandardRoot(ctx);
@@ -57,5 +55,4 @@ public class App {
 
     System.out.println("서버 종료!");
   }
-
 }

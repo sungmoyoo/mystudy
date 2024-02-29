@@ -26,6 +26,14 @@ public class Member implements Serializable {
         '}';
   }
 
+  public String getPhoto() {
+    return photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
   public int getNo() {
     return no;
   }
@@ -56,14 +64,6 @@ public class Member implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public String getPhoto() {
-    return photo;
-  }
-
-  public void setPhoto(String photo) {
-    this.photo = photo;
   }
 
   public Date getCreatedDate() {
