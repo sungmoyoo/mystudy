@@ -12,7 +12,7 @@
 <%@ page import="java.sql.Statement"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head>ㅎ
 <meta charset="UTF-8">
 <title>ex07</title>
 </head>
