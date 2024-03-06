@@ -13,8 +13,7 @@
 
 <form action='/app/auth/login' method='post'>
 <div>
-    이메일: <input name='email' type='text'
-    value='${email}'>
+    이메일: <input name='email' type='text' value='${email}'>
 </div>
 <div>
     암호: <input name='password' type='password'>
