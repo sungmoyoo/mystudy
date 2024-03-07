@@ -1,8 +1,8 @@
 // 생성자 호출 확인
 package com.eomcs.spring.ioc.ex03.a;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.eomcs.ioc.ex01.ApplicationContext;
 
 public class Exam01 {
 
@@ -12,7 +12,6 @@ public class Exam01 {
 
     // SpringUtils.printBeanNames(iocContainer);
   }
-
 }
 
 
