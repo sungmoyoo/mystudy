@@ -6,20 +6,24 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
+@Controller
 public class AuthController {
 
   MemberDao memberDao;
 
   public AuthController(MemberDao memberDao) {
-    System.out.println("AuthController() 호출됨");
+    System.out.println("AuthController() 호출됨!");
     this.memberDao = memberDao;
   }
 
   @RequestMapping("/auth/form")
-  public String form(@CookieValue("email") String email, Map<String, Object> map) {
+  public String form(@CookieValue(value = "email", required = false) String email,
+      Map<String, Object> map) {
     map.put("email", email);
     return "/auth/form.jsp";
   }
@@ -28,7 +32,7 @@ public class AuthController {
   public String login(
       @RequestParam("email") String email,
       @RequestParam("password") String password,
-      @RequestParam("saveEmail") String saveEmail,
+      @RequestParam(value = "saveEmail", required = false) String saveEmail,
       HttpServletResponse response,
       HttpSession session) throws Exception {
 
@@ -46,14 +50,12 @@ public class AuthController {
     if (member != null) {
       session.setAttribute("loginUser", member);
     }
-
     return "/auth/login.jsp";
   }
 
   @RequestMapping("/auth/logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
-
     return "redirect:/index.html";
   }
 }

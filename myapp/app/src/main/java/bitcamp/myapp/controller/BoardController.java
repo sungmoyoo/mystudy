@@ -11,24 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
+@Controller
 public class BoardController {
 
   private TransactionManager txManager;
   private BoardDao boardDao;
   private AttachedFileDao attachedFileDao;
-  private String uploadDir = System.getProperty("board.upload.dir");
+  private String uploadDir;
 
-  public BoardController(TransactionManager txManager, BoardDao boardDao,
-      AttachedFileDao attachedFileDao) {
-    System.out.println("BoardController() 호출됨");
+  public BoardController(
+      TransactionManager txManager,
+      BoardDao boardDao,
+      AttachedFileDao attachedFileDao,
+      ServletContext sc) {
+    System.out.println("BoardController() 호출됨!");
     this.txManager = txManager;
     this.boardDao = boardDao;
     this.attachedFileDao = attachedFileDao;
+    this.uploadDir = sc.getRealPath("/upload/board");
   }
 
   @RequestMapping("/board/form")
@@ -49,7 +56,6 @@ public class BoardController {
       Map<String, Object> map) throws Exception {
 
     int category = board.getCategory();
-
     map.put("boardName", category == 1 ? "게시글" : "가입인사");
     map.put("category", category);
 
@@ -58,15 +64,12 @@ public class BoardController {
       if (loginUser == null) {
         throw new Exception("로그인하시기 바랍니다!");
       }
-
-      board.setCategory(category);
       board.setWriter(loginUser);
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-
       if (category == 1) {
         for (Part file : files) {
-          if (!file.getName().equals("files") || file.getSize() == 0) {
+          if (file.getSize() == 0) {
             continue;
           }
           String filename = UUID.randomUUID().toString();
@@ -78,7 +81,6 @@ public class BoardController {
       txManager.startTransaction();
 
       boardDao.add(board);
-
       if (attachedFiles.size() > 0) {
         for (AttachedFile attachedFile : attachedFiles) {
           attachedFile.setBoardNo(board.getNo());
@@ -87,7 +89,6 @@ public class BoardController {
       }
 
       txManager.commit();
-
       return "redirect:list?category=" + category;
 
     } catch (Exception e) {
@@ -102,12 +103,11 @@ public class BoardController {
   @RequestMapping("/board/list")
   public String list(
       @RequestParam("category") int category,
-      Map<String, Object> map
-  ) throws Exception {
+      Map<String, Object> map) throws Exception {
 
     map.put("boardName", category == 1 ? "게시글" : "가입인사");
-    map.put("list", boardDao.findAll(category));
     map.put("category", category);
+    map.put("list", boardDao.findAll(category));
     return "/board/list.jsp";
   }
 
@@ -126,7 +126,7 @@ public class BoardController {
     map.put("category", category);
     map.put("board", board);
     if (category == 1) {
-      map.put("files", attachedFileDao.findAllByBoardNo(no));
+      map.put("attachedFiles", attachedFileDao.findAllByBoardNo(no));
     }
     return "/board/view.jsp";
   }
@@ -134,12 +134,9 @@ public class BoardController {
   @RequestMapping("/board/update")
   public String update(
       Board board,
-      @RequestParam("files") Part[] files,
+      @RequestParam("attachedFiles") Part[] files,
       HttpSession session,
-      Map<String, Object> map
-  ) throws Exception {
-
-    int category = board.getCategory();
+      Map<String, Object> map) throws Exception {
 
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
@@ -151,14 +148,14 @@ public class BoardController {
       if (old == null) {
         throw new Exception("번호가 유효하지 않습니다.");
 
-      } else if (board.getWriter().getNo() != loginUser.getNo()) {
+      } else if (old.getWriter().getNo() != loginUser.getNo()) {
         throw new Exception("권한이 없습니다.");
       }
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      if (category == 1) {
+      if (board.getCategory() == 1) {
         for (Part file : files) {
-          if (!file.getName().equals("files") || file.getSize() == 0) {
+          if (file.getSize() == 0) {
             continue;
           }
           String filename = UUID.randomUUID().toString();
@@ -169,7 +166,6 @@ public class BoardController {
 
       txManager.startTransaction();
       boardDao.update(board);
-
       if (attachedFiles.size() > 0) {
         for (AttachedFile attachedFile : attachedFiles) {
           attachedFile.setBoardNo(board.getNo());
