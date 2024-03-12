@@ -1,4 +1,4 @@
-# 학습점검목록 16주차
+# 학습점검목록 17주차
 
 # 75일차(2024-03-04, 월)
 ### 1. JSP의 template data를 설명할 수 있는가?
@@ -39,4 +39,6 @@
 
 ### 2. Spring IoC 컨테이너를 설정하고 사용할 수 있는가?
 
+
 # 79일차(2023-03-08, 금)
+### 1. ContextLoaderListener와 DispatcherServlet IoC 컨테이너의 관계를 이해하는가?
