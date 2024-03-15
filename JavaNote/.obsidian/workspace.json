@@ -146,8 +146,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2cf408f3c498a212",
+  "active": "cffd6c247d2f9a52",
   "lastOpenFiles": [
+    "Note/StudyNotes/Note84.md",
+    "Untitled.md",
+    "Note/StudyNotes/Note12-stream:static.md",
+    "Note/StudyNotes/IoC 컨테이너 생명주기.md",
+    "Note/StudyNotes/Note82.md",
     "Note/StudyNotes/Note11-Condition:Iteration.md",
     "Note/StudyNotes/Note10-Operator.md",
     "Note/StudyNotes/Note9-Variable:Garbage.md",
@@ -168,9 +173,6 @@
     "Note/StudyNotes/Note65-WAS Architecture2.md",
     "Note/StudyNotes/Note63-ConnectionProxy.md",
     "Note/StudyNotes/Note61-AppServer.md",
-    "Note/StudyNotes/Note60-DBProblem.md",
-    "Note/StudyNotes/Note55-SQL2.md",
-    "Note/StudyNotes/Note81.md",
-    "Note/StudyNotes/Note67-WebHistory.md"
+    "Note/StudyNotes/Note60-DBProblem.md"
   ]
 }
