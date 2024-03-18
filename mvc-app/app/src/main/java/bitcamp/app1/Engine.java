@@ -1,0 +1,31 @@
+package bitcamp.app1;
+
+public class Engine {
+  String model;
+  int cc;
+  int valve;
+
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(String model) {
+    this.model = model;
+  }
+
+  public int getCc() {
+    return cc;
+  }
+
+  public void setCc(int cc) {
+    this.cc = cc;
+  }
+
+  public int getValve() {
+    return valve;
+  }
+
+  public void setValve(int valve) {
+    this.valve = valve;
+  }
+}

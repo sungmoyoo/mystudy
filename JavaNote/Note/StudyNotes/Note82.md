@@ -91,9 +91,6 @@ DispatcherServlet은 자체적으로 WebApplicationContext라는 IoC 컨테이�
 
 Spring Framework에서 IoC 컨테이너는 요청이 들어올때 생성되고 초기화되는 것이 아니라 웹 애플리케이션이 시작될 때 생성된다. 
 
-**이유?**  
-
-
 
 ## /WEB-INF app-servlet.xml을 두는 이유?
 설정파일을 다음과 같이 config 아래에 두는 회사는 진지하게 퇴사 고민해라.  
@@ -145,7 +142,7 @@ ContextLoaderListener가 생성된 후에 contextInitialized() 메서드가 호�
 contextInitialized() -> initWebApplicationContext() -> createWebApplicationContext(servletContext) -> ConfigurableWebApplicationContext(IoC 컨테이너) 리턴 -> servletContext.setAttribute()로 보관
 
 
-## MVC annotation driven
+## mvc annotation driven
 
 ## log4j
 로그는 애플리케이션 모니터링, 에러 추적 및 보고를 출력하는 개발에 필수적인 요소이다. 만약 이 로그를 System.out.print()를 사용하여 확인한다면 필요한 위치에서 발생하는 로그를 출력하도록 직접 모두 작성해야 한다. 

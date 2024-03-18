@@ -76,4 +76,24 @@ XML로 설정하는 방법과 Java config로 설정하는 방법으로 나누어
 
 ### 3. WebApplicationInitializer의 구동 원리를 설명할 수 있는가?
 
-### 4. 
+### 4. WebApplicationInitializer를 활용하여 ContextLoaderListener와 DispatcherServlet을 설정할 수 있는가?
+
+
+# 84일차
+### 1. @Controller와 @RequestMapping을 설명할 수 있는가?
+
+### 2. GET요청과 POST 요청을 구분하여 처리할 수 있는가?
+
+### 3. @GetMapping, @PostMapping 애노테이션을 설명할 수 있는가?
+
+### 4. 파라미터의 이름으로 요청을 구분할 수 있는가?
+
+### 5. 요청 프로토콜의 헤더 이름으로 구분할 수 있는가?
+
+### 6. 요청 프로토콜의 Accept 헤더의 값을 요청을 구분할 수 있는가?
+클라이언트가 보낸 Accept 헤더의 값을 통해 구분하는 방법은 produces를 사용한다.
+
+### 7. 요청 프로토콜의 Content-type 헤더의 값으로 요청을 구분할 수 있는가?
+consumes
+
+### 8. @RequestBody, @ResponseBody의 사용법을 설명할 수 있는가?

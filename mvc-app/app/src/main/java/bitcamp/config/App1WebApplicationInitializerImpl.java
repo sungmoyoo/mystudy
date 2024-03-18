@@ -10,12 +10,12 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class App1WebApplicationInitializerImpl extends
     AbstractAnnotationConfigDispatcherServletInitializer {
-  String uploadTmpDir;
-  public App1WebApplicationInitializerImpl() {
-    uploadTmpDir = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
-  }
+//  String uploadTmpDir;
+//  public App1WebApplicationInitializerImpl() {
+//    uploadTmpDir = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
+//  }
 
-  private Log log = LogFactory.getLog(App1WebApplicationInitializerImpl.class);
+  private static Log log = LogFactory.getLog(App1WebApplicationInitializerImpl.class);
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
@@ -37,12 +37,15 @@ public class App1WebApplicationInitializerImpl extends
     return "app1";
   }
 
-//  @Override
-//  protected void customizeRegistration(Dynamic registration) {
-//    registration.setMultipartConfig(new MultipartConfigElement(
-//        new File("./temp").getAbsolutePath(),
-//        1024 * 1024 * 10,
-//        1024 * 1024 * 100,
-//        1024 * 1024));
-//  }
+  @Override
+  protected void customizeRegistration(Dynamic registration) {
+    registration.setMultipartConfig(new MultipartConfigElement(
+        new File("./temp").getAbsolutePath(),
+        //new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
+        1024 * 1024 * 10,
+        1024 * 1024 * 100,
+        1024 * 1024 * 1));
+  }
 }
+
+
