@@ -6,7 +6,7 @@ public class EnginePropertyEditor extends PropertyEditorSupport {
 
   @Override
   public void setAsText(String text) throws IllegalArgumentException {
-    String[] values = text.split(",");
+    String[] values = text.split(","); // model,cc,valve
 
     Engine engine = new Engine();
     engine.setModel(values[0]);

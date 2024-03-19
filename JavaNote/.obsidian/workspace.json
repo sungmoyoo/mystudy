@@ -146,14 +146,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "cffd6c247d2f9a52",
+  "active": "2cf408f3c498a212",
   "lastOpenFiles": [
+    "Untitled 1.md",
+    "Untitled 2.md",
+    "Note/StudyNotes/Note12-stream:static.md",
     "img/IoCContainer2.png",
     "img/IoCContainer1.png",
     "img/MVCController.png",
     "Note/StudyNotes/Note84.md",
     "Untitled.md",
-    "Note/StudyNotes/Note12-stream:static.md",
     "Note/StudyNotes/IoC 컨테이너 생명주기.md",
     "Note/StudyNotes/Note82.md",
     "Note/StudyNotes/Note11-Condition:Iteration.md",
@@ -174,7 +176,6 @@
     "Note/StudyNotes/Note69.md",
     "Note/StudyNotes/Note64-WAS Architecture1.md",
     "Note/StudyNotes/Note65-WAS Architecture2.md",
-    "Note/StudyNotes/Note63-ConnectionProxy.md",
-    "Note/StudyNotes/Note61-AppServer.md"
+    "Note/StudyNotes/Note63-ConnectionProxy.md"
   ]
 }

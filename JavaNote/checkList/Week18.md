@@ -79,7 +79,7 @@ XML로 설정하는 방법과 Java config로 설정하는 방법으로 나누어
 ### 4. WebApplicationInitializer를 활용하여 ContextLoaderListener와 DispatcherServlet을 설정할 수 있는가?
 
 
-# 84일차
+# 84일차(2024-03-15, 금)
 ### 1. @Controller와 @RequestMapping을 설명할 수 있는가?
 
 ### 2. GET요청과 POST 요청을 구분하여 처리할 수 있는가?

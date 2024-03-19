@@ -1,3 +1,5 @@
+# Spring MVC 1
+
 # 요청 핸들러의 아규먼트
 
 ## 프론트 컨트롤러로부터 받을 수 있는 파라미터 값
@@ -98,6 +100,23 @@ public void handler1(
   }
 ```
 
+<br>
+
+```
+*필드와 프로퍼티
+"Property"
+getFirstName(){-} firstName (read only)
+setName(){-} name  | (read/write)
+getName(){-} name  |
+setAge(){-} age (write only)
+
+get, set 날리고 첫대문자를 소문자로 변환하면 프로퍼티이름
+
+class Score{
+  String name <-- "Field"
+}
+```
+
 ## 프로퍼티 에디터 사용
 클라이언트가 보낸 파라미터 값은 기본적으로 String이다 Request Handler의 아규먼트 타입(String, int 등)의 값으로 바꿀 때 `primitive type`에 대해서만 바꿀 수 있다. 그 외의 타입은 그냥 변환하려고 하면 예외가 발생한다.
 
@@ -155,7 +174,6 @@ public void initBinder(WebDataBinder 데이터변환등록기) {
 
 ## @RequestHeader
 클라이언트의 HTTP 요청 헤더를 받고 싶다면, request handler의 아규먼트 앞에 `@RequestHeader(헤더명)`  애노테이션을 붙인다. 
-
 
 
 ## @Cookie
@@ -310,8 +328,10 @@ public HttpEntity<String> handler4(HttpServletResponse response) {
 **HttpHeaders**  
 `@GetMapping` 애노테이션에 지정하는 방법 말고 HttpHeaders에 직접 Content-type을 설정하는 방법도 있다. 임의의 응답 헤더를 추가해야 하는 경우에 사용한다. 
 ```java
-@GetMapping("h6")
-public HttpEntity<String> handler6(HttpServletResponse response) {
+// 테스트:
+// http://localhost:9999/eomcs-spring-webmvc/app1/c05_1/h5
+@GetMapping("h5")
+public HttpEntity<String> handler5(HttpServletResponse response) {
 
   HttpHeaders headers = new HttpHeaders();
   headers.add("Content-Type", "text/html;charset=UTF-8");
@@ -327,8 +347,10 @@ public HttpEntity<String> handler6(HttpServletResponse response) {
 **ResponseEntity**
 HttpEntity의 자식클래스로 콘텐트 헤더 뿐만 아니라 응답 상태 코드를 편하게 설정할 수 있는 기능을 가지고 있다. 
 ```java
-@GetMapping("h7")
-public ResponseEntity<String> handler7(HttpServletResponse response) {
+// 테스트:
+// http://localhost:8888/eomcs-spring-webmvc/app1/c05_1/h6
+@GetMapping("h6")
+public ResponseEntity<String> handler6(HttpServletResponse response) {
 
   HttpHeaders headers = new HttpHeaders();
   headers.add("Content-Type", "text/html;charset=UTF-8");
@@ -363,5 +385,162 @@ MVC 패턴에서는 항상 Controller에 의해 View가 통제되어야 한다. 
 
 따라서 아예 접근도 못하게 /WEB-INF 폴더에 jsp파일을 둔다. 
 주의! 반대로 직접 요청하는 스태틱 리소스는 /WEB-INF 폴더 밖에 둔다. 
+
+```java
+// 테스트:
+// http://localhost:8888/eomcs-spring-webmvc/app1/c05_2/h1
+@GetMapping("h2")
+public String handler2() {
+  return "/WEB-INF/jsp/c05_2.jsp";
+}
+
+// View URL을 리턴하는 다른 방법들
+// 테스트:
+// http://localhost:8888/eomcs-spring-webmvc/app1/c05_2/h2
+@GetMapping("h3")
+public View handler3() {
+  return new JstlView("/WEB-INF/jsp/c05_2.jsp");
+}
+
+// 테스트:
+// http://localhost:8888/eomcs-spring-webmvc/app1/c05_2/h3
+@GetMapping("h4")
+public ModelAndView handler4() {
+  System.out.println("===> /app1/c05_2/h4");
+  ModelAndView mv = new ModelAndView();
+  mv.setViewName("/WEB-INF/jsp/c05_2.jsp");
+  return mv;
+}
+```
+
+**Redirect**  
+리다이렉트를 지정할 때는 URL 앞에 "redirect:" 접두어를 붙인다.
+```java
+// 테스트:
+// http://localhost:8888/eomcs-spring-webmvc/app1/c05_2/h5
+@GetMapping("h5")
+public String handler5() {
+  return "redirect:h4";
+}
+```
+
+**forward/include**
+포워드를 지정할 때는 "forward:"접두어
+인클루드를 지정할 때는 "include:"접두어
+```java
+// 테스트:
+// http://localhost:9999/eomcs-spring-webmvc/app1/c05_2/h6
+@GetMapping("h6")
+public String handler6() {
+  return "forward:h4";
+}
+```
+
+```
+- forward vs include
+forward는 
+
+- redirect vs refresh
+redirect는 요청을 받으면 작업 후 리턴하여 새 요청을 한다. refresh는 첫 요청을 받을 때 콘텐트를 함께 받아 "출력"한 후 리턴하고 새 요청을 한다.
+```
+
+## 요청 핸들러에서 view 컴포넌트(JSP) 쪽에 데이터 전달하기
+c05_3.jsp
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jsp</title>
+</head>
+<body>
+<h1>/WEB-INF/jsp/c05_3.jsp</h1>
+이름: ${name}<br>
+나이: ${age}<br>
+재직여부: ${working}<br>
+</body>
+</html>
+```
+`${값}` 이 명령은 EL로서 request, response, session, context에 저장된 속성 객체의 프로퍼티를 차례로 찾아 출력하는데 전부 다 찾아도 없을 시에는 빈 문자열을 리턴한다. 
+
+일반 서블릿 기술을 사용하여 전달하는 방법
+```java
+// 테스트:
+// http://localhost:9999/eomcs-spring-webmvc/app1/c05_3/h1
+@GetMapping("h1")
+public String handler1(
+    ServletRequest request) {
+
+  // JSP가 꺼내 쓸 수 있도록 ServletRequest 객체에 직접 담는다.
+  request.setAttribute("name", "홍길동");
+  request.setAttribute("age", 20); // auto-boxing: int ===> Integer 객체
+  request.setAttribute("working", true); // auto-boxing: boolean ===> Boolean 객체
+
+  return "/WEB-INF/jsp/c05_3.jsp";
+}
+```
+실무에서는 서블릿 기술을 최소화하기 때문에 위와 같은 방식은 잘 사용하지 않는다.
+따라서 Map 객체나 Model 또는 ModelAndView 객체를 선언하여 값을 담아 전달하는 방식을 사용한다.
+
+```java
+// 테스트:
+// http://localhost:9999/eomcs-spring-webmvc/app1/c05_3/h2
+@GetMapping("h2")
+public String handler2(Map<String,Object> map) {
+
+  // 아규먼트에 Map 타입의 변수를 선언하면
+  // 프론트 컨트롤러는 빈 맵 객체를 만들어 넘겨준다.
+  // 이 맵 객체의 용도는 JSP에 전달할 값을 담는 용이다.
+  // 맵 객체에 값을 담아 놓으면 프론트 컨트롤러가 JSP를 실행하기 전에
+  // ServletRequest로 복사한다.
+  // 따라서 ServletRequest에 값을 담는 것과 같다.
+  map.put("name", "홍길동");
+  map.put("age", 20); // auto-boxing
+  map.put("working", true); // auto-boxing
+
+  return "/WEB-INF/jsp/c05_3.jsp";
+}
+
+// 테스트:
+// http://localhost:9999/eomcs-spring-webmvc/app1/c05_3/h3
+@GetMapping("h3")
+public String handler3(Model model) {
+
+  // 아규먼트에 Model 타입의 변수를 선언하면
+  // 프론트 컨트롤러는 모델 객체를 만들어 넘겨준다.
+  // 이 객체의 용도는 Map 객체와 같다.
+  // Map에 비해 기능은 적고 가볍다. 
+  // Model은 제네릭을 지정할 필요가 없어 더 간결하다.
+  // 따라서 실제 업무에서는 Model 객체를 더 많이 사용한다.
+  model.addAttribute("name", "홍길동");
+  model.addAttribute("age", 20); // auto-boxing
+  model.addAttribute("working", true); // auto-boxing
+
+  return "/WEB-INF/jsp/c05_3.jsp";
+}
+
+// 테스트:
+//   http://localhost:9999/eomcs-spring-webmvc/app1/c05_3/h4
+@GetMapping("h4")
+public ModelAndView handler4() {
+  // 파라미터를 받지 않는다.
+  // request handler에서 ModelAndView 객체를 만들어 리턴한다.
+  // => 이 객체의 용도는 Model과 view URL을 함께 리턴하는 것이다.
+  ModelAndView mv = new ModelAndView();
+
+  // JSP가 사용할 데이터를 담고
+  mv.addObject("name", "홍길동");
+  mv.addObject("age", 20); // auto-boxing
+  mv.addObject("working", true); // auto-boxing
+
+  // JSP 주소도 담는다.
+  mv.setViewName("/WEB-INF/jsp/c05_3.jsp");
+
+  return mv;
+}
+```
+
 
 
