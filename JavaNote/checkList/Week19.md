@@ -26,8 +26,25 @@ ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse, HttpSe
 
 ### 11. @RequestBody/@ResponseBody 사용법을 아는가?
 @RequestBody 클라이언트가 보낸 데이터를 통째로 받을 때 사용하는 애노테이션이다.  
-@ResponseBody는 클라이언트로 view URL이 아닌 클라이언트에게 데이터를 보낼 때 사용한다.
+@ResponseBody는 클라이언트로 view URL이 아닌 클라이언트에게 데이터를 직접 보낼 때 사용한다.
 
 ### 12. request handler의 리턴 타입으로 String, HttpEntity, ResponseEntity를 사용하는 방법을 아는가?
 
-### 13. 
+### 13. request handler에서 View URL을 리턴하는 방법을 아는가?
+@ResponseBody를 붙이지 않고 String을 보내면 프론트 컨트롤러가 view URL로 인식한다
+
+
+# 86일차(2024-03-19, 화)
+### 1. request handler에서 redirect, forward, include를 처리하는 방법을 설명할 수 있는가?
+
+### 2. request handler에서 뷰 컴포넌트가 사용할 값을 리턴하는 방법을 설명할 수 있는가?
+
+### 3. ViewResolver의 역할과 동작과정을 설명할 수 있는가?
+
+### 4. view name이 절대 경로일 때와 상대 경로일 때에 따라 URL의 계산 달라지는 것을 설명할 수 있는가?
+
+### 5. @PathVariable을 사용하여 URL에서 값을 추출하는 방법을 설명할 수 있는가?
+
+### 6. @MatrixVariable 사용법을 설명할 수 있는가?
+
+

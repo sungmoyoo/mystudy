@@ -29,10 +29,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 //    WebApplicationInitializer 구현체의 인스턴스를 만들고,
 //    onStartup()을 호출한다.
 //
-public class App2WebApplicationInitializerImpl extends
-    AbstractAnnotationConfigDispatcherServletInitializer {
-
-  private Log log = LogFactory.getLog(App2WebApplicationInitializerImpl.class);
+public class App2WebApplicationInitializer
+    extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
@@ -41,7 +39,7 @@ public class App2WebApplicationInitializerImpl extends
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {App2Config.class};
+    return new Class<?>[] {App2Config.class};
   }
 
   @Override

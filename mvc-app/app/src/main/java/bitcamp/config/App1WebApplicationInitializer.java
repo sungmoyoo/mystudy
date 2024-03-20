@@ -6,16 +6,10 @@ import javax.servlet.ServletRegistration.Dynamic;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-
-public class App1WebApplicationInitializerImpl extends
+public class App1WebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer {
-//  String uploadTmpDir;
-//  public App1WebApplicationInitializerImpl() {
-//    uploadTmpDir = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
-//  }
 
-  private static Log log = LogFactory.getLog(App1WebApplicationInitializerImpl.class);
+  private static Log log = LogFactory.getLog(App1WebApplicationInitializer.class);
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
@@ -47,5 +41,3 @@ public class App1WebApplicationInitializerImpl extends
         1024 * 1024 * 1));
   }
 }
-
-

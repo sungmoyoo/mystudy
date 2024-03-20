@@ -1,4 +1,4 @@
-# Spring MVC 2
+# Spring WebMVC 2
 
 # View Resolver 사용
 ## 절대경로와 상대경로
