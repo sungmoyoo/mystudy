@@ -48,3 +48,16 @@ ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse, HttpSe
 ### 6. @MatrixVariable 사용법을 설명할 수 있는가?
 
 
+# 87일차(2024-03-20, 수)
+### 1. @SessionAttribute, @ModelAttribute를 사용하여 세션 값을 제어할 수 있는가?
+
+### 2. 인터셉터의 구동에 대해 설명하고 구현할 수 있는가?
+프론트컨트롤러와 페이지컨트롤러 또는 프론트컨트롤러와 JSP 사이에 코드(기능) 삽입하고 싶을 때 인터셉터를 사용한다. HandlerInterceptor 인터셉터를 구현하여 언제 인터셉터를 실행할지에 대한 메서드를 오버라이딩한 후 IoC 컨테이너에 인터셉터를 등록한다
+
+### 3. HttpMessageConverter에 대해 설명할 수 있는가?
+
+### 4. 요청으로 보낸 JSON 데이터를 객체로 자동 변환하여 request handler의 파라미터로 받을 수 있는가?
+
+### 5. request handler가 리턴한 객체를 JSON 데이터로 자동 변환하여 응답할 수 있는가?
+
+### 6. 서블릿 또는 request handler에서 예외가 발생했을 때 오류를 출력할 페이지를 설정할 수 있는가?
