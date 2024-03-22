@@ -1,1162 +1,1160 @@
+-- È¸¿ø
+DROP TABLE IF EXISTS member;
 
+-- °Ô½Ã±Û Ä«Å×°í¸®
+DROP TABLE IF EXISTS board_category;
 
--- íšŒì›
-DROP TABLE IF EXISTS "member";
+-- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
+DROP TABLE IF EXISTS board_file;
 
--- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬
-DROP TABLE IF EXISTS "board_category";
+-- °Ô½Ã±Û
+DROP TABLE IF EXISTS board;
 
--- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
-DROP TABLE IF EXISTS "board_file";
+-- Æ÷ÀÎÆ®³»¿ª
+DROP TABLE IF EXISTS point_history;
 
--- ê²Œì‹œê¸€
-DROP TABLE IF EXISTS "board";
+-- À¯Àú-¼±È£»çÇ×
+DROP TABLE IF EXISTS member_preference;
 
--- í¬ì¸íŠ¸ë‚´ì—­
-DROP TABLE IF EXISTS "point_history";
+-- ¹®ÀÇÆÄÀÏ
+DROP TABLE IF EXISTS question_file;
 
--- ìœ ì €-ì„ í˜¸ì‚¬í•­
-DROP TABLE IF EXISTS "member_preference";
+-- ¹®ÀÇ³»¿ª
+DROP TABLE IF EXISTS question;
 
--- ë¬¸ì˜íŒŒì¼
-DROP TABLE IF EXISTS "question_file";
+-- ¾Ë¸²³»¿ª
+DROP TABLE IF EXISTS notify_history;
 
--- ë¬¸ì˜ë‚´ì—­
-DROP TABLE IF EXISTS "question";
+-- ´ñ±Û
+DROP TABLE IF EXISTS comment;
 
--- ì•Œë¦¼ë‚´ì—­
-DROP TABLE IF EXISTS "notify_history";
+-- ´ä±Û
+DROP TABLE IF EXISTS reply;
 
--- ëŒ“ê¸€
-DROP TABLE IF EXISTS "comment";
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+DROP TABLE IF EXISTS board_report_detail;
 
--- ë‹µê¸€
-DROP TABLE IF EXISTS "reply";
+-- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
+DROP TABLE IF EXISTS board_report_file;
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-DROP TABLE IF EXISTS "board_report_detail";
+-- Áñ°ÜÃ£±â
+DROP TABLE IF EXISTS bookmark;
 
--- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
-DROP TABLE IF EXISTS "board_report_file";
+-- ¼÷¼Ò
+DROP TABLE IF EXISTS rental_home;
 
--- ì¦ê²¨ì°¾ê¸°
-DROP TABLE IF EXISTS "bookmark";
+-- ¼÷¼Ò½Å°í
+DROP TABLE IF EXISTS rental_home_report;
 
--- ìˆ™ì†Œ
-DROP TABLE IF EXISTS "rental_home";
+-- ¼÷¼Ò½Å°íÀ¯Çü
+DROP TABLE IF EXISTS rental_home_report_category;
 
--- ìˆ™ì†Œì‹ ê³ 
-DROP TABLE IF EXISTS "rental_home_report";
+-- Áö¿ª
+DROP TABLE IF EXISTS region;
 
--- ìˆ™ì†Œì‹ ê³ ìœ í˜•
-DROP TABLE IF EXISTS "rental_home_report_category";
+-- µî±Ş
+DROP TABLE IF EXISTS grade;
 
--- ì§€ì—­
-DROP TABLE IF EXISTS "region";
+-- µî±Ş Ä«Å×°í¸®
+DROP TABLE IF EXISTS grade_category;
 
--- ë“±ê¸‰
-DROP TABLE IF EXISTS "grade";
+-- ¼÷¼Ò_Å×¸¶
+DROP TABLE IF EXISTS rental_home_theme;
 
--- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬
-DROP TABLE IF EXISTS "grade_category";
+-- Å×¸¶
+DROP TABLE IF EXISTS theme;
 
--- ìˆ™ì†Œ_í…Œë§ˆ
-DROP TABLE IF EXISTS "rental_home_theme";
+-- ¼÷¼Ò¸®ºä
+DROP TABLE IF EXISTS rental_home_review;
 
--- í…Œë§ˆ
-DROP TABLE IF EXISTS "theme";
+-- °áÁ¦
+DROP TABLE IF EXISTS payment;
 
--- ìˆ™ì†Œë¦¬ë·°
-DROP TABLE IF EXISTS "rental_home_review";
+-- ¿¹¾à³»¿ª
+DROP TABLE IF EXISTS reservation;
 
--- ê²°ì œ
-DROP TABLE IF EXISTS "payment";
+-- ¼÷¼Ò »ó¼¼
+DROP TABLE IF EXISTS rental_home_detail;
 
--- ì˜ˆì•½ë‚´ì—­
-DROP TABLE IF EXISTS "reservation";
+-- °Ô½ÃÆÇ ½Å°íÀ¯Çü
+DROP TABLE IF EXISTS board_report_category;
 
--- ìˆ™ì†Œ ìƒì„¸
-DROP TABLE IF EXISTS "rental_home_detail";
+-- ±¹°¡
+DROP TABLE IF EXISTS national;
 
--- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜•
-DROP TABLE IF EXISTS "board_report_category";
+-- ¼÷¼Ò »çÁø
+DROP TABLE IF EXISTS rental_home_photo;
 
--- êµ­ê°€
-DROP TABLE IF EXISTS "national";
+-- ¹®ÀÇ ´äº¯
+DROP TABLE IF EXISTS qna;
 
--- ìˆ™ì†Œ ì‚¬ì§„
-DROP TABLE IF EXISTS "rental_home_photo";
+-- ¼÷¼ÒÃßÃµ¼ö
+DROP TABLE IF EXISTS rental_home_like;
 
--- ë¬¸ì˜ ë‹µë³€
-DROP TABLE IF EXISTS "qna";
+-- ¼÷¼Ò½Ã¼³
+DROP TABLE IF EXISTS rental_home_facility;
 
--- ìˆ™ì†Œì¶”ì²œìˆ˜
-DROP TABLE IF EXISTS "rental_home_like";
+-- ¸»¸Ó¸®
+DROP TABLE IF EXISTS head;
 
--- ìˆ™ì†Œì‹œì„¤
-DROP TABLE IF EXISTS "rental_home_facility";
+-- °Ô½Ã±Û ÃßÃµ¼ö
+DROP TABLE IF EXISTS board_like;
 
--- ë§ë¨¸ë¦¬
-DROP TABLE IF EXISTS "head";
-
--- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
-DROP TABLE IF EXISTS "board_like";
-
--- íšŒì›
-CREATE TABLE "member" (
-	"member_no" INT NOT NULL,
-	"national_no" INT NULL,
-	"email" VARCHAR(30) NOT NULL,
-	"password" VARCHAR(255) NOT NULL,
-	"name" VARCHAR(20) NOT NULL,
-	"nickname" VARCHAR(20) NOT NULL,
-	"birthday" DATE NOT NULL,
-	"tel_no" VARCHAR(15) NULL,
-	"state" CHAR(1) DEFAULT '0',
-	"address" VARCHAR(255) NULL,
-	"sex" CHAR(1) NULL,
-	"join_date" DATE DEFAULT 'now()',
-	"last_login_date" DATE DEFAULT 'now()',
-	"exit_date" DATE NULL,
-	"warning_count" INT DEFAULT '0',
-	"photo" VARCHAR(255) NULL
+-- È¸¿ø
+CREATE TABLE member (
+	member_no INT NOT NULL,
+	national_no INT NULL,
+	email VARCHAR(30) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	name VARCHAR(20) NOT NULL,
+	nickname VARCHAR(20) NOT NULL,
+	birthday DATE NOT NULL,
+	tel_no VARCHAR(15) NULL,
+	state CHAR(1) DEFAULT '0',
+	address VARCHAR(255) NULL,
+	sex CHAR(1) NULL,
+	join_date DATE DEFAULT 'now()',
+	last_login_date DATE DEFAULT 'now()',
+	exit_date DATE NULL,
+	warning_count INT DEFAULT '0',
+	photo VARCHAR(255) NULL
 );
 
--- íšŒì›
-ALTER TABLE "member"
-	ADD CONSTRAINT "PK_member" -- íšŒì› ê¸°ë³¸í‚¤
+-- È¸¿ø
+ALTER TABLE member
+	ADD CONSTRAINT PK_member -- È¸¿ø ±âº»Å°
 	PRIMARY KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- íšŒì› ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_member"
-	ON "member" ( -- íšŒì›
-				"email" ASC,    -- ì´ë©”ì¼
-				"nickname" ASC  -- ë‹‰ë„¤ì„
+-- È¸¿ø À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_member
+	ON member ( -- È¸¿ø
+				email ASC,    -- ÀÌ¸ŞÀÏ
+				nickname ASC  -- ´Ğ³×ÀÓ
 	);
 
-ALTER TABLE "member"
-	MODIFY COLUMN "member_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE member
+	MODIFY COLUMN member_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬
-CREATE TABLE "board_category" (
-	"board_category_no" INT NOT NULL,
-	"board_category" char(5) NOT NULL
+-- °Ô½Ã±Û Ä«Å×°í¸®
+CREATE TABLE board_category (
+	board_category_no INT NOT NULL,
+	board_category char(5) NOT NULL
 );
 
--- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬
-ALTER TABLE "board_category"
-	ADD CONSTRAINT "PK_board_category" -- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ Primary key
+-- °Ô½Ã±Û Ä«Å×°í¸®
+ALTER TABLE board_category
+	ADD CONSTRAINT PK_board_category -- °Ô½Ã±Û Ä«Å×°í¸® Primary key
 	PRIMARY KEY (
-	"board_category_no" -- ê²Œì‹œê¸€ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	board_category_no -- °Ô½Ã±ÛÄ«Å×°í¸®¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_board_category"
-	ON "board_category" ( -- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬
-				"board_category" ASC -- ê²Œì‹œê¸€ì¹´í…Œê³ ë¦¬ëª…
+-- °Ô½Ã±Û Ä«Å×°í¸® À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_board_category
+	ON board_category ( -- °Ô½Ã±Û Ä«Å×°í¸®
+				board_category ASC -- °Ô½Ã±ÛÄ«Å×°í¸®¸í
 	);
 
--- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
-CREATE TABLE "board_file" (
-	"file_no" INT NOT NULL,
-	"board_no" INT NOT NULL,
-	"ori_file_name" VARCHAR(255) NOT NULL,
-	"uuid_file_name" VARCHAR(255) NOT NULL
+-- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
+CREATE TABLE board_file (
+	file_no INT NOT NULL,
+	board_no INT NOT NULL,
+	ori_file_name VARCHAR(255) NOT NULL,
+	uuid_file_name VARCHAR(255) NOT NULL
 );
 
--- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
-ALTER TABLE "board_file"
-	ADD CONSTRAINT "PK_board_file" -- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼ ê¸°ë³¸í‚¤
+-- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
+ALTER TABLE board_file
+	ADD CONSTRAINT PK_board_file -- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ ±âº»Å°
 	PRIMARY KEY (
-	"file_no" -- íŒŒì¼ë²ˆí˜¸
+	file_no -- ÆÄÀÏ¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_board_file"
-	ON "board_file" ( -- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
-				"uuid_file_name" ASC -- íŒŒì¼ëª…(uuid)
+-- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_board_file
+	ON board_file ( -- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
+				uuid_file_name ASC -- ÆÄÀÏ¸í(uuid)
 	);
 
-ALTER TABLE "board_file"
-	MODIFY COLUMN "file_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE board_file
+	MODIFY COLUMN file_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ê²Œì‹œê¸€
-CREATE TABLE "board" (
-	"board_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"board_category_no" INT NOT NULL,
-	"head_no" INT NOT NULL,
-	"title" VARCHAR(30) NOT NULL,
-	"content" text NULL,
-	"like_count" INT DEFAULT '0',
-	"created_date" DATE DEFAULT 'now()',
-	"view_count" INT DEFAULT '0',
-	"state" CHAR(1) DEFAULT '0'
+-- °Ô½Ã±Û
+CREATE TABLE board (
+	board_no INT NOT NULL,
+	member_no INT NOT NULL,
+	board_category_no INT NOT NULL,
+	head_no INT NOT NULL,
+	title VARCHAR(30) NOT NULL,
+	content text NULL,
+	like_count INT DEFAULT '0',
+	created_date DATE DEFAULT 'now()',
+	view_count INT DEFAULT '0',
+	state CHAR(1) DEFAULT '0'
 );
 
--- ê²Œì‹œê¸€
-ALTER TABLE "board"
-	ADD CONSTRAINT "PK_board" -- ê²Œì‹œê¸€ ê¸°ë³¸í‚¤
+-- °Ô½Ã±Û
+ALTER TABLE board
+	ADD CONSTRAINT PK_board -- °Ô½Ã±Û ±âº»Å°
 	PRIMARY KEY (
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	board_no -- °Ô½Ã±Û¹øÈ£
 	);
 
-ALTER TABLE "board"
-	MODIFY COLUMN "board_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE board
+	MODIFY COLUMN board_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- í¬ì¸íŠ¸ë‚´ì—­
-CREATE TABLE "point_history" (
-	"member_no" INT NOT NULL,
-	"save_content" VARCHAR(30) NOT NULL,
-	"save_point" INT NOT NULL,
-	"save_date" DATE DEFAULT 'now()'
+-- Æ÷ÀÎÆ®³»¿ª
+CREATE TABLE point_history (
+	member_no INT NOT NULL,
+	save_content VARCHAR(30) NOT NULL,
+	save_point INT NOT NULL,
+	save_date DATE DEFAULT 'now()'
 );
 
--- ìœ ì €-ì„ í˜¸ì‚¬í•­
-CREATE TABLE "member_preference" (
-	"member_no" INT NOT NULL,
-	"theme_no" INT NOT NULL
+-- À¯Àú-¼±È£»çÇ×
+CREATE TABLE member_preference (
+	member_no INT NOT NULL,
+	theme_no INT NOT NULL
 );
 
--- ìœ ì €-ì„ í˜¸ì‚¬í•­
-ALTER TABLE "member_preference"
-	ADD CONSTRAINT "PK_member_preference" -- ìœ ì €-ì„ í˜¸ì‚¬í•­ ê¸°ë³¸í‚¤
+-- À¯Àú-¼±È£»çÇ×
+ALTER TABLE member_preference
+	ADD CONSTRAINT PK_member_preference -- À¯Àú-¼±È£»çÇ× ±âº»Å°
 	PRIMARY KEY (
-	"member_no", -- íšŒì›ë²ˆí˜¸
-	"theme_no"   -- í…Œë§ˆë²ˆí˜¸
+	member_no, -- È¸¿ø¹øÈ£
+	theme_no   -- Å×¸¶¹øÈ£
 	);
 
--- ë¬¸ì˜íŒŒì¼
-CREATE TABLE "question_file" (
-	"question_file_no" INT NOT NULL,
-	"question_no" INT NOT NULL,
-	"ori_file_name" VARCHAR(255) NOT NULL,
-	"uuid_file_name" VARCHAR(255) NOT NULL
+-- ¹®ÀÇÆÄÀÏ
+CREATE TABLE question_file (
+	question_file_no INT NOT NULL,
+	question_no INT NOT NULL,
+	ori_file_name VARCHAR(255) NOT NULL,
+	uuid_file_name VARCHAR(255) NOT NULL
 );
 
--- ë¬¸ì˜íŒŒì¼
-ALTER TABLE "question_file"
-	ADD CONSTRAINT "PK_question_file" -- ë¬¸ì˜íŒŒì¼ ê¸°ë³¸í‚¤
+-- ¹®ÀÇÆÄÀÏ
+ALTER TABLE question_file
+	ADD CONSTRAINT PK_question_file -- ¹®ÀÇÆÄÀÏ ±âº»Å°
 	PRIMARY KEY (
-	"question_file_no" -- ë¬¸ì˜íŒŒì¼ë²ˆí˜¸
+	question_file_no -- ¹®ÀÇÆÄÀÏ¹øÈ£
 	);
 
--- ë¬¸ì˜íŒŒì¼ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_question_file"
-	ON "question_file" ( -- ë¬¸ì˜íŒŒì¼
-				"uuid_file_name" ASC -- íŒŒì¼ëª…(uuid)
+-- ¹®ÀÇÆÄÀÏ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_question_file
+	ON question_file ( -- ¹®ÀÇÆÄÀÏ
+				uuid_file_name ASC -- ÆÄÀÏ¸í(uuid)
 	);
 
-ALTER TABLE "question_file"
-	MODIFY COLUMN "question_file_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE question_file
+	MODIFY COLUMN question_file_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ë¬¸ì˜ë‚´ì—­
-CREATE TABLE "question" (
-	"question_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"title" VARCHAR(30) NOT NULL,
-	"content" text NULL,
-	"state" char(1) NOT NULL,
-	"register_date" DATE DEFAULT 'now()'
+-- ¹®ÀÇ³»¿ª
+CREATE TABLE question (
+	question_no INT NOT NULL,
+	member_no INT NOT NULL,
+	title VARCHAR(30) NOT NULL,
+	content text NULL,
+	state char(1) NOT NULL,
+	register_date DATE DEFAULT 'now()'
 );
 
--- ë¬¸ì˜ë‚´ì—­
-ALTER TABLE "question"
-	ADD CONSTRAINT "PK_question" -- ë¬¸ì˜ë‚´ì—­ ê¸°ë³¸í‚¤
+-- ¹®ÀÇ³»¿ª
+ALTER TABLE question
+	ADD CONSTRAINT PK_question -- ¹®ÀÇ³»¿ª ±âº»Å°
 	PRIMARY KEY (
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	question_no -- ¹®ÀÇ¹øÈ£
 	);
 
-ALTER TABLE "question"
-	MODIFY COLUMN "question_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE question
+	MODIFY COLUMN question_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ì•Œë¦¼ë‚´ì—­
-CREATE TABLE "notify_history" (
-	"notify_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"content" VARCHAR(255) NOT NULL,
-	"notify_date" DATE DEFAULT 'now()',
-	"state" char(1) DEFAULT '0'
+-- ¾Ë¸²³»¿ª
+CREATE TABLE notify_history (
+	notify_no INT NOT NULL,
+	member_no INT NOT NULL,
+	content VARCHAR(255) NOT NULL,
+	notify_date DATE DEFAULT 'now()',
+	state char(1) DEFAULT '0'
 );
 
--- ì•Œë¦¼ë‚´ì—­
-ALTER TABLE "notify_history"
-	ADD CONSTRAINT "PK_notify_history" -- ì•Œë¦¼ë‚´ì—­ ê¸°ë³¸í‚¤
+-- ¾Ë¸²³»¿ª
+ALTER TABLE notify_history
+	ADD CONSTRAINT PK_notify_history -- ¾Ë¸²³»¿ª ±âº»Å°
 	PRIMARY KEY (
-	"notify_no" -- ì•Œë¦¼ë²ˆí˜¸
+	notify_no -- ¾Ë¸²¹øÈ£
 	);
 
-ALTER TABLE "notify_history"
-	MODIFY COLUMN "notify_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE notify_history
+	MODIFY COLUMN notify_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ëŒ“ê¸€
-CREATE TABLE "comment" (
-	"comment_no" INT NOT NULL,
-	"board_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"content" text NOT NULL,
-	"created_date" DATETIME DEFAULT 'now()',
-	"state" char(1) DEFAULT '0'
+-- ´ñ±Û
+CREATE TABLE comment (
+	comment_no INT NOT NULL,
+	board_no INT NOT NULL,
+	member_no INT NOT NULL,
+	content text NOT NULL,
+	created_date DATETIME DEFAULT 'now()',
+	state char(1) DEFAULT '0'
 );
 
--- ëŒ“ê¸€
-ALTER TABLE "comment"
-	ADD CONSTRAINT "PK_comment" -- ëŒ“ê¸€ ê¸°ë³¸í‚¤
+-- ´ñ±Û
+ALTER TABLE comment
+	ADD CONSTRAINT PK_comment -- ´ñ±Û ±âº»Å°
 	PRIMARY KEY (
-	"comment_no" -- ëŒ“ê¸€ë²ˆí˜¸
+	comment_no -- ´ñ±Û¹øÈ£
 	);
 
-ALTER TABLE "comment"
-	MODIFY COLUMN "comment_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE comment
+	MODIFY COLUMN comment_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ë‹µê¸€
-CREATE TABLE "reply" (
-	"reply_no" INT NOT NULL,
-	"comment_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"content" text NOT NULL,
-	"created_date" DATETIME DEFAULT 'now()',
-	"state" char(1) DEFAULT '0'
+-- ´ä±Û
+CREATE TABLE reply (
+	reply_no INT NOT NULL,
+	comment_no INT NOT NULL,
+	member_no INT NOT NULL,
+	content text NOT NULL,
+	created_date DATETIME DEFAULT 'now()',
+	state char(1) DEFAULT '0'
 );
 
--- ë‹µê¸€
-ALTER TABLE "reply"
-	ADD CONSTRAINT "PK_reply" -- ë‹µê¸€ ê¸°ë³¸í‚¤
+-- ´ä±Û
+ALTER TABLE reply
+	ADD CONSTRAINT PK_reply -- ´ä±Û ±âº»Å°
 	PRIMARY KEY (
-	"reply_no" -- ë‹µê¸€ë²ˆí˜¸
+	reply_no -- ´ä±Û¹øÈ£
 	);
 
-ALTER TABLE "reply"
-	MODIFY COLUMN "reply_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE reply
+	MODIFY COLUMN reply_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-CREATE TABLE "board_report_detail" (
-	"report_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"report_category_no" INT NOT NULL,
-	"content" text NULL,
-	"report_date" DATE DEFAULT 'now()',
-	"state" char(1) DEFAULT '0'
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+CREATE TABLE board_report_detail (
+	report_no INT NOT NULL,
+	member_no INT NOT NULL,
+	report_category_no INT NOT NULL,
+	content text NULL,
+	report_date DATE DEFAULT 'now()',
+	state char(1) DEFAULT '0'
 );
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-ALTER TABLE "board_report_detail"
-	ADD CONSTRAINT "PK_board_report_detail" -- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸ ê¸°ë³¸í‚¤
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+ALTER TABLE board_report_detail
+	ADD CONSTRAINT PK_board_report_detail -- °Ô½ÃÆÇ ½Å°í »ó¼¼ ±âº»Å°
 	PRIMARY KEY (
-	"report_no" -- ì‹ ê³ ë²ˆí˜¸
+	report_no -- ½Å°í¹øÈ£
 	);
 
-ALTER TABLE "board_report_detail"
-	MODIFY COLUMN "report_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE board_report_detail
+	MODIFY COLUMN report_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
-CREATE TABLE "board_report_file" (
-	"report_file_no" INT NOT NULL,
-	"report_no" INT NOT NULL,
-	"ori_file_name" VARCHAR(255) NOT NULL,
-	"uuid_file_name" VARCHAR(255) NOT NULL
+-- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
+CREATE TABLE board_report_file (
+	report_file_no INT NOT NULL,
+	report_no INT NOT NULL,
+	ori_file_name VARCHAR(255) NOT NULL,
+	uuid_file_name VARCHAR(255) NOT NULL
 );
 
--- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
-ALTER TABLE "board_report_file"
-	ADD CONSTRAINT "PK_board_report_file" -- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼ ê¸°ë³¸í‚¤
+-- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
+ALTER TABLE board_report_file
+	ADD CONSTRAINT PK_board_report_file -- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ ±âº»Å°
 	PRIMARY KEY (
-	"report_file_no" -- ì‹ ê³ íŒŒì¼ë²ˆí˜¸
+	report_file_no -- ½Å°íÆÄÀÏ¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_board_report_file"
-	ON "board_report_file" ( -- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
-				"uuid_file_name" ASC -- íŒŒì¼ëª…(uuid)
+-- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_board_report_file
+	ON board_report_file ( -- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
+				uuid_file_name ASC -- ÆÄÀÏ¸í(uuid)
 	);
 
-ALTER TABLE "board_report_file"
-	MODIFY COLUMN "report_file_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE board_report_file
+	MODIFY COLUMN report_file_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ì¦ê²¨ì°¾ê¸°
-CREATE TABLE "bookmark" (
-	"rental_home_no" INT NOT NULL,
-	"member_no" INT NOT NULL
+-- Áñ°ÜÃ£±â
+CREATE TABLE bookmark (
+	rental_home_no INT NOT NULL,
+	member_no INT NOT NULL
 );
 
--- ìˆ™ì†Œ
-CREATE TABLE "rental_home" (
-	"rental_home_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"region_no" INT NOT NULL,
-	"name" VARCHAR(255) NOT NULL,
-	"explanation" TEXT NOT NULL,
-	"address" TEXT NOT NULL,
-	"price" INT NOT NULL,
-	"capacity" INT NOT NULL,
-	"lat" VARCHAR(30) NOT NULL,
-	"lon" VARCHAR(30) NOT NULL,
-	"state" CHAR(1) NOT NULL,
-	"hosting_start_date" DATE NOT NULL,
-	"hosting_end_date" DATE NOT NULL,
-	"registe_date" DATE DEFAULT 'now()'
+-- ¼÷¼Ò
+CREATE TABLE rental_home (
+	rental_home_no INT NOT NULL,
+	member_no INT NOT NULL,
+	region_no INT NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	explanation TEXT NOT NULL,
+	address TEXT NOT NULL,
+	price INT NOT NULL,
+	capacity INT NOT NULL,
+	lat VARCHAR(30) NOT NULL,
+	lon VARCHAR(30) NOT NULL,
+	state CHAR(1) NOT NULL,
+	hosting_start_date DATE NOT NULL,
+	hosting_end_date DATE NOT NULL,
+	registe_date DATE DEFAULT 'now()'
 );
 
--- ìˆ™ì†Œ
-ALTER TABLE "rental_home"
-	ADD CONSTRAINT "PK_rental_home" -- ìˆ™ì†Œ ê¸°ë³¸í‚¤
+-- ¼÷¼Ò
+ALTER TABLE rental_home
+	ADD CONSTRAINT PK_rental_home -- ¼÷¼Ò ±âº»Å°
 	PRIMARY KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
-ALTER TABLE "rental_home"
-	MODIFY COLUMN "rental_home_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE rental_home
+	MODIFY COLUMN rental_home_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ìˆ™ì†Œì‹ ê³ 
-CREATE TABLE "rental_home_report" (
-	"rental_home_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"report_category_no" INT NOT NULL,
-	"content" text NULL
+-- ¼÷¼Ò½Å°í
+CREATE TABLE rental_home_report (
+	rental_home_no INT NOT NULL,
+	member_no INT NOT NULL,
+	report_category_no INT NOT NULL,
+	content text NULL
 );
 
--- ìˆ™ì†Œì‹ ê³ 
-ALTER TABLE "rental_home_report"
-	ADD CONSTRAINT "PK_rental_home_report" -- ìˆ™ì†Œì‹ ê³  ê¸°ë³¸í‚¤
+-- ¼÷¼Ò½Å°í
+ALTER TABLE rental_home_report
+	ADD CONSTRAINT PK_rental_home_report -- ¼÷¼Ò½Å°í ±âº»Å°
 	PRIMARY KEY (
-	"rental_home_no", -- ìˆ™ì†Œë²ˆí˜¸
-	"member_no"       -- íšŒì›ë²ˆí˜¸
+	rental_home_no, -- ¼÷¼Ò¹øÈ£
+	member_no       -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œì‹ ê³ ìœ í˜•
-CREATE TABLE "rental_home_report_category" (
-	"COL" INT NOT NULL,
-	"COL2" VARCHAR(10) NOT NULL
+-- ¼÷¼Ò½Å°íÀ¯Çü
+CREATE TABLE rental_home_report_category (
+	COL INT NOT NULL,
+	COL2 VARCHAR(10) NOT NULL
 );
 
--- ìˆ™ì†Œì‹ ê³ ìœ í˜•
-ALTER TABLE "rental_home_report_category"
-	ADD CONSTRAINT "PK_rental_home_report_category" -- ìˆ™ì†Œì‹ ê³ ìœ í˜• ê¸°ë³¸í‚¤
+-- ¼÷¼Ò½Å°íÀ¯Çü
+ALTER TABLE rental_home_report_category
+	ADD CONSTRAINT PK_rental_home_report_category -- ¼÷¼Ò½Å°íÀ¯Çü ±âº»Å°
 	PRIMARY KEY (
-	"COL" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	COL -- ½Å°íÀ¯Çü¹øÈ£
 	);
 
--- ì§€ì—­
-CREATE TABLE "region" (
-	"region_no" INT NOT NULL,
-	"region_name" VARCHAR(50) NOT NULL,
-	"national_no" INT NOT NULL
+-- Áö¿ª
+CREATE TABLE region (
+	region_no INT NOT NULL,
+	region_name VARCHAR(50) NOT NULL,
+	national_no INT NOT NULL
 );
 
--- ì§€ì—­
-ALTER TABLE "region"
-	ADD CONSTRAINT "PK_region" -- ì§€ì—­ ê¸°ë³¸í‚¤
+-- Áö¿ª
+ALTER TABLE region
+	ADD CONSTRAINT PK_region -- Áö¿ª ±âº»Å°
 	PRIMARY KEY (
-	"region_no" -- ì§€ì—­ë²ˆí˜¸
+	region_no -- Áö¿ª¹øÈ£
 	);
 
--- ì§€ì—­ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_region"
-	ON "region" ( -- ì§€ì—­
-				"region_name" ASC -- ì§€ì—­ëª…
+-- Áö¿ª À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_region
+	ON region ( -- Áö¿ª
+				region_name ASC -- Áö¿ª¸í
 	);
 
--- ë“±ê¸‰
-CREATE TABLE "grade" (
-	"grade_category_no" INT NOT NULL,
-	"member_no" INT NOT NULL
+-- µî±Ş
+CREATE TABLE grade (
+	grade_category_no INT NOT NULL,
+	member_no INT NOT NULL
 );
 
--- ë“±ê¸‰
-ALTER TABLE "grade"
-	ADD CONSTRAINT "PK_grade" -- ë“±ê¸‰ ê¸°ë³¸í‚¤
+-- µî±Ş
+ALTER TABLE grade
+	ADD CONSTRAINT PK_grade -- µî±Ş ±âº»Å°
 	PRIMARY KEY (
-	"grade_category_no", -- ë“±ê¸‰ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
-	"member_no"          -- íšŒì›ë²ˆí˜¸
+	grade_category_no, -- µî±ŞÄ«Å×°í¸®¹øÈ£
+	member_no          -- È¸¿ø¹øÈ£
 	);
 
--- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬
-CREATE TABLE "grade_category" (
-	"grade_category_no" INT NOT NULL,
-	"grade_name" VARCHAR(5) NOT NULL
+-- µî±Ş Ä«Å×°í¸®
+CREATE TABLE grade_category (
+	grade_category_no INT NOT NULL,
+	grade_name VARCHAR(5) NOT NULL
 );
 
--- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬
-ALTER TABLE "grade_category"
-	ADD CONSTRAINT "PK_grade_category" -- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬ ê¸°ë³¸í‚¤
+-- µî±Ş Ä«Å×°í¸®
+ALTER TABLE grade_category
+	ADD CONSTRAINT PK_grade_category -- µî±Ş Ä«Å×°í¸® ±âº»Å°
 	PRIMARY KEY (
-	"grade_category_no" -- ë“±ê¸‰ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	grade_category_no -- µî±ŞÄ«Å×°í¸®¹øÈ£
 	);
 
--- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_grade_category"
-	ON "grade_category" ( -- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬
-				"grade_name" ASC -- ë“±ê¸‰ëª…
+-- µî±Ş Ä«Å×°í¸® À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_grade_category
+	ON grade_category ( -- µî±Ş Ä«Å×°í¸®
+				grade_name ASC -- µî±Ş¸í
 	);
 
--- ìˆ™ì†Œ_í…Œë§ˆ
-CREATE TABLE "rental_home_theme" (
-	"rental_home_no" INT NOT NULL,
-	"theme_no" INT NOT NULL
+-- ¼÷¼Ò_Å×¸¶
+CREATE TABLE rental_home_theme (
+	rental_home_no INT NOT NULL,
+	theme_no INT NOT NULL
 );
 
--- ìˆ™ì†Œ_í…Œë§ˆ
-ALTER TABLE "rental_home_theme"
-	ADD CONSTRAINT "PK_rental_home_theme" -- ìˆ™ì†Œ_í…Œë§ˆ ê¸°ë³¸í‚¤
+-- ¼÷¼Ò_Å×¸¶
+ALTER TABLE rental_home_theme
+	ADD CONSTRAINT PK_rental_home_theme -- ¼÷¼Ò_Å×¸¶ ±âº»Å°
 	PRIMARY KEY (
-	"rental_home_no", -- ìˆ™ì†Œë²ˆí˜¸
-	"theme_no"        -- í…Œë§ˆë²ˆí˜¸
+	rental_home_no, -- ¼÷¼Ò¹øÈ£
+	theme_no        -- Å×¸¶¹øÈ£
 	);
 
--- í…Œë§ˆ
-CREATE TABLE "theme" (
-	"theme_no" INT NOT NULL,
-	"theme_name" VARCHAR(20) NOT NULL
+-- Å×¸¶
+CREATE TABLE theme (
+	theme_no INT NOT NULL,
+	theme_name VARCHAR(20) NOT NULL
 );
 
--- í…Œë§ˆ
-ALTER TABLE "theme"
-	ADD CONSTRAINT "PK_theme" -- í…Œë§ˆ ê¸°ë³¸í‚¤
+-- Å×¸¶
+ALTER TABLE theme
+	ADD CONSTRAINT PK_theme -- Å×¸¶ ±âº»Å°
 	PRIMARY KEY (
-	"theme_no" -- í…Œë§ˆë²ˆí˜¸
+	theme_no -- Å×¸¶¹øÈ£
 	);
 
--- ìˆ™ì†Œë¦¬ë·°
-CREATE TABLE "rental_home_review" (
-	"reservation_no" INT NOT NULL,
-	"created_date" DATE DEFAULT 'now()',
-	"score" INT NOT NULL,
-	"review" VARCHAR(255) NOT NULL,
-	"state" CHAR(1) DEFAULT '0'
+-- ¼÷¼Ò¸®ºä
+CREATE TABLE rental_home_review (
+	reservation_no INT NOT NULL,
+	created_date DATE DEFAULT 'now()',
+	score INT NOT NULL,
+	review VARCHAR(255) NOT NULL,
+	state CHAR(1) DEFAULT '0'
 );
 
--- ìˆ™ì†Œë¦¬ë·°
-ALTER TABLE "rental_home_review"
-	ADD CONSTRAINT "PK_rental_home_review" -- ìˆ™ì†Œë¦¬ë·° ê¸°ë³¸í‚¤
+-- ¼÷¼Ò¸®ºä
+ALTER TABLE rental_home_review
+	ADD CONSTRAINT PK_rental_home_review -- ¼÷¼Ò¸®ºä ±âº»Å°
 	PRIMARY KEY (
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	reservation_no -- ¿¹¾à¹øÈ£
 	);
 
--- ê²°ì œ
-CREATE TABLE "payment" (
-	"reservation_no" INT NOT NULL,
-	"payment_no" VARCHAR(255) NOT NULL,
-	"payment_date" DATETIME DEFAULT 'now()',
-	"amount" INT NOT NULL,
-	"card_no" VARCHAR(20) NOT NULL,
-	"validity_date" DATE NOT NULL,
-	"state" CHAR(1) DEFAULT '0'
+-- °áÁ¦
+CREATE TABLE payment (
+	reservation_no INT NOT NULL,
+	payment_no VARCHAR(255) NOT NULL,
+	payment_date DATETIME DEFAULT 'now()',
+	amount INT NOT NULL,
+	card_no VARCHAR(20) NOT NULL,
+	validity_date DATE NOT NULL,
+	state CHAR(1) DEFAULT '0'
 );
 
--- ê²°ì œ
-ALTER TABLE "payment"
-	ADD CONSTRAINT "PK_payment" -- ê²°ì œ ê¸°ë³¸í‚¤
+-- °áÁ¦
+ALTER TABLE payment
+	ADD CONSTRAINT PK_payment -- °áÁ¦ ±âº»Å°
 	PRIMARY KEY (
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	reservation_no -- ¿¹¾à¹øÈ£
 	);
 
--- ê²°ì œ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_payment"
-	ON "payment" ( -- ê²°ì œ
-				"payment_no" ASC -- ê²°ì œë²ˆí˜¸
+-- °áÁ¦ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_payment
+	ON payment ( -- °áÁ¦
+				payment_no ASC -- °áÁ¦¹øÈ£
 	);
 
--- ì˜ˆì•½ë‚´ì—­
-CREATE TABLE "reservation" (
-	"reservation_no" INT NOT NULL,
-	"member_no" INT NOT NULL,
-	"rental_home_no" INT NOT NULL,
-	"start_date" DATE NOT NULL,
-	"end_date" DATE NOT NULL,
-	"payment_date" DATE DEFAULT 'now()',
-	"state" CHAR(1) DEFAULT '0',
-	"chat_file_name" VARCHAR(255) NOT NULL
+-- ¿¹¾à³»¿ª
+CREATE TABLE reservation (
+	reservation_no INT NOT NULL,
+	member_no INT NOT NULL,
+	rental_home_no INT NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
+	payment_date DATE DEFAULT 'now()',
+	state CHAR(1) DEFAULT '0',
+	chat_file_name VARCHAR(255) NOT NULL
 );
 
--- ì˜ˆì•½ë‚´ì—­
-ALTER TABLE "reservation"
-	ADD CONSTRAINT "PK_reservation" -- ì˜ˆì•½ë‚´ì—­ ê¸°ë³¸í‚¤
+-- ¿¹¾à³»¿ª
+ALTER TABLE reservation
+	ADD CONSTRAINT PK_reservation -- ¿¹¾à³»¿ª ±âº»Å°
 	PRIMARY KEY (
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	reservation_no -- ¿¹¾à¹øÈ£
 	);
 
-ALTER TABLE "reservation"
-	MODIFY COLUMN "reservation_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE reservation
+	MODIFY COLUMN reservation_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ìˆ™ì†Œ ìƒì„¸
-CREATE TABLE "rental_home_detail" (
-	"rental_home_no" INT NOT NULL,
-	"facility_no" INT NOT NULL,
-	"facility_count" INT NOT NULL
+-- ¼÷¼Ò »ó¼¼
+CREATE TABLE rental_home_detail (
+	rental_home_no INT NOT NULL,
+	facility_no INT NOT NULL,
+	facility_count INT NOT NULL
 );
 
--- ìˆ™ì†Œ ìƒì„¸
-ALTER TABLE "rental_home_detail"
-	ADD CONSTRAINT "PK_rental_home_detail" -- ìˆ™ì†Œ ìƒì„¸ ê¸°ë³¸í‚¤
+-- ¼÷¼Ò »ó¼¼
+ALTER TABLE rental_home_detail
+	ADD CONSTRAINT PK_rental_home_detail -- ¼÷¼Ò »ó¼¼ ±âº»Å°
 	PRIMARY KEY (
-	"rental_home_no", -- ìˆ™ì†Œë²ˆí˜¸
-	"facility_no"     -- ìˆ™ì†Œì‹œì„¤ë²ˆí˜¸
+	rental_home_no, -- ¼÷¼Ò¹øÈ£
+	facility_no     -- ¼÷¼Ò½Ã¼³¹øÈ£
 	);
 
--- ìˆ™ì†Œ ìƒì„¸ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_rental_home_detail"
-	ON "rental_home_detail" ( -- ìˆ™ì†Œ ìƒì„¸
+-- ¼÷¼Ò »ó¼¼ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_rental_home_detail
+	ON rental_home_detail ( -- ¼÷¼Ò »ó¼¼
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜•
-CREATE TABLE "board_report_category" (
-	"report_category_no" INT NOT NULL,
-	"report_type" VARCHAR(10) NOT NULL
+-- °Ô½ÃÆÇ ½Å°íÀ¯Çü
+CREATE TABLE board_report_category (
+	report_category_no INT NOT NULL,
+	report_type VARCHAR(10) NOT NULL
 );
 
--- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜•
-ALTER TABLE "board_report_category"
-	ADD CONSTRAINT "PK_board_report_category" -- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜• ê¸°ë³¸í‚¤
+-- °Ô½ÃÆÇ ½Å°íÀ¯Çü
+ALTER TABLE board_report_category
+	ADD CONSTRAINT PK_board_report_category -- °Ô½ÃÆÇ ½Å°íÀ¯Çü ±âº»Å°
 	PRIMARY KEY (
-	"report_category_no" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	report_category_no -- ½Å°íÀ¯Çü¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜• ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_board_report_category"
-	ON "board_report_category" ( -- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜•
-				"report_type" ASC -- ì‹ ê³ ìœ í˜•
+-- °Ô½ÃÆÇ ½Å°íÀ¯Çü À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_board_report_category
+	ON board_report_category ( -- °Ô½ÃÆÇ ½Å°íÀ¯Çü
+				report_type ASC -- ½Å°íÀ¯Çü
 	);
 
--- êµ­ê°€
-CREATE TABLE "national" (
-	"national_no" INT NOT NULL,
-	"national_name" VARCHAR(10) NOT NULL
+-- ±¹°¡
+CREATE TABLE national (
+	national_no INT NOT NULL,
+	national_name VARCHAR(10) NOT NULL
 );
 
--- êµ­ê°€
-ALTER TABLE "national"
-	ADD CONSTRAINT "PK_national" -- êµ­ê°€ ê¸°ë³¸í‚¤
+-- ±¹°¡
+ALTER TABLE national
+	ADD CONSTRAINT PK_national -- ±¹°¡ ±âº»Å°
 	PRIMARY KEY (
-	"national_no" -- êµ­ê°€ë²ˆí˜¸
+	national_no -- ±¹°¡¹øÈ£
 	);
 
--- êµ­ê°€ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_national"
-	ON "national" ( -- êµ­ê°€
-				"national_name" ASC -- êµ­ê°€ëª…
+-- ±¹°¡ À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_national
+	ON national ( -- ±¹°¡
+				national_name ASC -- ±¹°¡¸í
 	);
 
--- ìˆ™ì†Œ ì‚¬ì§„
-CREATE TABLE "rental_home_photo" (
-	"photo_no" INT NOT NULL,
-	"ori_photo_name" VARCHAR(255) NOT NULL,
-	"uuid_photo_name" VARCHAR(255) NOT NULL,
-	"photo_explanation" VARCHAR(20) NOT NULL,
-	"rental_home_no" INT NOT NULL
+-- ¼÷¼Ò »çÁø
+CREATE TABLE rental_home_photo (
+	photo_no INT NOT NULL,
+	ori_photo_name VARCHAR(255) NOT NULL,
+	uuid_photo_name VARCHAR(255) NOT NULL,
+	photo_explanation VARCHAR(20) NOT NULL,
+	rental_home_no INT NOT NULL
 );
 
--- ìˆ™ì†Œ ì‚¬ì§„
-ALTER TABLE "rental_home_photo"
-	ADD CONSTRAINT "PK_rental_home_photo" -- ìˆ™ì†Œ ì‚¬ì§„ ê¸°ë³¸í‚¤
+-- ¼÷¼Ò »çÁø
+ALTER TABLE rental_home_photo
+	ADD CONSTRAINT PK_rental_home_photo -- ¼÷¼Ò »çÁø ±âº»Å°
 	PRIMARY KEY (
-	"photo_no" -- ì‚¬ì§„ë²ˆí˜¸
+	photo_no -- »çÁø¹øÈ£
 	);
 
--- ìˆ™ì†Œ ì‚¬ì§„ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
-CREATE UNIQUE INDEX "UIX_rental_home_photo"
-	ON "rental_home_photo" ( -- ìˆ™ì†Œ ì‚¬ì§„
-				"uuid_photo_name" ASC -- ì‚¬ì§„(uuid)
+-- ¼÷¼Ò »çÁø À¯´ÏÅ© ÀÎµ¦½º
+CREATE UNIQUE INDEX UIX_rental_home_photo
+	ON rental_home_photo ( -- ¼÷¼Ò »çÁø
+				uuid_photo_name ASC -- »çÁø(uuid)
 	);
 
-ALTER TABLE "rental_home_photo"
-	MODIFY COLUMN "photo_no" INT NOT NULL AUTO_INCREMENT(1,1);
+ALTER TABLE rental_home_photo
+	MODIFY COLUMN photo_no INT NOT NULL AUTO_INCREMENT(1,1);
 
--- ë¬¸ì˜ ë‹µë³€
-CREATE TABLE "qna" (
-	"question_no" INT NOT NULL,
-	"content" text NULL,
-	"created_date" DATE DEFAULT 'now()'
+-- ¹®ÀÇ ´äº¯
+CREATE TABLE qna (
+	question_no INT NOT NULL,
+	content text NULL,
+	created_date DATE DEFAULT 'now()'
 );
 
--- ë¬¸ì˜ ë‹µë³€
-ALTER TABLE "qna"
-	ADD CONSTRAINT "PK_qna" -- ë¬¸ì˜ ë‹µë³€ ê¸°ë³¸í‚¤
+-- ¹®ÀÇ ´äº¯
+ALTER TABLE qna
+	ADD CONSTRAINT PK_qna -- ¹®ÀÇ ´äº¯ ±âº»Å°
 	PRIMARY KEY (
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	question_no -- ¹®ÀÇ¹øÈ£
 	);
 
--- ìˆ™ì†Œì¶”ì²œìˆ˜
-CREATE TABLE "rental_home_like" (
-	"rental_home_no" INT NOT NULL,
-	"member_no" INT NOT NULL
+-- ¼÷¼ÒÃßÃµ¼ö
+CREATE TABLE rental_home_like (
+	rental_home_no INT NOT NULL,
+	member_no INT NOT NULL
 );
 
--- ìˆ™ì†Œì¶”ì²œìˆ˜
-ALTER TABLE "rental_home_like"
-	ADD CONSTRAINT "PK_rental_home_like" -- ìˆ™ì†Œì¶”ì²œìˆ˜ ê¸°ë³¸í‚¤
+-- ¼÷¼ÒÃßÃµ¼ö
+ALTER TABLE rental_home_like
+	ADD CONSTRAINT PK_rental_home_like -- ¼÷¼ÒÃßÃµ¼ö ±âº»Å°
 	PRIMARY KEY (
-	"rental_home_no", -- ìˆ™ì†Œë²ˆí˜¸
-	"member_no"       -- íšŒì›ë²ˆí˜¸
+	rental_home_no, -- ¼÷¼Ò¹øÈ£
+	member_no       -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œì‹œì„¤
-CREATE TABLE "rental_home_facility" (
-	"facility_no" INT NOT NULL,
-	"facility_name" VARCHAR(30) NOT NULL
+-- ¼÷¼Ò½Ã¼³
+CREATE TABLE rental_home_facility (
+	facility_no INT NOT NULL,
+	facility_name VARCHAR(30) NOT NULL
 );
 
--- ìˆ™ì†Œì‹œì„¤
-ALTER TABLE "rental_home_facility"
-	ADD CONSTRAINT "PK_rental_home_facility" -- ìˆ™ì†Œì‹œì„¤ ê¸°ë³¸í‚¤
+-- ¼÷¼Ò½Ã¼³
+ALTER TABLE rental_home_facility
+	ADD CONSTRAINT PK_rental_home_facility -- ¼÷¼Ò½Ã¼³ ±âº»Å°
 	PRIMARY KEY (
-	"facility_no" -- ìˆ™ì†Œì‹œì„¤ë²ˆí˜¸
+	facility_no -- ¼÷¼Ò½Ã¼³¹øÈ£
 	);
 
--- ë§ë¨¸ë¦¬
-CREATE TABLE "head" (
-	"head_no" INT NOT NULL,
-	"head_content" char(5) NOT NULL
+-- ¸»¸Ó¸®
+CREATE TABLE head (
+	head_no INT NOT NULL,
+	head_content char(5) NOT NULL
 );
 
--- ë§ë¨¸ë¦¬
-ALTER TABLE "head"
-	ADD CONSTRAINT "PK_head" -- ë§ë¨¸ë¦¬ ê¸°ë³¸í‚¤
+-- ¸»¸Ó¸®
+ALTER TABLE head
+	ADD CONSTRAINT PK_head -- ¸»¸Ó¸® ±âº»Å°
 	PRIMARY KEY (
-	"head_no" -- ë§ë¨¸ë¦¬ ë²ˆí˜¸
+	head_no -- ¸»¸Ó¸® ¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
-CREATE TABLE "board_like" (
-	"board_no" INT NOT NULL,
-	"member_no" INT NOT NULL
+-- °Ô½Ã±Û ÃßÃµ¼ö
+CREATE TABLE board_like (
+	board_no INT NOT NULL,
+	member_no INT NOT NULL
 );
 
--- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
-ALTER TABLE "board_like"
-	ADD CONSTRAINT "PK_board_like" -- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜ ê¸°ë³¸í‚¤
+-- °Ô½Ã±Û ÃßÃµ¼ö
+ALTER TABLE board_like
+	ADD CONSTRAINT PK_board_like -- °Ô½Ã±Û ÃßÃµ¼ö ±âº»Å°
 	PRIMARY KEY (
-	"board_no",  -- ê²Œì‹œê¸€ë²ˆí˜¸
-	"member_no"  -- íšŒì›ë²ˆí˜¸
+	board_no,  -- °Ô½Ã±Û¹øÈ£
+	member_no  -- È¸¿ø¹øÈ£
 	);
 
--- íšŒì›
-ALTER TABLE "member"
-	ADD CONSTRAINT "FK_national_TO_member" -- êµ­ê°€ -> íšŒì›
+-- È¸¿ø
+ALTER TABLE member
+	ADD CONSTRAINT FK_national_TO_member -- ±¹°¡ -> È¸¿ø
 	FOREIGN KEY (
-	"national_no" -- êµ­ê°€ë²ˆí˜¸
+	national_no -- ±¹°¡¹øÈ£
 	)
-	REFERENCES "national" ( -- êµ­ê°€
-	"national_no" -- êµ­ê°€ë²ˆí˜¸
+	REFERENCES national ( -- ±¹°¡
+	national_no -- ±¹°¡¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
-ALTER TABLE "board_file"
-	ADD CONSTRAINT "FK_board_TO_board_file" -- ê²Œì‹œê¸€ -> ê²Œì‹œê¸€ì²¨ë¶€íŒŒì¼
+-- °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
+ALTER TABLE board_file
+	ADD CONSTRAINT FK_board_TO_board_file -- °Ô½Ã±Û -> °Ô½Ã±ÛÃ·ºÎÆÄÀÏ
 	FOREIGN KEY (
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	board_no -- °Ô½Ã±Û¹øÈ£
 	)
-	REFERENCES "board" ( -- ê²Œì‹œê¸€
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	REFERENCES board ( -- °Ô½Ã±Û
+	board_no -- °Ô½Ã±Û¹øÈ£
 	);
 
--- ê²Œì‹œê¸€
-ALTER TABLE "board"
-	ADD CONSTRAINT "FK_member_TO_board" -- íšŒì› -> ê²Œì‹œê¸€
+-- °Ô½Ã±Û
+ALTER TABLE board
+	ADD CONSTRAINT FK_member_TO_board -- È¸¿ø -> °Ô½Ã±Û
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ê²Œì‹œê¸€
-ALTER TABLE "board"
-	ADD CONSTRAINT "FK_board_category_TO_board" -- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ -> ê²Œì‹œê¸€
+-- °Ô½Ã±Û
+ALTER TABLE board
+	ADD CONSTRAINT FK_board_category_TO_board -- °Ô½Ã±Û Ä«Å×°í¸® -> °Ô½Ã±Û
 	FOREIGN KEY (
-	"board_category_no" -- ê²Œì‹œê¸€ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	board_category_no -- °Ô½Ã±ÛÄ«Å×°í¸®¹øÈ£
 	)
-	REFERENCES "board_category" ( -- ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬
-	"board_category_no" -- ê²Œì‹œê¸€ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	REFERENCES board_category ( -- °Ô½Ã±Û Ä«Å×°í¸®
+	board_category_no -- °Ô½Ã±ÛÄ«Å×°í¸®¹øÈ£
 	);
 
--- ê²Œì‹œê¸€
-ALTER TABLE "board"
-	ADD CONSTRAINT "FK_head_TO_board" -- ë§ë¨¸ë¦¬ -> ê²Œì‹œê¸€
+-- °Ô½Ã±Û
+ALTER TABLE board
+	ADD CONSTRAINT FK_head_TO_board -- ¸»¸Ó¸® -> °Ô½Ã±Û
 	FOREIGN KEY (
-	"head_no" -- ë§ë¨¸ë¦¬ ë²ˆí˜¸
+	head_no -- ¸»¸Ó¸® ¹øÈ£
 	)
-	REFERENCES "head" ( -- ë§ë¨¸ë¦¬
-	"head_no" -- ë§ë¨¸ë¦¬ ë²ˆí˜¸
+	REFERENCES head ( -- ¸»¸Ó¸®
+	head_no -- ¸»¸Ó¸® ¹øÈ£
 	);
 
--- í¬ì¸íŠ¸ë‚´ì—­
-ALTER TABLE "point_history"
-	ADD CONSTRAINT "FK_member_TO_point_history" -- íšŒì› -> í¬ì¸íŠ¸ë‚´ì—­
+-- Æ÷ÀÎÆ®³»¿ª
+ALTER TABLE point_history
+	ADD CONSTRAINT FK_member_TO_point_history -- È¸¿ø -> Æ÷ÀÎÆ®³»¿ª
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìœ ì €-ì„ í˜¸ì‚¬í•­
-ALTER TABLE "member_preference"
-	ADD CONSTRAINT "FK_member_TO_member_preference" -- íšŒì› -> ìœ ì €-ì„ í˜¸ì‚¬í•­
+-- À¯Àú-¼±È£»çÇ×
+ALTER TABLE member_preference
+	ADD CONSTRAINT FK_member_TO_member_preference -- È¸¿ø -> À¯Àú-¼±È£»çÇ×
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìœ ì €-ì„ í˜¸ì‚¬í•­
-ALTER TABLE "member_preference"
-	ADD CONSTRAINT "FK_theme_TO_member_preference" -- í…Œë§ˆ -> ìœ ì €-ì„ í˜¸ì‚¬í•­
+-- À¯Àú-¼±È£»çÇ×
+ALTER TABLE member_preference
+	ADD CONSTRAINT FK_theme_TO_member_preference -- Å×¸¶ -> À¯Àú-¼±È£»çÇ×
 	FOREIGN KEY (
-	"theme_no" -- í…Œë§ˆë²ˆí˜¸
+	theme_no -- Å×¸¶¹øÈ£
 	)
-	REFERENCES "theme" ( -- í…Œë§ˆ
-	"theme_no" -- í…Œë§ˆë²ˆí˜¸
+	REFERENCES theme ( -- Å×¸¶
+	theme_no -- Å×¸¶¹øÈ£
 	);
 
--- ë¬¸ì˜íŒŒì¼
-ALTER TABLE "question_file"
-	ADD CONSTRAINT "FK_question_TO_question_file" -- ë¬¸ì˜ë‚´ì—­ -> ë¬¸ì˜íŒŒì¼
+-- ¹®ÀÇÆÄÀÏ
+ALTER TABLE question_file
+	ADD CONSTRAINT FK_question_TO_question_file -- ¹®ÀÇ³»¿ª -> ¹®ÀÇÆÄÀÏ
 	FOREIGN KEY (
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	question_no -- ¹®ÀÇ¹øÈ£
 	)
-	REFERENCES "question" ( -- ë¬¸ì˜ë‚´ì—­
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	REFERENCES question ( -- ¹®ÀÇ³»¿ª
+	question_no -- ¹®ÀÇ¹øÈ£
 	);
 
--- ë¬¸ì˜ë‚´ì—­
-ALTER TABLE "question"
-	ADD CONSTRAINT "FK_member_TO_question" -- íšŒì› -> ë¬¸ì˜ë‚´ì—­
+-- ¹®ÀÇ³»¿ª
+ALTER TABLE question
+	ADD CONSTRAINT FK_member_TO_question -- È¸¿ø -> ¹®ÀÇ³»¿ª
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ì•Œë¦¼ë‚´ì—­
-ALTER TABLE "notify_history"
-	ADD CONSTRAINT "FK_member_TO_notify_history" -- íšŒì› -> ì•Œë¦¼ë‚´ì—­
+-- ¾Ë¸²³»¿ª
+ALTER TABLE notify_history
+	ADD CONSTRAINT FK_member_TO_notify_history -- È¸¿ø -> ¾Ë¸²³»¿ª
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ëŒ“ê¸€
-ALTER TABLE "comment"
-	ADD CONSTRAINT "FK_board_TO_comment" -- ê²Œì‹œê¸€ -> ëŒ“ê¸€
+-- ´ñ±Û
+ALTER TABLE comment
+	ADD CONSTRAINT FK_board_TO_comment -- °Ô½Ã±Û -> ´ñ±Û
 	FOREIGN KEY (
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	board_no -- °Ô½Ã±Û¹øÈ£
 	)
-	REFERENCES "board" ( -- ê²Œì‹œê¸€
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	REFERENCES board ( -- °Ô½Ã±Û
+	board_no -- °Ô½Ã±Û¹øÈ£
 	);
 
--- ëŒ“ê¸€
-ALTER TABLE "comment"
-	ADD CONSTRAINT "FK_member_TO_comment" -- íšŒì› -> ëŒ“ê¸€
+-- ´ñ±Û
+ALTER TABLE comment
+	ADD CONSTRAINT FK_member_TO_comment -- È¸¿ø -> ´ñ±Û
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ë‹µê¸€
-ALTER TABLE "reply"
-	ADD CONSTRAINT "FK_comment_TO_reply" -- ëŒ“ê¸€ -> ë‹µê¸€
+-- ´ä±Û
+ALTER TABLE reply
+	ADD CONSTRAINT FK_comment_TO_reply -- ´ñ±Û -> ´ä±Û
 	FOREIGN KEY (
-	"comment_no" -- ëŒ“ê¸€ë²ˆí˜¸
+	comment_no -- ´ñ±Û¹øÈ£
 	)
-	REFERENCES "comment" ( -- ëŒ“ê¸€
-	"comment_no" -- ëŒ“ê¸€ë²ˆí˜¸
+	REFERENCES comment ( -- ´ñ±Û
+	comment_no -- ´ñ±Û¹øÈ£
 	);
 
--- ë‹µê¸€
-ALTER TABLE "reply"
-	ADD CONSTRAINT "FK_member_TO_reply" -- íšŒì› -> ë‹µê¸€
+-- ´ä±Û
+ALTER TABLE reply
+	ADD CONSTRAINT FK_member_TO_reply -- È¸¿ø -> ´ä±Û
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-ALTER TABLE "board_report_detail"
-	ADD CONSTRAINT "FK_TABLE10_TO_board_report_detail" -- ì»¤ë®¤ë‹ˆí‹°_ì‹ ê³  -> ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+ALTER TABLE board_report_detail
+	ADD CONSTRAINT FK_TABLE10_TO_board_report_detail -- Ä¿¹Â´ÏÆ¼_½Å°í -> °Ô½ÃÆÇ ½Å°í »ó¼¼
 	FOREIGN KEY (
-	"report_no" -- ì‹ ê³ ë²ˆí˜¸
+	report_no -- ½Å°í¹øÈ£
 	)
-	REFERENCES "TABLE10" ( -- ì»¤ë®¤ë‹ˆí‹°_ì‹ ê³ 
-	"COL" -- ì‹ ê³ ë²ˆí˜¸
+	REFERENCES TABLE10 ( -- Ä¿¹Â´ÏÆ¼_½Å°í
+	COL -- ½Å°í¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-ALTER TABLE "board_report_detail"
-	ADD CONSTRAINT "FK_board_report_category_TO_board_report_detail" -- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜• -> ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+ALTER TABLE board_report_detail
+	ADD CONSTRAINT FK_board_report_category_TO_board_report_detail -- °Ô½ÃÆÇ ½Å°íÀ¯Çü -> °Ô½ÃÆÇ ½Å°í »ó¼¼
 	FOREIGN KEY (
-	"report_category_no" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	report_category_no -- ½Å°íÀ¯Çü¹øÈ£
 	)
-	REFERENCES "board_report_category" ( -- ê²Œì‹œíŒ ì‹ ê³ ìœ í˜•
-	"report_category_no" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	REFERENCES board_report_category ( -- °Ô½ÃÆÇ ½Å°íÀ¯Çü
+	report_category_no -- ½Å°íÀ¯Çü¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-ALTER TABLE "board_report_detail"
-	ADD CONSTRAINT "FK_member_TO_board_report_detail" -- íšŒì› -> ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
+-- °Ô½ÃÆÇ ½Å°í »ó¼¼
+ALTER TABLE board_report_detail
+	ADD CONSTRAINT FK_member_TO_board_report_detail -- È¸¿ø -> °Ô½ÃÆÇ ½Å°í »ó¼¼
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
-ALTER TABLE "board_report_file"
-	ADD CONSTRAINT "FK_board_report_detail_TO_board_report_file" -- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸ -> ê²Œì‹œíŒ ì‹ ê³  íŒŒì¼
+-- °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
+ALTER TABLE board_report_file
+	ADD CONSTRAINT FK_board_report_detail_TO_board_report_file -- °Ô½ÃÆÇ ½Å°í »ó¼¼ -> °Ô½ÃÆÇ ½Å°í ÆÄÀÏ
 	FOREIGN KEY (
-	"report_no" -- ì‹ ê³ ë²ˆí˜¸
+	report_no -- ½Å°í¹øÈ£
 	)
-	REFERENCES "board_report_detail" ( -- ê²Œì‹œíŒ ì‹ ê³  ìƒì„¸
-	"report_no" -- ì‹ ê³ ë²ˆí˜¸
+	REFERENCES board_report_detail ( -- °Ô½ÃÆÇ ½Å°í »ó¼¼
+	report_no -- ½Å°í¹øÈ£
 	);
 
--- ì¦ê²¨ì°¾ê¸°
-ALTER TABLE "bookmark"
-	ADD CONSTRAINT "FK_member_TO_bookmark" -- íšŒì› -> ì¦ê²¨ì°¾ê¸°
+-- Áñ°ÜÃ£±â
+ALTER TABLE bookmark
+	ADD CONSTRAINT FK_member_TO_bookmark -- È¸¿ø -> Áñ°ÜÃ£±â
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ì¦ê²¨ì°¾ê¸°
-ALTER TABLE "bookmark"
-	ADD CONSTRAINT "FK_rental_home_TO_bookmark" -- ìˆ™ì†Œ -> ì¦ê²¨ì°¾ê¸°
+-- Áñ°ÜÃ£±â
+ALTER TABLE bookmark
+	ADD CONSTRAINT FK_rental_home_TO_bookmark -- ¼÷¼Ò -> Áñ°ÜÃ£±â
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ìˆ™ì†Œ
-ALTER TABLE "rental_home"
-	ADD CONSTRAINT "FK_region_TO_rental_home" -- ì§€ì—­ -> ìˆ™ì†Œ
+-- ¼÷¼Ò
+ALTER TABLE rental_home
+	ADD CONSTRAINT FK_region_TO_rental_home -- Áö¿ª -> ¼÷¼Ò
 	FOREIGN KEY (
-	"region_no" -- ì§€ì—­ë²ˆí˜¸
+	region_no -- Áö¿ª¹øÈ£
 	)
-	REFERENCES "region" ( -- ì§€ì—­
-	"region_no" -- ì§€ì—­ë²ˆí˜¸
+	REFERENCES region ( -- Áö¿ª
+	region_no -- Áö¿ª¹øÈ£
 	);
 
--- ìˆ™ì†Œ
-ALTER TABLE "rental_home"
-	ADD CONSTRAINT "FK_member_TO_rental_home" -- íšŒì› -> ìˆ™ì†Œ
+-- ¼÷¼Ò
+ALTER TABLE rental_home
+	ADD CONSTRAINT FK_member_TO_rental_home -- È¸¿ø -> ¼÷¼Ò
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œì‹ ê³ 
-ALTER TABLE "rental_home_report"
-	ADD CONSTRAINT "FK_member_TO_rental_home_report" -- íšŒì› -> ìˆ™ì†Œì‹ ê³ 
+-- ¼÷¼Ò½Å°í
+ALTER TABLE rental_home_report
+	ADD CONSTRAINT FK_member_TO_rental_home_report -- È¸¿ø -> ¼÷¼Ò½Å°í
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œì‹ ê³ 
-ALTER TABLE "rental_home_report"
-	ADD CONSTRAINT "FK_rental_home_TO_rental_home_report" -- ìˆ™ì†Œ -> ìˆ™ì†Œì‹ ê³ 
+-- ¼÷¼Ò½Å°í
+ALTER TABLE rental_home_report
+	ADD CONSTRAINT FK_rental_home_TO_rental_home_report -- ¼÷¼Ò -> ¼÷¼Ò½Å°í
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ìˆ™ì†Œì‹ ê³ 
-ALTER TABLE "rental_home_report"
-	ADD CONSTRAINT "FK_rental_home_report_category_TO_rental_home_report" -- ìˆ™ì†Œì‹ ê³ ìœ í˜• -> ìˆ™ì†Œì‹ ê³ 
+-- ¼÷¼Ò½Å°í
+ALTER TABLE rental_home_report
+	ADD CONSTRAINT FK_rental_home_report_category_TO_rental_home_report -- ¼÷¼Ò½Å°íÀ¯Çü -> ¼÷¼Ò½Å°í
 	FOREIGN KEY (
-	"report_category_no" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	report_category_no -- ½Å°íÀ¯Çü¹øÈ£
 	)
-	REFERENCES "rental_home_report_category" ( -- ìˆ™ì†Œì‹ ê³ ìœ í˜•
-	"COL" -- ì‹ ê³ ìœ í˜•ë²ˆí˜¸
+	REFERENCES rental_home_report_category ( -- ¼÷¼Ò½Å°íÀ¯Çü
+	COL -- ½Å°íÀ¯Çü¹øÈ£
 	);
 
--- ì§€ì—­
-ALTER TABLE "region"
-	ADD CONSTRAINT "FK_national_TO_region" -- êµ­ê°€ -> ì§€ì—­
+-- Áö¿ª
+ALTER TABLE region
+	ADD CONSTRAINT FK_national_TO_region -- ±¹°¡ -> Áö¿ª
 	FOREIGN KEY (
-	"national_no" -- êµ­ê°€ë²ˆí˜¸
+	national_no -- ±¹°¡¹øÈ£
 	)
-	REFERENCES "national" ( -- êµ­ê°€
-	"national_no" -- êµ­ê°€ë²ˆí˜¸
+	REFERENCES national ( -- ±¹°¡
+	national_no -- ±¹°¡¹øÈ£
 	);
 
--- ë“±ê¸‰
-ALTER TABLE "grade"
-	ADD CONSTRAINT "FK_grade_category_TO_grade" -- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬ -> ë“±ê¸‰
+-- µî±Ş
+ALTER TABLE grade
+	ADD CONSTRAINT FK_grade_category_TO_grade -- µî±Ş Ä«Å×°í¸® -> µî±Ş
 	FOREIGN KEY (
-	"grade_category_no" -- ë“±ê¸‰ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	grade_category_no -- µî±ŞÄ«Å×°í¸®¹øÈ£
 	)
-	REFERENCES "grade_category" ( -- ë“±ê¸‰ ì¹´í…Œê³ ë¦¬
-	"grade_category_no" -- ë“±ê¸‰ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	REFERENCES grade_category ( -- µî±Ş Ä«Å×°í¸®
+	grade_category_no -- µî±ŞÄ«Å×°í¸®¹øÈ£
 	);
 
--- ë“±ê¸‰
-ALTER TABLE "grade"
-	ADD CONSTRAINT "FK_member_TO_grade" -- íšŒì› -> ë“±ê¸‰
+-- µî±Ş
+ALTER TABLE grade
+	ADD CONSTRAINT FK_member_TO_grade -- È¸¿ø -> µî±Ş
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œ_í…Œë§ˆ
-ALTER TABLE "rental_home_theme"
-	ADD CONSTRAINT "FK_rental_home_TO_rental_home_theme" -- ìˆ™ì†Œ -> ìˆ™ì†Œ_í…Œë§ˆ
+-- ¼÷¼Ò_Å×¸¶
+ALTER TABLE rental_home_theme
+	ADD CONSTRAINT FK_rental_home_TO_rental_home_theme -- ¼÷¼Ò -> ¼÷¼Ò_Å×¸¶
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ìˆ™ì†Œ_í…Œë§ˆ
-ALTER TABLE "rental_home_theme"
-	ADD CONSTRAINT "FK_theme_TO_rental_home_theme" -- í…Œë§ˆ -> ìˆ™ì†Œ_í…Œë§ˆ
+-- ¼÷¼Ò_Å×¸¶
+ALTER TABLE rental_home_theme
+	ADD CONSTRAINT FK_theme_TO_rental_home_theme -- Å×¸¶ -> ¼÷¼Ò_Å×¸¶
 	FOREIGN KEY (
-	"theme_no" -- í…Œë§ˆë²ˆí˜¸
+	theme_no -- Å×¸¶¹øÈ£
 	)
-	REFERENCES "theme" ( -- í…Œë§ˆ
-	"theme_no" -- í…Œë§ˆë²ˆí˜¸
+	REFERENCES theme ( -- Å×¸¶
+	theme_no -- Å×¸¶¹øÈ£
 	);
 
--- ìˆ™ì†Œë¦¬ë·°
-ALTER TABLE "rental_home_review"
-	ADD CONSTRAINT "FK_reservation_TO_rental_home_review" -- ì˜ˆì•½ë‚´ì—­ -> ìˆ™ì†Œë¦¬ë·°
+-- ¼÷¼Ò¸®ºä
+ALTER TABLE rental_home_review
+	ADD CONSTRAINT FK_reservation_TO_rental_home_review -- ¿¹¾à³»¿ª -> ¼÷¼Ò¸®ºä
 	FOREIGN KEY (
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	reservation_no -- ¿¹¾à¹øÈ£
 	)
-	REFERENCES "reservation" ( -- ì˜ˆì•½ë‚´ì—­
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	REFERENCES reservation ( -- ¿¹¾à³»¿ª
+	reservation_no -- ¿¹¾à¹øÈ£
 	);
 
--- ê²°ì œ
-ALTER TABLE "payment"
-	ADD CONSTRAINT "FK_reservation_TO_payment" -- ì˜ˆì•½ë‚´ì—­ -> ê²°ì œ
+-- °áÁ¦
+ALTER TABLE payment
+	ADD CONSTRAINT FK_reservation_TO_payment -- ¿¹¾à³»¿ª -> °áÁ¦
 	FOREIGN KEY (
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	reservation_no -- ¿¹¾à¹øÈ£
 	)
-	REFERENCES "reservation" ( -- ì˜ˆì•½ë‚´ì—­
-	"reservation_no" -- ì˜ˆì•½ë²ˆí˜¸
+	REFERENCES reservation ( -- ¿¹¾à³»¿ª
+	reservation_no -- ¿¹¾à¹øÈ£
 	);
 
--- ì˜ˆì•½ë‚´ì—­
-ALTER TABLE "reservation"
-	ADD CONSTRAINT "FK_rental_home_TO_reservation" -- ìˆ™ì†Œ -> ì˜ˆì•½ë‚´ì—­
+-- ¿¹¾à³»¿ª
+ALTER TABLE reservation
+	ADD CONSTRAINT FK_rental_home_TO_reservation -- ¼÷¼Ò -> ¿¹¾à³»¿ª
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ì˜ˆì•½ë‚´ì—­
-ALTER TABLE "reservation"
-	ADD CONSTRAINT "FK_member_TO_reservation" -- íšŒì› -> ì˜ˆì•½ë‚´ì—­
+-- ¿¹¾à³»¿ª
+ALTER TABLE reservation
+	ADD CONSTRAINT FK_member_TO_reservation -- È¸¿ø -> ¿¹¾à³»¿ª
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ìˆ™ì†Œ ìƒì„¸
-ALTER TABLE "rental_home_detail"
-	ADD CONSTRAINT "FK_rental_home_TO_rental_home_detail" -- ìˆ™ì†Œ -> ìˆ™ì†Œ ìƒì„¸
+-- ¼÷¼Ò »ó¼¼
+ALTER TABLE rental_home_detail
+	ADD CONSTRAINT FK_rental_home_TO_rental_home_detail -- ¼÷¼Ò -> ¼÷¼Ò »ó¼¼
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ìˆ™ì†Œ ìƒì„¸
-ALTER TABLE "rental_home_detail"
-	ADD CONSTRAINT "FK_rental_home_facility_TO_rental_home_detail" -- ìˆ™ì†Œì‹œì„¤ -> ìˆ™ì†Œ ìƒì„¸
+-- ¼÷¼Ò »ó¼¼
+ALTER TABLE rental_home_detail
+	ADD CONSTRAINT FK_rental_home_facility_TO_rental_home_detail -- ¼÷¼Ò½Ã¼³ -> ¼÷¼Ò »ó¼¼
 	FOREIGN KEY (
-	"facility_no" -- ìˆ™ì†Œì‹œì„¤ë²ˆí˜¸
+	facility_no -- ¼÷¼Ò½Ã¼³¹øÈ£
 	)
-	REFERENCES "rental_home_facility" ( -- ìˆ™ì†Œì‹œì„¤
-	"facility_no" -- ìˆ™ì†Œì‹œì„¤ë²ˆí˜¸
+	REFERENCES rental_home_facility ( -- ¼÷¼Ò½Ã¼³
+	facility_no -- ¼÷¼Ò½Ã¼³¹øÈ£
 	);
 
--- ìˆ™ì†Œ ì‚¬ì§„
-ALTER TABLE "rental_home_photo"
-	ADD CONSTRAINT "FK_rental_home_TO_rental_home_photo" -- ìˆ™ì†Œ -> ìˆ™ì†Œ ì‚¬ì§„
+-- ¼÷¼Ò »çÁø
+ALTER TABLE rental_home_photo
+	ADD CONSTRAINT FK_rental_home_TO_rental_home_photo -- ¼÷¼Ò -> ¼÷¼Ò »çÁø
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ë¬¸ì˜ ë‹µë³€
-ALTER TABLE "qna"
-	ADD CONSTRAINT "FK_question_TO_qna" -- ë¬¸ì˜ë‚´ì—­ -> ë¬¸ì˜ ë‹µë³€
+-- ¹®ÀÇ ´äº¯
+ALTER TABLE qna
+	ADD CONSTRAINT FK_question_TO_qna -- ¹®ÀÇ³»¿ª -> ¹®ÀÇ ´äº¯
 	FOREIGN KEY (
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	question_no -- ¹®ÀÇ¹øÈ£
 	)
-	REFERENCES "question" ( -- ë¬¸ì˜ë‚´ì—­
-	"question_no" -- ë¬¸ì˜ë²ˆí˜¸
+	REFERENCES question ( -- ¹®ÀÇ³»¿ª
+	question_no -- ¹®ÀÇ¹øÈ£
 	);
 
--- ìˆ™ì†Œì¶”ì²œìˆ˜
-ALTER TABLE "rental_home_like"
-	ADD CONSTRAINT "FK_rental_home_TO_rental_home_like" -- ìˆ™ì†Œ -> ìˆ™ì†Œì¶”ì²œìˆ˜
+-- ¼÷¼ÒÃßÃµ¼ö
+ALTER TABLE rental_home_like
+	ADD CONSTRAINT FK_rental_home_TO_rental_home_like -- ¼÷¼Ò -> ¼÷¼ÒÃßÃµ¼ö
 	FOREIGN KEY (
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	)
-	REFERENCES "rental_home" ( -- ìˆ™ì†Œ
-	"rental_home_no" -- ìˆ™ì†Œë²ˆí˜¸
+	REFERENCES rental_home ( -- ¼÷¼Ò
+	rental_home_no -- ¼÷¼Ò¹øÈ£
 	);
 
--- ìˆ™ì†Œì¶”ì²œìˆ˜
-ALTER TABLE "rental_home_like"
-	ADD CONSTRAINT "FK_member_TO_rental_home_like" -- íšŒì› -> ìˆ™ì†Œì¶”ì²œìˆ˜
+-- ¼÷¼ÒÃßÃµ¼ö
+ALTER TABLE rental_home_like
+	ADD CONSTRAINT FK_member_TO_rental_home_like -- È¸¿ø -> ¼÷¼ÒÃßÃµ¼ö
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
-ALTER TABLE "board_like"
-	ADD CONSTRAINT "FK_board_TO_board_like" -- ê²Œì‹œê¸€ -> ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
+-- °Ô½Ã±Û ÃßÃµ¼ö
+ALTER TABLE board_like
+	ADD CONSTRAINT FK_board_TO_board_like -- °Ô½Ã±Û -> °Ô½Ã±Û ÃßÃµ¼ö
 	FOREIGN KEY (
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	board_no -- °Ô½Ã±Û¹øÈ£
 	)
-	REFERENCES "board" ( -- ê²Œì‹œê¸€
-	"board_no" -- ê²Œì‹œê¸€ë²ˆí˜¸
+	REFERENCES board ( -- °Ô½Ã±Û
+	board_no -- °Ô½Ã±Û¹øÈ£
 	);
 
--- ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
-ALTER TABLE "board_like"
-	ADD CONSTRAINT "FK_member_TO_board_like" -- íšŒì› -> ê²Œì‹œê¸€ ì¶”ì²œìˆ˜
+-- °Ô½Ã±Û ÃßÃµ¼ö
+ALTER TABLE board_like
+	ADD CONSTRAINT FK_member_TO_board_like -- È¸¿ø -> °Ô½Ã±Û ÃßÃµ¼ö
 	FOREIGN KEY (
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	member_no -- È¸¿ø¹øÈ£
 	)
-	REFERENCES "member" ( -- íšŒì›
-	"member_no" -- íšŒì›ë²ˆí˜¸
+	REFERENCES member ( -- È¸¿ø
+	member_no -- È¸¿ø¹øÈ£
 	);
