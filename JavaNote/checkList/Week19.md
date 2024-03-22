@@ -61,3 +61,13 @@ ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse, HttpSe
 ### 5. request handler가 리턴한 객체를 JSON 데이터로 자동 변환하여 응답할 수 있는가?
 
 ### 6. 서블릿 또는 request handler에서 예외가 발생했을 때 오류를 출력할 페이지를 설정할 수 있는가?
+
+
+# 88일차(2024-03-21, 목)
+### 1. 웹 프로젝트에 Spring WebMVC를 설정할 수 있는가?
+
+### 2. XML 설정 및 Java Config 설정을 모두 다룰 수 있는가?
+
+### 3. Mybatis Persistence Framework의 구동 원리를 설명할 수 있는가?
+
+### 4. Mybatis를 Spring WebMVC 프로젝트에 적용할 수 있는가?
