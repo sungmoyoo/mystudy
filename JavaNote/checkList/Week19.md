@@ -71,3 +71,19 @@ ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse, HttpSe
 ### 3. Mybatis Persistence Framework의 구동 원리를 설명할 수 있는가?
 
 ### 4. Mybatis를 Spring WebMVC 프로젝트에 적용할 수 있는가?
+
+
+# 89일차(2024-03-22, 금)
+### 1. Mybatis의 <resultMap/>, <association/>, <collection/> 태그를 설명할 수 있는가?
+
+### 2. Mybatis의 <typeAliases/> 태그를 설명할 수 있는가? 
+import랑 유사한 역할
+
+### 3. Mybatis 설정을 Java Config로 바꿀 수 있는가?
+
+### 4. Spring 프레임워크의 @Transactional 애노테이션을 트랜잭션을 다룰 수 있도록 설정할 수 있는가?
+
+### 5. Spring 프레임워크에서 @Transactional을 어떻게 처리하는지 구동 원리를 설명할 수 있는가?
+
+
+

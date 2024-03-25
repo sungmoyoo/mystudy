@@ -1,18 +1,17 @@
 package bitcamp.myapp.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
+@RequiredArgsConstructor
 @Controller
 public class AboutController {
 
-  private final Log log = LogFactory.getLog(AboutController.class);
-
-  public AboutController() {
-    log.debug("AboutController() 호출됨!");
-  }
+  private static final Log log = LogFactory.getLog(AboutController.class);
 
   @GetMapping("/about")
   public void about() {
