@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Data
 public class Assignment implements Serializable {
 
@@ -16,7 +14,7 @@ public class Assignment implements Serializable {
   private int no;
   private String title;
   private String content;
-  
+
   @Getter
   @Setter
   private Date deadline;

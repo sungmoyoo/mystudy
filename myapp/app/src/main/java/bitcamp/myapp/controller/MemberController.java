@@ -1,12 +1,13 @@
 package bitcamp.myapp.controller;
 
 import bitcamp.myapp.service.MemberService;
+import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
-import java.util.UUID;
-import javax.servlet.ServletContext;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,20 +15,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
-public class MemberController {
-
-  private final String uploadDir;
-  private final MemberService memberService;
+public class MemberController implements InitializingBean {
 
   private static final Log log = LogFactory.getLog(MemberController.class);
 
-  public MemberController(MemberService memberService, ServletContext sc) {
-    log.debug("MemberController() 호출됨!");
-    this.uploadDir = sc.getRealPath("/upload");
-    this.memberService = memberService;
+  private final MemberService memberService;
+  private final StorageService storageService;
+  private String uploadDir;
+
+  @Value("${ncp.ss.bucketname}")
+  private String bucketName;
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    uploadDir = "member/";
+    log.debug(String.format("uploadDir: %s", uploadDir));
+    log.debug(String.format("bucketname: %s", bucketName));
   }
+
 
   @GetMapping("/form")
   public void form() throws Exception {
@@ -36,9 +45,8 @@ public class MemberController {
   @PostMapping("/add")
   public String add(Member member, MultipartFile file) throws Exception {
     if (file.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
+      String filename = storageService.upload(this.bucketName, this.uploadDir, file);
       member.setPhoto(filename);
-      file.transferTo(new File(this.uploadDir + "/" + filename));
     }
     memberService.add(member);
     return "redirect:list";
@@ -71,10 +79,9 @@ public class MemberController {
     member.setCreatedDate(old.getCreatedDate());
 
     if (file.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
+      String filename = storageService.upload(this.bucketName, this.uploadDir, file);
       member.setPhoto(filename);
-      file.transferTo(new File(this.uploadDir + "/" + filename));
-      new File(this.uploadDir + "/" + old.getPhoto()).delete();
+      storageService.delete(this.bucketName, this.uploadDir, member.getPhoto());
     } else {
       member.setPhoto(old.getPhoto());
     }
@@ -93,7 +100,7 @@ public class MemberController {
     memberService.delete(no);
     String filename = member.getPhoto();
     if (filename != null) {
-      new File(this.uploadDir + "/" + filename).delete();
+      storageService.delete(this.bucketName, this.uploadDir, member.getPhoto());
     }
     return "redirect:list";
   }

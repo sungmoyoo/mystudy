@@ -1,18 +1,17 @@
 package bitcamp.myapp.controller;
 
 import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,21 +19,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
   private static final Log log = LogFactory.getLog(BoardController.class);
   private final BoardService boardService;
-  private final ApplicationContext ctx;
-  private String uploadDir;
+  private final StorageService storageService;
+  private String uploadDir = "board/";
 
-  public BoardController(BoardService boardService, ApplicationContext ctx, ServletContext sc) {
-    log.debug("BoardController() 호출됨!");
-    this.boardService = boardService;
-    this.ctx = ctx;
-    this.uploadDir = sc.getRealPath("/upload/board");
-  }
+  @Value("${ncp.ss.bucketname}")
+  private String bucketName;
 
   @GetMapping("form")
   public void form(int category, Model model) throws Exception {
@@ -63,8 +60,7 @@ public class BoardController {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(this.bucketName, this.uploadDir, file);
         files.add(AttachedFile.builder().filePath(filename).build());
       }
     }
@@ -124,8 +120,7 @@ public class BoardController {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(this.bucketName, this.uploadDir, file);
         AttachedFile attachedFile = AttachedFile.builder()
             .filePath(filename)
             .build();
@@ -141,6 +136,7 @@ public class BoardController {
     return "redirect:list";
 
   }
+
 
   @GetMapping("delete")
   public String delete(int category, int no, HttpSession session) throws Exception {
@@ -163,7 +159,7 @@ public class BoardController {
     boardService.delete(no);
 
     for (AttachedFile file : files) {
-      new File(this.uploadDir + "/" + file.getFilePath()).delete();
+      storageService.delete(this.bucketName, this.uploadDir, file.getFilePath());
     }
 
     return "redirect:list?category=" + category;
@@ -189,8 +185,7 @@ public class BoardController {
 
     boardService.deleteAttachedFile(no);
 
-    new File(this.uploadDir + "/" + file.getFilePath()).delete();
-
+    storageService.delete(this.bucketName, file.getFilePath(), this.uploadDir);
     return "redirect:../view?category=" + category + "&no=" + file.getBoardNo();
   }
 }

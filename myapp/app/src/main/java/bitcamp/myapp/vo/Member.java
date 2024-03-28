@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+
 @Data
 public class Member implements Serializable {
 
@@ -18,7 +17,7 @@ public class Member implements Serializable {
   private String name;
   private String password;
   private String photo;
-  
+
   @Getter
   @Setter
   private Date createdDate;
