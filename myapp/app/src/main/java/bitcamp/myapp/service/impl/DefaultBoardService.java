@@ -1,6 +1,5 @@
 package bitcamp.myapp.service.impl;
 
-import bitcamp.myapp.controller.MemberController;
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.service.BoardService;
@@ -8,17 +7,13 @@ import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @RequiredArgsConstructor
 @Service
 public class DefaultBoardService implements BoardService {
 
-  private static final Log log = LogFactory.getLog(MemberController.class);
   private final BoardDao boardDao;
   private final AttachedFileDao attachedFileDao;
 
@@ -26,17 +21,17 @@ public class DefaultBoardService implements BoardService {
   @Override
   public void add(Board board) {
     boardDao.add(board);
-    if (board.getFiles() != null && board.getFiles().size() > 0) {
-      for (AttachedFile attachedFile : board.getFiles()) {
+    if (board.getFileList() != null && board.getFileList().size() > 0) {
+      for (AttachedFile attachedFile : board.getFileList()) {
         attachedFile.setBoardNo(board.getNo());
       }
-      attachedFileDao.addAll(board.getFiles());
+      attachedFileDao.addAll(board.getFileList());
     }
   }
 
   @Override
-  public List<Board> list(int category) {
-    return boardDao.findAll(category);
+  public List<Board> list(int category, int pageNo, int pageSize) {
+    return boardDao.findAll(category, pageSize * (pageNo - 1), pageSize);
   }
 
   @Override
@@ -48,11 +43,11 @@ public class DefaultBoardService implements BoardService {
   @Override
   public int update(Board board) {
     int count = boardDao.update(board);
-    if (board.getFiles() != null && board.getFiles().size() > 0) {
-      for (AttachedFile attachedFile : board.getFiles()) {
+    if (board.getFileList() != null && board.getFileList().size() > 0) {
+      for (AttachedFile attachedFile : board.getFileList()) {
         attachedFile.setBoardNo(board.getNo());
       }
-      attachedFileDao.addAll(board.getFiles());
+      attachedFileDao.addAll(board.getFileList());
     }
     return count;
   }
@@ -77,5 +72,10 @@ public class DefaultBoardService implements BoardService {
   @Override
   public int deleteAttachedFile(int fileNo) {
     return attachedFileDao.delete(fileNo);
+  }
+
+  @Override
+  public int countAll(int category) {
+    return boardDao.countAll(category);
   }
 }

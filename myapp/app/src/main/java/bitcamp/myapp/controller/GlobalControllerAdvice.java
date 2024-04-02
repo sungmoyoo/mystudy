@@ -27,11 +27,11 @@ public class GlobalControllerAdvice {
     ModelAndView mv = new ModelAndView();
     mv.addObject("message", e.getMessage());
 
-    StringWriter writer = new StringWriter();
-    PrintWriter out = new PrintWriter(writer);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter out = new PrintWriter(stringWriter);
     e.printStackTrace(out);
 
-    mv.addObject("detail", writer.toString());
+    mv.addObject("detail", stringWriter.toString());
 
     mv.setViewName("error");
     return mv;

@@ -1,6 +1,5 @@
 package bitcamp.myapp.service.impl;
 
-import bitcamp.myapp.controller.MemberController;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
@@ -14,12 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultMemberService implements MemberService {
 
-  private static final Log log = LogFactory.getLog(MemberController.class);
+  private static final Log log = LogFactory.getLog(DefaultMemberService.class);
   private final MemberDao memberDao;
 
   @Override
   public void add(Member member) {
     memberDao.add(member);
+  }
+
+  @Override
+  public List<Member> list(int pageNo, int pageSize) {
+    log.debug(String.format("pageNo: %s", pageNo));
+    log.debug(String.format("pageSize: %s", pageSize));
+    return memberDao.findAll(pageSize * (pageNo - 1), pageSize);
   }
 
   @Override
@@ -33,11 +39,6 @@ public class DefaultMemberService implements MemberService {
   }
 
   @Override
-  public List<Member> list() {
-    return memberDao.findAll();
-  }
-
-  @Override
   public int update(Member member) {
     return memberDao.update(member);
   }
@@ -45,5 +46,10 @@ public class DefaultMemberService implements MemberService {
   @Override
   public int delete(int no) {
     return memberDao.delete(no);
+  }
+
+  @Override
+  public int countAll() {
+    return memberDao.countAll();
   }
 }

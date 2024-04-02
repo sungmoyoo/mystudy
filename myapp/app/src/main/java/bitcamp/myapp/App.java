@@ -18,13 +18,11 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     System.out.println("과제관리 시스템 서버 실행!");
-    // App.class 하위 모든 패키지에서 Component를 Scan한다.
     SpringApplication.run(App.class, args);
   }
 
   @GetMapping("/home")
   public void home() {
-    // return "home"; // ==> ThymeleafViewResolver가 처리한다.
   }
 
   @GetMapping("/about")

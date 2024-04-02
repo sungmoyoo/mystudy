@@ -7,11 +7,13 @@ public interface AssignmentService {
 
   void add(Assignment assignment);
 
-  Assignment get(int no);
+  List<Assignment> list(int pageNo, int pageSize);
 
-  List<Assignment> list();
+  Assignment get(int no);
 
   int update(Assignment assignment);
 
   int delete(int no);
+
+  int countAll();
 }

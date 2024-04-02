@@ -40,11 +40,13 @@ from
   left join comment c on b.board_no = c.board_no
   left join reply r on c.comment_no = r.comment_no
 where
-  b.board_category_no=1 
+  b.board_category_no=1
 group by
   b.board_no
 order by
   b.created_date;
+
+
 
 -- 후기 게시판 리스트 조회
 select 
@@ -64,33 +66,11 @@ from
 where
   b.board_category_no=3
 group by
-  b.board_no,
-  bl.uuid_file_name
+  b.board_no
 order by
   b.created_date desc;
 
 
-select 
-  b.title,
-  b.view_count,
-  b.created_date,
-  bf.uuid_file_name uuid_file_name,
-  h.head_content,
-  m.name,
-  count(bl.member_no) like_count
-from 
-  board b 
-  inner join head h on b.head_no=h.head_no
-  inner join member m on b.member_no=m.member_no
-  left join board_like bl on b.board_no=bl.board_no
-  left join board_file bf on b.board_no=bf.board_no
-where
-  b.board_category_no=3
-group by
-  b.board_no,
-  bl.board_no
-order by
-  b.created_date desc;
 
 -- 뷰 조회 (공통)
 -- null값 허용
@@ -110,7 +90,7 @@ select
   c.content comment_content,
   mc.name comment_writer,
   c.created_date comment_date,
-  r.content reply_comment,
+  r.content reply_content,
   mr.name reply_writer,
   r.created_date reply_date
 from 
@@ -126,18 +106,31 @@ where
   b.board_no = 3;
 
 
+
+--게시판 카테고리 등록
+insert into board_category(category_no, category) values
+  (1, "정보"), (2, "자유"), (3, "후기");
+
+--말머리 분류 등록
+insert into head(head_no, head_content) values
+  (1, "공지"), (2, "잡담"), (3, "꿀팁");
+
 --게시판 글 등록
 insert into board(title, content, member_no, board_category_no, head_no) values
-  ("정보/공유1", "내용1", 1, 1, 1)
+  ("자유1", "내용1", 1, 2, 1)
 
 --게시판 첨부파일 등록
 insert into board_file(ori_file_name, uuid_file_name, board_no) values
   ("a1.png","585a1429-2a79-4940-9488-6cea5bb9cb95", 3), ("a2.png","52588691-d763-45fe-8de6-8a632e08384a", 3),
   ("b1.png","00ee3655-34d0-4121-a2c0-b4b3a4f9053e", 3);
 
+
+
+
+
 --댓글 등록
 insert into comment(content, board_no, member_no) values
-  ("댓글3", 3, 1), ("댓글4", 3, 3);
+  ("댓글3", 5, 1), ("댓글4", 5, 3);
 
 --답글 등록
 insert into reply(content, comment_no, member_no) values
@@ -148,6 +141,11 @@ insert into reply(content, comment_no, member_no) values
 insert into board_like(board_no, member_no) values
   (1, 1), (1, 2), (1, 3),
   (2, 1), (2, 2), (2, 3);
+
+
+
+
+
 
 --신고 등록
 insert into board_report_detail(content, member_no, report_category_no) values
@@ -162,14 +160,15 @@ insert into board_report_file(report_no, ori_file_name, uuid_file_name) values
   (1, "r1.jpg", "8a223655-43d0-4291-b2a0-d4b3a4f9053e"), 
   (2, "r2.jpg", "3f0f0cea-195b-4b7f-82d5-966ba4f2ab94");
 
---말머리 분류 등록
-insert into head(head_no, head_content) values
-  (1, "공지"), (2, "잡담"), (3, "꿀팁");
 
---게시판 카테고리 등록
-insert into board_category(category_no, category) values
-  (1, "정보"), (2, "자유"), (3, "후기");
 
+
+
+
+
+-- 테스트 등급 데이터
+insert into grade(grade_no, grade_name) values
+(1, "b"), (2, "s"), (3, "g");
 
 -- 테스트 회원 데이터
 insert into member(email, password, name, nickname, birthday) values 
@@ -177,9 +176,7 @@ insert into member(email, password, name, nickname, birthday) values
   ("2@test.com", 1111, "유저2", "별명2", "2000-01-01"),
   ("3@test.com", 1111, "유저3", "별명3", "2000-01-01");
 
--- 테스트 등급 데이터
-insert into grade(grade_no, grade_name) values
-(1, "b"), (2, "s"), (3, "g");
+
 
 
 

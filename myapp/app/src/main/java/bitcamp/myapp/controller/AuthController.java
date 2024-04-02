@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthController {
 
-  private final MemberService memberService;
   private static final Log log = LogFactory.getLog(AuthController.class);
+  private final MemberService memberService;
 
-  @GetMapping("/form")
-  public void form(@CookieValue(value = "email", required = false) String email, Model model) {
+  @GetMapping("form")
+  public void form(@CookieValue(required = false) String email, Model model) {
     model.addAttribute("email", email);
   }
 
-  @PostMapping("/login")
+  @PostMapping("login")
   public String login(
       String email,
       String password,
@@ -50,10 +50,11 @@ public class AuthController {
     if (member != null) {
       session.setAttribute("loginUser", member);
     }
+
     return "auth/login";
   }
 
-  @GetMapping("/logout")
+  @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/index.html";
