@@ -72,14 +72,69 @@
 - `$ sudo docker search 키워드` : 도커 허브라는 중앙 이미지 저장소에서 도커 이미지 검색하기
 
 ## 도커 이미지 생성
+- `$ sudo docker image ls` : 이미지 목록 조회 
+
+- `$ sudo docker sudo docker container exec -i -t commit_test /bin/bash` : 컨테이너 접속
+
+- `# echo Hello! -> hello.txt` : 리디렉션(컨테이너 변경)
+
+- `$ sudo docker container commit -a "bitcamp" -m "my first commit" commit_test commit_test:first` : commit_test라는 컨테이너를 first라는 태그를 가진 commit_test라는 이미지로 만든다.
+
+- `$ sudo docker container commit -a "bitcamp" -m "my second commit" commit_test commit_test:second`: 커밋은 여러번 할 수 있다.
+
+커밋한 컨테이너를 다시 가져와 확인해보면 리디렉션으로 생성한 hello.txt, test.txt도 그대로 들어있는 것을 알 수 있다.
+
+>즉 커밋이란 컨테이너 정보를 포함한 모든 변경 사항을 덧붙여 백업한다는 의미이다. 
+>따라서 어떤 컨테이너를 기준으로 커밋을 하느냐가 중요하다. 
+>예를 들면 하나의 컨테이너로 커밋을 두번하더라도 두 커밋의 변경사항은 하나가 될 수 없다. 하지만 한 컨테이너로 커밋하고 그 이미지로 컨테이너를 생성한 후 다시 커밋하면 기존 백업 내용이 남아 두 변경사항이 모두 백업된다.
+>이 때 백업된 내용(히스토리)를 Layer라고 한다. 
 
 
+- `$ sudo docker history commit_test:first`: 이미지 레이어 구조에 대한 변경 내역 확인하기
+
+## 도커 이미지 삭제
+- `$ sudo docker image rm commit_test:first` : 이미지 삭제
+
+이미지를 사용 중인 컨테이너가 있을 경우 삭제할 수 없다.  
+컨테이너를 먼저 삭제한 후 이미지를 삭제해야 한다.
+
+- `$ sudo docker stop commit_test2 && sudo docker rm commit_test2`
+
+만약 강제로 삭제하고 싶다면 -f 옵션을 주면 된다.
+- `$ sudo docker image rm -f commit_test:first`
+
+이후 컨테이너를 조회하면 이미지 이름이 변경되어 있는 것을 확인할 수 있다. 또 image를 조회하면 이름과 태그가 `<none>`으로 변경되어 있다. 이를 댕글링 이미지라고 한다. 
 
 
+## 도커 이미지 추출
+- `$ sudo docker save -o ubuntu_14_04.tar ubuntu:14.04`: tar 확장자로 이미지를 묶는다.
 
+- `$ sudo docker load -i ubuntu_14_04.tar`: 이미지를 로드한다.
 
+## 도커 이미지 배포
 
+- 도커 허브(<https://hub.docker.com/>)에 회원 가입 및 로그인
+- 이미지 저장소 생성
+- 테스트용 이미지 생성
+  - `$ sudo docker container create -i -t --name docker1 ubuntu:14.04`
+  - `$ sudo docker container start docker1`
+  - `$ sudo docker container exec -i -t docker1 /bin/bash`
+  - `$ echo test..ok! >> hello.txt`
+  - `$ sudo docker container commit -a "bitcamp" -m "my image" docker1 myimage:first`
 
+- 이미지 태깅
+  - `$ sudo docker tag myimage:first bitcamp:first`
+  - `$ sudo docker image tag bitcamp:first sungmoyoo/bitcamp:first`
+
+- 도커 허브에 로그인
+  - `$ sudo docker login`
+
+- 저장소에 이미지 업로드
+  - `$ sudo docker push sungmoyoo/bitcamp:first`
+
+- 저장소에서 이미지 다운로드
+  - `$ sudo docker pull sungmoyoo/bitcamp:first`
+  - `$ sudo docker run -i -t --name docker1 sungmoyoo/bitcamp:first`
 
 # WISIWIC 자바스크립트 에디터
 

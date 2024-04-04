@@ -108,7 +108,7 @@ where
 
 
 --게시판 카테고리 등록
-insert into board_category(category_no, category) values
+insert into board_category(board_category_no, board_category_name) values
   (1, "정보"), (2, "자유"), (3, "후기");
 
 --말머리 분류 등록
@@ -130,7 +130,7 @@ insert into board_file(ori_file_name, uuid_file_name, board_no) values
 
 --댓글 등록
 insert into comment(content, board_no, member_no) values
-  ("댓글3", 5, 1), ("댓글4", 5, 3);
+  ("댓글1", 5, 1), ("댓글2", 5, 3);
 
 --답글 등록
 insert into reply(content, comment_no, member_no) values
