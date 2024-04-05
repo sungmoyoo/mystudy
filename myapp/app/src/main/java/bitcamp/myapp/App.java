@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @SpringBootApplication
 @EnableTransactionManagement
 @PropertySource({
-    "classpath:config/ncp.properties",
-    "classpath:config/ncp-secret.properties"
+    "file:${HOME}/config/jdbc.properties",
+    "file:${HOME}/config/ncp-secret.properties",
+    "file:${HOME}/config/ncp.properties"
 })
 @Controller
 public class App {
