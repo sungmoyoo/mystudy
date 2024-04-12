@@ -15,3 +15,4 @@ Callback
 - onInit
 - onImageUpload - base64로 바꾸고 싶지 않다면 알려줘라 알려준대로 처리
 
+..........................
