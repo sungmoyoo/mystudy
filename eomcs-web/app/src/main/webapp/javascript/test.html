@@ -8,22 +8,24 @@
 </head>
 <body>
 <h1>JavaScript Tests</h1>
+
 <script>
   "use strict"
-
-  let a = 100;
-  function f1 () {
-    var a = 1000;
-
-    console.log(window.a);
-    console.log(a);
-
+  function Student(name, age) {
+    this.sname = name;
+    this.age = age;
   }
 
+  Student.prototype.print = function() { // 단축 문법
+    console.log(this.sname, this.age);
+  };
 
-  f1();
+  let s1 = new Student("홍길동", 20)
+  let s2 = new Student("임꺽정", 30)
 
-
+  s1.print();
+  s2.print();
 </script>
+
 </body>
 </html>
