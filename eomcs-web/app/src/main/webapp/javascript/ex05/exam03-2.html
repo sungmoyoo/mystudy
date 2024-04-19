@@ -32,7 +32,9 @@ var e = document.querySelector("article:nth-child(2) a");
 // => '-' 문자는 일반 프로퍼티 명으로 사용할 수 없다.
 //    따라서 "객체.프로퍼티명" 이 아닌 "객체['프로퍼티명']" 문법을 사용해야 한다.
 //
-//e.data-no = 200; // 프로퍼티 이름 중간에 - 가 있는 경우 일반적인 방식으로 사용할 수 없다.
+
+// e.data-okok = 200;
+// e.data-no = 200; // 프로퍼티 이름 중간에 - 가 있는 경우 일반적인 방식으로 사용할 수 없다.
 e["data-no"] = 200;
 console.log(e["data-no"]);
 console.log(e.getAttribute("data-no")); // 객체에 직접 저장한 프로퍼티는 꺼낼 수 없다.
