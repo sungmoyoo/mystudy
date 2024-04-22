@@ -67,6 +67,8 @@ var el = document.querySelectorAll("tbody tr");
 for (var e of el) {
   e.addEventListener("click", function(e) {
     // e.target 은 이벤트가 발생한 객체를 가리킨다.
+    // => td 태그를 클릭하면 target이 가리키는 태그 객체는 td 태그이고,
+    //    a 태그를 클릭하면 target이 가리키는 태그 객체는 a 태그이다
     // console.log(e.target);
     // console.log(e.target.getAttribute("data-no") + " 번 게시물의 제목을 눌렀음!");
     
