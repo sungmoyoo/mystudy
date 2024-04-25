@@ -7,42 +7,19 @@
 <body>
 <div id="header"></div>
 <h1>AJAX - jQuery 사용하기</h1>
-<form>
-  <input type="text" id="a"> + <input type="text" id="b">
-  <button type="button" id="btn1">=</button>
-  <input type="text" id="r"><br>
-  <button id="btn2" type="reset">초기화</button>
-</form>
+<div id="news"></div>
 
-<script src="myQuery.js"></script>
+<button class="btn">추가</button><br>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
 <script>
   "use strict"
 
-  let a = $('#a');
-  let b = $('#b');
-  let r = $('#r');
+  let news = $('#news');
 
-  let btn1 = $('#btn1');
-  let btn2 = $('#btn2');
-
-  $('#header').load('test5.jsp', function() {
-    alert("tlqkf");
+  $('.btn').click(function(event) {
+    $('<p>').html('okok').appendTo(news);
   });
-
-  btn1.click(function() {
-    $.postJSON(
-      'test4.jsp',
-      'post',
-      {a: $('#a').val(), b: $('#b').val()},
-      function(result) {
-        r.val(result.data);
-        console.log(result);
-      });
-  });
-
-
-
-
 </script>
 
 
