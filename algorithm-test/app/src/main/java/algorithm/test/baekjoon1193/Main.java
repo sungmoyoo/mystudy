@@ -7,17 +7,30 @@ public class Main {
     Scanner sc = new Scanner(System.in);
 
     int sum = 0;
-    int count = 0;
-
-    int X = sc.nextInt();
-
+    int plus = 1;
+    int count = 1;
+    int n = sc.nextInt();
+    int son;
+    int mom;
     while (true) {
-      if (X < sum) {
+      if (sum+plus+1 > n) {
         break;
       }
-      sum += count++; 
+
+      sum = sum + plus++;
+      count++;
 
     }
-    System.out.printf("%d/%d",);
+    if (count % 2 == 0) {
+      son = (n - sum);
+      mom = count+1 - (n - sum);
+    } else {
+      son = count+1 - (n - sum);
+      mom = (n - sum);
+    }
+
+    System.out.println(son + "/" + mom);
+
+    sc.close();
   }
 }
