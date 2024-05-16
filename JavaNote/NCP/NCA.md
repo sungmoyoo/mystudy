@@ -242,14 +242,123 @@ public subnet: O
 
 # AI & Application
 
-# Geo Location
+## Geo Location
 사용자 IP를 통해 위치 정보를 제공하는 서비스
 IP 주소에 따른 지역 정보 DB를 검색해 좌표 정보 전달
 
-# SENS(Simple & Easy Notification Service)
+## SENS(Simple & Easy Notification Service)
 
-# Outbound Mailer
+## Outbound Mailer
 대량 메일 발송을 위한 메일 발송 상품
 
-# nShortURL
+## nShortURL
 길고 복잡한 URL을 간단하고 짧게 변경하는 API
+
+## CLOVA Speech Recognition(CSR)
+음성(파일, 실시간 음성)을 텍스트로 변환해주는 ai
+
+## CLOVA Summary
+문장을 넣으면 내용을 요약해주는 ai
+
+## CLOVA SENTIMENT
+문장이 긍정인지 부정인지 판별하는 ai
+
+## CLOVA ChatBot
+CS나 주문시스템과 같은 고객 대응을 로봇으로 대체하는 상품, 생성형 ai가 아니라 정해진 답변만 할 수 있다. 
+
+## CLOVA Dubbing
+컨텐츠에 나레이션을 추가하는 ai
+
+## CLOVA OCR(Optical Character Reader)
+문서를 인식하고 사용자가 지정한 영역의 텍스트와 데이터를 정확하게 추출하는 ai
+
+## AiTEMS
+머신러닝(ML) 전문지식이 없어도 쉽고 빠르게 사용자의 취향에 맞는 추천 서비스 구현
+
+## Papago Translation 
+인공신경망 기반 기계 번역 API.  
+텍스트 번역, 문서 번역, 웹사이트 번역, 이미지 번역을 지원한다.
+
+## Cloud Insight
+통합 관리 모니터링 서비스.  
+애플리케이션 성능/운영 지표를 하나의 페이지로 통합하여 확인할 수 있다.
+
+## Sub Account
+서브 계정 별 역할 부여를 통한 리소스 관리(무료)
+다수의 사용자가 동일한 자원을 이용하고 관리할 수 있도록 서브 계정을 제공하는 서비스(RBAC)
+혼자 사용하는 것이 아니라면 무조건 사용해야 한다.
+
+## Cloud Activity Tracer
+다양한 계정 활동 로그를 수집하는 기능, 계정별 액션 로그와 비 계정 활동에 대한 로깅 기능 제공.  Sub Account를 반드시 사용해야 누가 어떤 작업을 했는지 tracing하여 알 수 있다.
+
+## Web service Monitoring System(WMS)
+고객의 웹페이지 품질 측정 도구.  
+웹서비스 URL을 입력하여 실시간으로 테스트를 진행할 수 있고, 스케줄을 등록하여 모니터링 수행도 가능하다.
+또 경보 설정을 통해 오류가 감지되면 알람 발송하는 기능도 제공한다.
+
+## Cloud Advisor(VPC only)
+사용자에게 다양한 카테고리별 점검 리포트를 제공해주는 서비스. 항목별 점검 결과 리포트 제공/점검 항목 선택/ 주 단위 메일 발송 기능 제공
+
+## Organization
+
+## MRTG
+
+## Cloud Log Analytics
+시스템 로그 수집 분석 플랫폼
+
+## Cloud Hadoop
+빅데이터 분석 도구
+자동 하둡 클러스터를 보다 쉽고 편리하게 생성 및 관리
+클라우드에 구축함으로써 간단하게 사용할 수 있다.
+
+## Cloud Data Box
+네이버의 빅데이터와 이를 분석할 수 있는 플랫폼 제공
+효과적으로 또 안전하게 분석할 수 있다.
+단, 제공된 데이터는 외부 반출 불가하고 분석된 결과는 심사 후 반출이 가능하다.
+
+
+
+# Hypervisor
+하드웨어와 VM 사이에 VM과 하드웨어를 관리하기 위한 가상화 관리 소프트웨어
+- native type (TYPE 1:bare metal): 하드웨어 위에 Hypervisor 가 바로 설치되고 여러개의 OS를 사용한다.
+- hosted (TYPE 2): 이미 설치되어 있는 OS 위에 가상화 환경을 얹는 형태
+
+# 전가상화와 반가상화
+- 전가상화: 하드웨어 전체를 가상화
+하드웨어 위에 하이퍼바이저가 올라가기 때문에 모든 명령이 하이퍼바이저를 거친다. 모든 리소스를 관리하는 만큼 성능적으로 오버헤드가 발생
+- 반가상화: 전가상황의 성능 저하를 해결하고자 모든 명령을 DOM0를 통해 요청하는 방식이 아닌 하이퍼콜을 통해 직접 요청한다. 하이퍼콜은 VM의 OS가 지원해주어야 함
+
+# 서버 타입 Generation2
+다음 중 standard server type이 아닌 것은?
+비율을 외워라 
+standard = 1:4
+High Memory = 1:8
+High CPU = 1:2
+
+# Bare Metal Server
+하이퍼바이저 없이 하드웨어의 자원을 그대로 사용.  
+클라우드에서 제공하는 '물리' 서버이다. 기본적인 관리는 IPMI를 통해 관리
+
+- 서버 사양 및 지원 OS
+Bare Metal Server에 한해 RAID 5, 1+0를 제공
+
+# GPU Server
+병렬 처리에 최적화된 GPU 서버의 고성능 컴퓨팅 파워를 제공.
+NVIDIA GRID 기술이 아닌 Pass Through를 적용하여 제공한다.
+V100은 서버 당 최대 4장의 GPU를, T4는 서버당 최대 2장의 GPU를 제공
+
+# NAS
+- 다수의 VM이 공유 가능한 네트워크 볼륨 디바이스  
+- 용량은 500~10,000G으로 생성 가능, 100G 단위로 용량 증설 가능
+
+## NAS 특징
+- NFS/CIFS 프로토콜 제공, 이기종 OS간 공유 사용을 위해서는 Samba 등의 추가 지원 필요
+- Live resizing 기능, 마운트 되어 있어도 가능
+- 스냅샷 기능 제공
+
+## 접근 제어
+- NFS의 경우 IP로 접근 제어
+- CIFS의 경우 ID와 패스워드로 접근 제어
+
+## NAS
+- 스냅샷의 보관 기간은 7dlf
